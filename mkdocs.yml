@@ -25,7 +25,9 @@ nav:
       - Target: crds/target.md
       - Config: crds/config.md
   - Examples/Tutorials:
-    - About: examples/about.md
+    - About: examples/0_about.md
+    - K8s SR-Linux Collocated: examples/1_k8s_srl_collocated.md
+    - K8s SROS Collocated: examples/2_k8s_sros_collocated.md
   - Development:
     - About: dev/about.md
   - Release Notes:
