@@ -1,0 +1,174 @@
+site_name: Schema Driven Configuration
+nav:
+  - Home: index.md
+  - Installation: 
+      - Overview: install/1_overview.md
+      - Pre-Requisites: install/2_prereq.md
+      - Kubernetes-collocated: install/3_k8s_collocated.md
+      - Kubernetes-distributed: install/4_k8s_distributed.md
+  - Getting Started: getting_started.md
+  - Concepts:
+      - Schema-server: concepts/schema_server.md
+      - Data-server: concepts/data_server.md
+      - Cache: concepts/cache.md
+      - Config-server: concepts/config_server.md
+  - APIs:
+    - apis:
+      - Schema-server: apis/schema_server.md
+      - Data-server: apis/data_server.md
+      - Cache: apis/cache.md
+    - crds:
+      - Schema: crds/schema.md
+      - DiscoveryRule: crds/discovery_rule.md
+      - TargetConnectionProfile: crds/target_conn_profile.md
+      - TargetSyncProfile: crds/target_sync_profile.md
+      - Target: crds/target.md
+      - Config: crds/config.md
+  - Examples/Tutorials:
+    - About: examples/about.md
+  - Development:
+    - About: dev/about.md
+  - Release Notes:
+    - "0.0.1": rn/0.0.1.md
+  - FAQ: faq/faq.md
+  - Community: community/community.md
+
+site_author: Wim Henderickx
+site_description: >-
+  Schema driven configuration is a tool to 
+# repository
+repo_name: sdcio/docs
+repo_url: https://github.com/sdcio/docs
+site_url: "https://sdcio.dev"
+edit_uri: "edit/main/docs/"
+theme:
+  name: material
+  custom_dir: docs/overrides
+
+  # 404 page
+  static_templates:
+    - 404.html
+
+  # Don't include MkDocs' JavaScript
+  include_search_page: false
+  search_index_only: true
+
+  language: en
+  features:
+    - navigation.top
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - search.suggest
+    - content.code.annotate
+    - content.tabs.link
+    - header.autohide
+    - navigation.expand
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs.sticky
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.integrate
+    
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: cyan
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: cyan
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  font:
+    text: Manrope
+    code: Fira Mono
+  icon:
+    logo: fontawesome/solid/flask
+    repo: fontawesome/brands/github
+    edit: material/file-edit-outline
+  favicon: images/flask.svg
+
+# Plugins
+plugins:
+  - search
+  - minify:
+      minify_html: true
+  
+# Customization
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yndd
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/whenderickx
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/prHcBMSq
+  analytics:
+    provider: google
+    property: G-368XR9X5MG
+    
+extra_css:
+  - stylesheets/extra.css
+
+# Extensions
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.attr_list
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - md_in_html
+  - toc:
+      permalink: "#"
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      line_spans: __span
+      anchor_linenums: true
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: srl-labs
+      repo: containerlab
+  - pymdownx.mark
+  - pymdownx.smartsymbols:
+      fractions: false
+  - pymdownx.snippets:
+      check_paths: true
+      dedent_subsections: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.blocks.tab:
+      alternate_style: true
+  - pymdownx.blocks.admonition
+  - pymdownx.blocks.definition
+  - pymdownx.blocks.details
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
