@@ -32,7 +32,7 @@ The cache component manages multiple datastores, including Config, State, and In
 
 ### Config-server
 
-The config-server is Kubernetes-based and comprises several controllers:
+The config-server is a Kubernetes-based Operator and comprises of several controllers:
 
 - Schema Controller: Manages the lifecycle of schemas using Schema Custom Resources (CR).
 - Discovery Controller: Manages the lifecycle of targets through DiscoveryRule CR, discovering devices/NF(s)
