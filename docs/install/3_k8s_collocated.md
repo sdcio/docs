@@ -94,45 +94,6 @@ spec:
                 description: number of concurrent IP scan
                 format: int64
                 type: integer
-              connectivityProfile:
-                description: ConnectivityProfile define the profile the discovery
-                  controller uses to connect to targets once discovered
-                properties:
-                  connectionProfile:
-                    description: ConnectionProfile define the profile used to connect
-                      to the target once discovered
-                    type: string
-                  defaultSchema:
-                    description: DefaultSchema define the default schema used to connect
-                      to a target Used typically without discovery
-                    properties:
-                      provider:
-                        description: Provider specifies the provider of the schema.
-                        type: string
-                      version:
-                        description: Version defines the version of the schema
-                        type: string
-                    required:
-                    - provider
-                    - version
-                    type: object
-                  secret:
-                    description: Secret defines the name of the secret to connect
-                      to the target
-                    type: string
-                  syncProfile:
-                    description: SyncProfile define the profile used to sync to the
-                      target config once discovered
-                    type: string
-                  tlsSecret:
-                    description: TLSSecret defines the name of the TLS secret to connect
-                      to the target
-                    type: string
-                required:
-                - connectionProfile
-                - secret
-                - syncProfile
-                type: object
               discover:
                 description: Discovery rule defines the profiles and templates generic
                   to any discovery rule class/type Discover defines if discovery is
@@ -150,15 +111,17 @@ spec:
                     items:
                       type: string
                     type: array
-                  secret:
+                  credentials:
+                    description: Credentials defines the name of the secret that holds
+                      the credentials to connect to the target
                     type: string
                   tlsSecret:
                     description: TLSSecret defines the name of the TLS secret to connect
-                      to the target
+                      to the target if mtls is used
                     type: string
                 required:
                 - connectionProfiles
-                - secret
+                - credentials
                 type: object
               kind:
                 default: ip
@@ -239,6 +202,47 @@ spec:
                     type: object
                 type: object
                 x-kubernetes-map-type: atomic
+              targetConnectionProfiles:
+                description: TargetConnectionProfiles define the profile the discovery
+                  controller uses to create targets once discovered
+                items:
+                  properties:
+                    connectionProfile:
+                      description: ConnectionProfile define the profile used to connect
+                        to the target once discovered
+                      type: string
+                    credentials:
+                      description: Credentials defines the name of the secret that
+                        holds the credentials to connect to the target
+                      type: string
+                    defaultSchema:
+                      description: DefaultSchema define the default schema used to
+                        connect to a target Used when discovery is disabled or when
+                        discovery is unsuccessful.
+                      properties:
+                        provider:
+                          description: Provider specifies the provider of the schema.
+                          type: string
+                        version:
+                          description: Version defines the version of the schema
+                          type: string
+                      required:
+                      - provider
+                      - version
+                      type: object
+                    syncProfile:
+                      description: SyncProfile define the profile used to sync to
+                        the target config once discovered
+                      type: string
+                    tlsSecret:
+                      description: TLSSecret defines the name of the TLS secret to
+                        connect to the target if mtls is used
+                      type: string
+                  required:
+                  - connectionProfile
+                  - credentials
+                  type: object
+                type: array
               targetTemplate:
                 description: TargetTemplate defines the template the discovery controller
                   uses to create the targets as a result of the discovery
@@ -263,10 +267,10 @@ spec:
                       rule: self == oldSelf
                 type: object
             required:
-            - connectivityProfile
             - discover
             - kind
             - period
+            - targetConnectionProfiles
             type: object
           status:
             description: DiscoveryRuleStatus defines the observed state of DiscoveryRule
@@ -610,6 +614,16 @@ spec:
             description: TargetConnectionProfileSpec defines the desired state of
               TargetConnectionProfile
             properties:
+              connectRetry:
+                default: 0
+                description: A Duration represents the elapsed time between two instants
+                  as an int64 nanosecond count. The representation limits the largest
+                  representable duration to approximately 290 years.
+                format: int64
+                type: integer
+                x-kubernetes-validations:
+                - message: connectRetry is immutable
+                  rule: self == oldSelf
               encoding:
                 default: ASCII
                 enum:
@@ -649,6 +663,15 @@ spec:
                 x-kubernetes-validations:
                 - message: port is immutable
                   rule: self == oldSelf
+              preferredNetconfVersion:
+                default: "1.0"
+                enum:
+                - "1.0"
+                - "1.1"
+                type: string
+                x-kubernetes-validations:
+                - message: preferredNetconfVersion is immutable
+                  rule: self == oldSelf
               protocol:
                 default: gnmi
                 enum:
@@ -666,6 +689,16 @@ spec:
                 x-kubernetes-validations:
                 - message: skipVerify is immutable
                   rule: self == oldSelf
+              timeout:
+                default: 10
+                description: A Duration represents the elapsed time between two instants
+                  as an int64 nanosecond count. The representation limits the largest
+                  representable duration to approximately 290 years.
+                format: int64
+                type: integer
+                x-kubernetes-validations:
+                - message: timeout is immutable
+                  rule: self == oldSelf
               useOperationRemove:
                 default: false
                 type: boolean
@@ -673,7 +706,6 @@ spec:
                 - message: UseOperationRemove is immutable
                   rule: self == oldSelf
             required:
-            - encoding
             - port
             - protocol
             type: object
@@ -745,30 +777,29 @@ spec:
                 description: Address defines the address to connect to the target
                 type: string
               connectionProfile:
-                description: ConnectionProfile defines the profile used to connect
-                  to the target
+                description: ConnectionProfile define the profile used to connect
+                  to the target once discovered
+                type: string
+              credentials:
+                description: Credentials defines the name of the secret that holds
+                  the credentials to connect to the target
                 type: string
               provider:
                 description: Provider specifies the provider using this target.
                 type: string
-              secret:
-                description: Secret defines the name of the secret to connect to the
-                  target
-                type: string
               syncProfile:
-                description: SyncProfile defines the profile used to sync the config
-                  from the target
+                description: SyncProfile define the profile used to sync to the target
+                  config once discovered
                 type: string
               tlsSecret:
                 description: TLSSecret defines the name of the TLS secret to connect
-                  to the target
+                  to the target if mtls is used
                 type: string
             required:
             - address
             - connectionProfile
+            - credentials
             - provider
-            - secret
-            - syncProfile
             type: object
           status:
             description: TargetStatus defines the observed state of Target
@@ -953,6 +984,7 @@ spec:
                       - config
                       type: string
                     interval:
+                      default: 0
                       format: int64
                       type: integer
                     mode:
@@ -970,10 +1002,14 @@ spec:
                       maxItems: 10
                       type: array
                     protocol:
+                      default: gnmi
+                      enum:
+                      - unknown
+                      - gnmi
+                      - netconf
+                      - noop
                       type: string
                   required:
-                  - encoding
-                  - interval
                   - mode
                   - name
                   - paths
@@ -982,7 +1018,7 @@ spec:
                 maxItems: 10
                 type: array
                 x-kubernetes-validations:
-                - message: sync is immutable
+                - message: sync may only be added
                   rule: oldSelf.all(x, x in self)
               validate:
                 default: true
@@ -997,11 +1033,6 @@ spec:
                 x-kubernetes-validations:
                 - message: workers is immutable
                   rule: self == oldSelf
-            required:
-            - buffer
-            - sync
-            - validate
-            - workers
             type: object
             x-kubernetes-validations:
             - message: sync is required once set
@@ -1009,6 +1040,7 @@ spec:
         type: object
     served: true
     storage: true
+
 ---
 apiVersion: apiregistration.k8s.io/v1
 kind: APIService
@@ -1188,7 +1220,6 @@ data:
     # expose a prometheus server with cpu, mem and grpc metrics
     prometheus:
       address: ":56090"
-EOF
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -1310,6 +1341,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
+EOF
 ```
 
 if successfull you should see a running container similar to this

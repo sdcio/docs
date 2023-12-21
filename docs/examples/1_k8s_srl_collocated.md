@@ -169,8 +169,8 @@ spec:
   - prefix: 172.20.20.2
     hostName: dev2
   discover: false
-  connectivityProfile:
-    secret: srl.nokia.sdcio.dev 
+  targetConnectionProfiles:
+  - credentials: srl.nokia.sdcio.dev 
     connectionProfile: gnmi-skipverify
     syncProfile: gnmi-onchange
     defaultSchema:

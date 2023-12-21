@@ -173,8 +173,8 @@ spec:
   - prefix: 172.20.20.12
     hostName: dev2
   discover: false
-  connectivityProfile:
-    secret: sros.nokia.sdcio.dev 
+  targetConnectionProfiles:
+  - credentials: sros.nokia.sdcio.dev 
     connectionProfile: netconf
     syncProfile: netconf-getconfig
     defaultSchema:

@@ -6,7 +6,7 @@ nav:
       - Pre-Requisites: install/2_prereq.md
       - Kubernetes-collocated: install/3_k8s_collocated.md
       - Kubernetes-distributed: install/4_k8s_distributed.md
-  - Getting Started: getting_started.md
+  - Getting Started: install/3_k8s_collocated.md
   - Concepts:
       - Schema-server: concepts/schema_server.md
       - Data-server: concepts/data_server.md
