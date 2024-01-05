@@ -1241,7 +1241,7 @@ spec:
       serviceAccountName: config-apiserver
       containers:
       - name: capis
-        image: ndd.artifactory-espoo2.int.net.nokia.com/yndd/capis-x86:v0.0.2
+        image: ndd.artifactory-espoo2.int.net.nokia.com/yndd/config-server:v0.0.1
         imagePullPolicy: Always
         command:
         - /app/capis
@@ -1288,7 +1288,7 @@ spec:
         - name: schema-store
           mountPath: /schemas
       - name: data-server
-        image: ndd.artifactory-espoo2.int.net.nokia.com/yndd/data-server:v0.0.21
+        image: ndd.artifactory-espoo2.int.net.nokia.com/yndd/data-server:v0.0.22
         imagePullPolicy: Always
         command:
         - /app/data-server
