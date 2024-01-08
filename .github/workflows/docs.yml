@@ -1,0 +1,18 @@
+name: docs
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "docs-*"
+    tags:
+      - "v*"
+
+env:
+  MKDOCS_MATERIAL_VER: 8.3.4
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker run -v $(pwd):/docs --entrypoint ash squidfunk/mkdocs-material:${MKDOCS_MATERIAL_VER} -c 'git config --global --add safe.directory /docs; mkdocs gh-deploy --force --strict'
