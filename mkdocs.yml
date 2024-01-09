@@ -39,11 +39,12 @@ site_author: Wim Henderickx
 site_description: >-
   Schema driven configuration is a system to configure devices through schema's (e.g. YANG) 
 # repository
-repo_name: iptecharch/docs
-repo_url: https://github.com/iptecharch/docs
-edit_uri: ""
+repo_name: sdcio/docs
+repo_url: https://github.com/sdcio/docs
+site_url: "https://docs.sdcio.dev"
 theme:
   name: material
+  #custom_dir: docs/overrides
 
   # 404 page
   static_templates:
@@ -124,7 +125,8 @@ markdown_extensions:
   - markdown.extensions.def_list
   - markdown.extensions.footnotes
   - markdown.extensions.meta
-  - markdown.extensions.toc:
+  - md_in_html
+  - toc:
       permalink: "#"
   - pymdownx.arithmatex
   - pymdownx.betterem:
@@ -136,19 +138,33 @@ markdown_extensions:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.highlight:
-      linenums_style: pymdownx-inline
+      line_spans: __span
+      anchor_linenums: true
+      pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.keys
   - pymdownx.magiclink:
       repo_url_shorthand: true
-      user: squidfunk
-      repo: mkdocs-material
+      user: sdcio
+      repo: docs
   - pymdownx.mark
-  - pymdownx.smartsymbols
+  - pymdownx.smartsymbols:
+      fractions: false
   - pymdownx.snippets:
       check_paths: true
-  - pymdownx.superfences
-  - pymdownx.tabbed
+      dedent_subsections: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.blocks.tab:
+      alternate_style: true
+  - pymdownx.blocks.admonition
+  - pymdownx.blocks.definition
+  - pymdownx.blocks.details
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
