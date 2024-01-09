@@ -4,6 +4,12 @@
 
 Ensure the [pre-requisites](../install/2_prereq.md) are met
 
+### Install containerlab
+
+SDC will need to interact with a device that talks `YANG`. You can use physical, virtual or containers. In this example we use [containerlab][containerlab] a tool to ease deploying labs with container images.
+
+[containerlab]: (https://containerlab.dev/install/)
+
 ## SDC on kubernetes
 
 Install the [k8s-collocated](../install/3_k8s_collocated.md) environment using a [kind][kind] cluster 

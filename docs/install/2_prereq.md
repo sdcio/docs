@@ -44,9 +44,3 @@ kind create cluster --name sdc
 [kind-install]: (https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 [kind]: (https://kind.sigs.k8s.io/)
 [kubectl]: (https://kubernetes.io/docs/tasks/tools/)
-
-## install containerlab (optional)
-
-SDC will need to interact with a device that talks `YANG`. You can use physical, virtual or containers. For containers we could use [containerlab][containerlab] a tool to ease deploying labs with container images.
-
-[containerlab]: (https://containerlab.dev/install/)

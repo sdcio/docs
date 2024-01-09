@@ -4,13 +4,22 @@
 
 Ensure the [pre-requisites](../install/2_prereq.md) are met
 
+### Install containerlab
+
+SDC will need to interact with a device that talks `YANG`. You can use physical, virtual or containers. In this example we use [containerlab][containerlab] a tool to ease deploying labs with container images.
+
+[containerlab]: (https://containerlab.dev/install/)
+
 ## SDC on kubernetes
 
 Install the [k8s-collocated](../install/3_k8s_collocated.md) environment using a [kind][kind] cluster 
 
 ## Devices
 
-Once the sdc components are up and running, you can proceed to deploy devices, configuring them using YANG schemas. To do this we deploy [containerlab][containerlab] using a simple topology as shown below. Ensure the mgmt network of containerlab and your kubernetes cluster can communicate. This is accomplished in this example by configuring the containerlab managament network to use the kind docker bridge.
+Once the sdc components are up and running, you can proceed to deploy devices, configuring them using YANG schemas. To do this we deploy [containerlab][containerlab] using a simple topology as shown below. 
+
+!!!warning "Container connectivity"
+    Ensure the network and kind cluster containers can communicate. In this example this is accomplished by configuring containerlab to use the kind docker bridge for its management network `mgmt.network: kind`.
 
 ```yaml
 name: sros-lab
