@@ -39,13 +39,11 @@ site_author: Wim Henderickx
 site_description: >-
   Schema driven configuration is a system to configure devices through schema's (e.g. YANG) 
 # repository
-repo_name: sdcio/docs
-repo_url: https://github.com/sdcio/docs
-site_url: "https://docs.sdcio.dev"
-edit_uri: "edit/main/docs/"
+repo_name: iptecharch/docs
+repo_url: https://github.com/iptecharch/docs
+edit_uri: ""
 theme:
   name: material
-  custom_dir: docs/overrides
 
   # 404 page
   static_templates:
