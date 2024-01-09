@@ -21,7 +21,5 @@ bin/*
 
 # Go workspace file
 go.work
-design.md
-wimtest
 vendor
 scripts/
