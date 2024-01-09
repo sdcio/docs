@@ -126,8 +126,7 @@ markdown_extensions:
   - markdown.extensions.def_list
   - markdown.extensions.footnotes
   - markdown.extensions.meta
-  - md_in_html
-  - toc:
+  - markdown.extensions.toc:
       permalink: "#"
   - pymdownx.arithmatex
   - pymdownx.betterem:
@@ -139,33 +138,19 @@ markdown_extensions:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.highlight:
-      line_spans: __span
-      anchor_linenums: true
-      pygments_lang_class: true
+      linenums_style: pymdownx-inline
   - pymdownx.inlinehilite
   - pymdownx.keys
   - pymdownx.magiclink:
       repo_url_shorthand: true
-      user: sdcio
-      repo: docs
+      user: squidfunk
+      repo: mkdocs-material
   - pymdownx.mark
-  - pymdownx.smartsymbols:
-      fractions: false
+  - pymdownx.smartsymbols
   - pymdownx.snippets:
       check_paths: true
-      dedent_subsections: true
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.blocks.tab:
-      alternate_style: true
-  - pymdownx.blocks.admonition
-  - pymdownx.blocks.definition
-  - pymdownx.blocks.details
+  - pymdownx.superfences
+  - pymdownx.tabbed
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
