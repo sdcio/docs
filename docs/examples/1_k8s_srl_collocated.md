@@ -2,11 +2,11 @@
 
 ## Pre-requisites
 
-Ensure the [pre-requisites](2_prereq.md) are met
+Ensure the [pre-requisites](../install/2_prereq.md) are met
 
 ## SDC on kubernetes
 
-Install the [k8s-collocated](3_k8s_collocated.md) environment using a [kind][kind] cluster 
+Install the [k8s-collocated](../install/3_k8s_collocated.md) environment using a [kind][kind] cluster 
 
 ## Devices
 
@@ -248,4 +248,4 @@ EOF
 ```
 
 [containerlab]: (https://containerlab.dev/install/)
-[kind]: (https://kind.sigs.k8s.io)
+[kind]: (https://kind.sigs.k8s.io/)

@@ -42,7 +42,7 @@ kind create cluster --name sdc
 ///
 
 [kind-install]: (https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-[kind]: (https://kind.sigs.k8s.io)
+[kind]: (https://kind.sigs.k8s.io/)
 [kubectl]: (https://kubernetes.io/docs/tasks/tools/)
 
 ## install containerlab (optional)

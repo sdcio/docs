@@ -8,7 +8,7 @@ on:
       - "v*"
 
 env:
-  MKDOCS_MATERIAL_VER: 8.3.4
+  MKDOCS_MATERIAL_VER: 9.1.4
 
 jobs:
   publish:

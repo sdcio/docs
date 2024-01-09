@@ -151,8 +151,8 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.magiclink:
       repo_url_shorthand: true
-      user: srl-labs
-      repo: containerlab
+      user: sdcio
+      repo: docs
   - pymdownx.mark
   - pymdownx.smartsymbols:
       fractions: false
