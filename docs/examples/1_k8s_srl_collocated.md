@@ -13,7 +13,7 @@ Install the [k8s-collocated](../install/3_k8s_collocated.md) environment using a
 Once the sdc components are up and running, you can proceed to deploy devices, configuring them using YANG schemas. To do this we deploy [containerlab][containerlab] using a simple topology as shown below. 
 
 !!!warning "Container connectivity"
-    Ensure the network and kind cluster containers can communicate. In this example this is accomplished by configuring containerlab to use the kind docker bridge for management `mgmt.network: kind`.
+    Ensure the network and kind cluster containers can communicate. In this example this is accomplished by configuring containerlab to use the kind docker bridge for its management network `mgmt.network: kind`.
 
 ```yaml
 name: srl-lab
