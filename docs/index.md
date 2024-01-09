@@ -48,7 +48,7 @@ The config-server is a Kubernetes-based Operator and comprises of several contro
 - Targets: Physical devices (`PNF`), Containers (`CNF`), Virtual Machines (`VNF`) and `NOOP` (No Operation)
 - Vendor agnostic
 - Flexible deployments: Small, medium or large scale scaled out deployments
-- Target Protocols: [Gnmi][gnmi], [Netconf][netconf]
+- Target Protocols: [gNMI][gnmi], [Netconf][netconf]
 - Full Config or Config Snippets
 - Declarative Operation
 
