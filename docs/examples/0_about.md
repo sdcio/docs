@@ -1,8 +1,6 @@
 # About lab examples
 <script type="text/javascript" src="https://viewer.diagrams.net/js/viewer-static.min.js" async></script>
 
-`sdc`
-
 !!!note
     The lab examples that you find on this site are meant to explain the basics of using `sdc`. 
 
