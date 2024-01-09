@@ -57,21 +57,25 @@ theme:
   language: en
   features:
     - navigation.top
-    - navigation.instant
-    - navigation.tracking
+    #- navigation.instant
+    #- navigation.tracking
     - navigation.tabs
+    #- navigation.expand
+    #- navigation.indexes
+    #- navigation.sections
+    #- navigation.tabs.sticky
     - search.suggest
     - content.code.annotate
-    - content.tabs.link
-    - header.autohide
-    - navigation.expand
-    - navigation.indexes
-    - navigation.sections
-    - navigation.tabs.sticky
-    - search.highlight
-    - search.share
-    - search.suggest
-    - toc.integrate
+    - content.code.copy
+    - content.code.select
+    - content.action.edit
+    - content.tooltips
+    #- header.autohide
+    #- search.highlight
+    #- search.share
+    #- search.suggest
+    #- toc.integrate
+    - toc.follow
     
   palette:
     # Light mode
