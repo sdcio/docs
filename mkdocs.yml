@@ -57,13 +57,13 @@ theme:
   language: en
   features:
     - navigation.top
-    #- navigation.instant
-    #- navigation.tracking
+    - navigation.instant
+    - navigation.tracking
     - navigation.tabs
-    #- navigation.expand
-    #- navigation.indexes
-    #- navigation.sections
-    #- navigation.tabs.sticky
+    - navigation.expand
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs.sticky
     - search.suggest
     - content.code.annotate
     - content.code.copy
