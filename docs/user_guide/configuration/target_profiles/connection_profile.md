@@ -1,6 +1,5 @@
 # Connection Profile
 
-
 SDC offers versatile connection capabilities with devices, supporting multiple protocols like NETCONF and gNMI.
 It is designed to accommodate a range of devices and security needs. The connection details are comprehensively outlined in the `TargetConnectionProfile` CustomResource. For further information, please refer to [here](path to CRD).
 
