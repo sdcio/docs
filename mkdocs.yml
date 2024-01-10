@@ -14,17 +14,17 @@ nav:
   - User guide:
     - Introduction: user_guide/introduction.md
     - Configuration:
-      - Defining and loading Schema: crds/schema.md
+      - Defining and loading Schemas: user_guide/configuration/schemas.md
       - Discovery: #crds/discovery_rule.md
         - Intro: crds/discovery_rule.md
         - Static: crds/discovery_rule.md
         - Dynamic: crds/discovery_rule.md
       - Target Profiles: # crds/discovery_rule.md
-        - Target: crds/target.md
-        - Connection Profile: crds/target_conn_profile.md
-        - Sync Profile: crds/target_sync_profile.md
-        - Credentials: crds/target_sync_profile.md
-      - Config snippets: crds/config.md
+        - Target: user_guide/configuration/target_profiles/target.md
+        - Connection Profile: user_guide/configuration/target_profiles/connection_profile.md
+        - Sync Profile: user_guide/configuration/target_profiles/sync_profile.md
+        # - Credentials: crds/target_sync_profile.md
+      - Configuration Intent: user_guide/configuration/intent/intent.md
   - System architecture:
       - Components:
         - Schema-server: concepts/schema_server.md
