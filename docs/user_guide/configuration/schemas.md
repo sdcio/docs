@@ -2,8 +2,8 @@
 
 ## Introduction to SDC Schema Loading
 
-The initial step in integrating a device with SDC involves importing the device's schema. 
-SDC is equipped to handle YANG schemas, provided all necessary model files and their respective dependencies are available. 
+The initial step in integrating a device with SDC involves importing the device's schema.
+SDC is equipped to handle YANG schemas, provided all necessary model files and their respective dependencies are available in a git repository.
 This process is facilitated through the Schema CustomResource, detailed [here](link to CRD).
 
 The Schema CustomResource is configured using three main parameter groups:
@@ -22,6 +22,8 @@ These parameters jointly establish the methodology for schema acquisition:
 * `ref`: This parameter is closely linked to kind and pinpoints the exact tag or branch name within the repository.
 
 Following the identification of schema directories and files for download, the `dirs` attribute plays a crucial role. It allows users to map each source directory to a corresponding local storage location. Essentially, dirs is an array comprising pairs of `src` (source directory) and `dst` (destination path). This setup facilitates the organization of downloaded schema files, ensuring they are stored in designated local directories for easy access and management.
+
+If the dirs attribute is not set, it defaults to `$pwd` for both `src` and `dst`.
 
 ## Schema Identification: Naming Conventions
 

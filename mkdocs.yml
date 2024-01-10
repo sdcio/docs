@@ -16,14 +16,16 @@ nav:
     - Configuration:
       - Defining and loading Schemas: user_guide/configuration/schemas.md
       - Discovery: #crds/discovery_rule.md
-        - Intro: crds/discovery_rule.md
-        - Static: crds/discovery_rule.md
-        - Dynamic: crds/discovery_rule.md
-      - Target Profiles: # crds/discovery_rule.md
-        - Target: user_guide/configuration/target_profiles/target.md
+        - Intro: user_guide/configuration/discovery/introduction.md
+        - Static: user_guide/configuration/discovery/static.md
+        - Dynamic: 
+            IPRange: user_guide/configuration/discovery/dynamic_ip_range.md
+            Service(future): user_guide/configuration/discovery/dynamic_service.md
+            POD(future): user_guide/configuration/discovery/dynamic_pod.md
+      - Target Profiles:
         - Connection Profile: user_guide/configuration/target_profiles/connection_profile.md
         - Sync Profile: user_guide/configuration/target_profiles/sync_profile.md
-        # - Credentials: crds/target_sync_profile.md
+      - Target: user_guide/configuration/target/target.md
       - Configuration Intent: user_guide/configuration/intent/intent.md
   - System architecture:
       - Components:
