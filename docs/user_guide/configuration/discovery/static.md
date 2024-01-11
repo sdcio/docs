@@ -1,1 +1,0 @@
-# Device static definition

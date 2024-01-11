@@ -2,9 +2,8 @@ site_name: Schema Driven Configuration
 nav:
   - Home: index.md
   - Getting Started:
-    #- User guide: user_guide/introduction.md
     - Installation: getting-started/installation.md
-    - Basic usage: basic_usage.md
+    - Basic usage: getting-started/basic-usage.md
     - User guide: getting-started/user-guide.md
   - Installation:
     - Overview: install/1_overview.md
@@ -12,27 +11,27 @@ nav:
     - Kubernetes-collocated: install/3_k8s_collocated.md
     - Kubernetes-distributed: install/4_k8s_distributed.md
   - User guide:
-    - Introduction: user_guide/introduction.md
+    - Introduction: user-guide/introduction.md
     - Configuration:
-      - Defining and loading Schemas: user_guide/configuration/schemas.md
-      - Discovery: #crds/discovery_rule.md
-        - Intro: user_guide/configuration/discovery/introduction.md
-        - Static: user_guide/configuration/discovery/static.md
-        - Dynamic: 
-            IPRange: user_guide/configuration/discovery/dynamic_ip_range.md
-            Service(future): user_guide/configuration/discovery/dynamic_service.md
-            POD(future): user_guide/configuration/discovery/dynamic_pod.md
+      - Defining and loading Schemas: user-guide/configuration/schemas.md
       - Target Profiles:
-        - Connection Profile: user_guide/configuration/target_profiles/connection_profile.md
-        - Sync Profile: user_guide/configuration/target_profiles/sync_profile.md
-      - Target: user_guide/configuration/target/target.md
-      - Configuration Intent: user_guide/configuration/intent/intent.md
+        - Connection Profile: user-guide/configuration/target-profiles/connection-profile.md
+        - Sync Profile: user-guide/configuration/target-profiles/sync-profile.md
+      - Discovery:
+        - Intro: user-guide/configuration/discovery/introduction.md
+        - Addresses: user-guide/configuration/discovery/addresses.md
+        - Prefixes: user-guide/configuration/discovery/prefixes.md
+        - Service Selector (future): user-guide/configuration/discovery/service.md
+        - POD Selector (future): user-guide/configuration/discovery/pod.md
+      - Target: user-guide/configuration/target/target.md
+      - Configuration Intent: user-guide/configuration/intent/intent.md
   - System architecture:
+      - Design: system-architecture/architecture.md
       - Components:
-        - Schema-server: concepts/schema_server.md
-        - Data-server: concepts/data_server.md
-        - Cache: concepts/cache.md
-        - Config-server: concepts/config_server.md
+        - Schema-server: system-architecture/schema-server.md
+        - Data-server: system-architecture/data-server.md
+        - Cache: system-architecture/cache.md
+        - Config-server: system-architecture/config-server.md
   - Deployment Examples:
     - Intro: placeholder.md
     - Collocated deployment: placeholder.md
