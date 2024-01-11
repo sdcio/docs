@@ -1,4 +1,4 @@
-site_name: Schema Driven Configuration
+site_name: SDC (Schema Driven Configuration)
 nav:
   - Home: index.md
   - Getting Started:
