@@ -114,7 +114,7 @@ theme:
     text: Manrope
     code: Fira Mono
   icon:
-    logo: fontawesome/solid/flask
+    logo: fontawesome/solid/sitemap
     repo: fontawesome/brands/github
     edit: material/file-edit-outline
   favicon: images/flask.svg

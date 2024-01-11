@@ -16,7 +16,7 @@ spec:
   syncProfile: gnmi-onchange
 ```
 
-## Fields
+## Attributes
 * `address`: The mgmt address of the Target.
 * `connectionProfile`: The name of the connection profile (_targetconnectionprofiles.inv.sdcio.dev_) used to connect to the Target.
 * `syncProfile`: The name of the connection profile (_targetsyncprofiles.inv.sdcio.dev_) used to sync  config from the Target into SDC.
