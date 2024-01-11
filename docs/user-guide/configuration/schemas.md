@@ -47,6 +47,11 @@ By carefully setting these parameters, users can seamlessly onboard devices into
 
 ### SR Linux v23.10.1
 
+The below CR defines an SR Linux `Schema` version 23.10.1.
+
+The YANG files will be retrieved from the github repo `https://github.com/nokia/srlinux-yang-models` tag `v23.10.1`.
+The remote directory `srlinux-yang-models` at the roo level of the git repository will be mapped to `$pwd` (`dst: .`) in the local file system
+
 ```yaml
 apiVersion: inv.sdcio.dev/v1alpha1
 kind: Schema
@@ -71,6 +76,73 @@ spec:
     - openconfig/openconfig-extensions.yang
     excludes:
     - .*tools.*
+```
+
+To apply the CR, store the above content in a file (e.g: `srlinux_23.10.1_schema.yaml`) and run the command:
+
+```shell
+kubectl apply -f srlinux23.10.1_schema.yaml
+```
+
+After applying the previous CR to a kubernetes cluster, the `Schema` can be viewed with the commands:
+
+```shell
+kubectl get schemas.inv.sdcio.dev
+```
+
+```shell
+kubectl get schemas srl.nokia.sdcio.dev-23.10.1 -o yaml
+```
+
+Sample outputs:
+
+```shell
+$ kubectl get schemas.inv.sdcio.dev
+NAME                           READY   URL                                            REF             PROVIDER               VERSION
+srl.nokia.sdcio.dev-23.10.1    True    https://github.com/nokia/srlinux-yang-models   v23.10.1        srl.nokia.sdcio.dev    23.10.1
+```
+
+```shell
+$ kubectl get schemas srl.nokia.sdcio.dev-23.10.1 -o yaml
+apiVersion: inv.sdcio.dev/v1alpha1
+kind: Schema
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"inv.sdcio.dev/v1alpha1","kind":"Schema","metadata":{"annotations":{},"name":"srl.nokia.sdcio.dev-23.10.1","namespace":"default"},"spec":{"dirs":[{"dst":".","src":"srlinux-yang-models"}],"kind":"tag","provider":"srl.nokia.sdcio.dev","ref":"v23.10.1","repoURL":"https://github.com/nokia/srlinux-yang-models","schema":{"excludes":[".*tools.*"],"includes":["ietf","openconfig/extensions","openconfig/openconfig-extensions.yang"],"models":["srl_nokia/models"]},"version":"23.10.1"}}
+  creationTimestamp: "2024-01-09T23:05:13Z"
+  finalizers:
+  - schema.inv.sdcio.dev/finalizer
+  generation: 1
+  name: srl.nokia.sdcio.dev-23.10.1
+  namespace: default
+  resourceVersion: "872"
+  uid: 8b533cc2-38fa-4487-965d-3877beb455fc
+spec:
+  dirs:
+  - dst: .
+    src: srlinux-yang-models
+  kind: tag
+  provider: srl.nokia.sdcio.dev
+  ref: v23.10.1
+  repoURL: https://github.com/nokia/srlinux-yang-models
+  schema:
+    excludes:
+    - .*tools.*
+    includes:
+    - ietf
+    - openconfig/extensions
+    - openconfig/openconfig-extensions.yang
+    models:
+    - srl_nokia/models
+  version: 23.10.1
+status:
+  conditions:
+  - lastTransitionTime: "2024-01-09T23:05:16Z"
+    message: ""
+    reason: Ready
+    status: "True"
+    type: Ready
 ```
 
 ### SROS 23.10.2
