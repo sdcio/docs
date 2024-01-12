@@ -19,13 +19,13 @@ metadata:
 kind: ServiceAccount
 apiVersion: v1
 metadata:
-  name: config-apiserver
+  name: config-server
   namespace: network-system
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: capis
+  name: config-server
   namespace: network-system
 spec:
   ports:
@@ -33,318 +33,7 @@ spec:
     protocol: TCP
     targetPort: 6443
   selector:
-    config-apiserver: "true"
----
-apiVersion: v1
-kind: Secret
-type: kubernetes.io/tls
-metadata:
-  name: capis
-  namespace: network-system
-  labels:
-    config-apiserver: "true"
-data:
-  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURZekNDQWt1Z0F3SUJBZ0lJSC9mSFZHenZ3cnN3RFFZSktvWklodmNOQVFFTEJRQXdaVEVMTUFrR0ExVUUKQmhNQ2RXNHhDekFKQmdOVkJBZ01Bbk4wTVFvd0NBWURWUVFIREFGc01Rb3dDQVlEVlFRS0RBRnZNUXN3Q1FZRApWUVFMREFKdmRURWtNQ0lHQTFVRUF3d2JZbUZ6YVdNdFkyVnlkR2xtYVdOaGRHVXRZWFYwYUc5eWFYUjVNQjRYCkRUSXlNRE16TVRBNU1UYzFNMW9YRFRNeU1ETXlPREE1TVRjMU5Gb3dIREVhTUJnR0ExVUVBeE1SWW1GemFXTXUKWkdWbVlYVnNkQzV6ZG1Nd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUUN0TUt0eApjc3Rjdk8rdDVMazZRQkRBZ3g1akZCL2F1dStVb3BDR2Z6VitaRW5obldpaC8xMVZ2ek44cjhmdGZuUkZGTVZ6CmJqYlVhSXNDOFc1eGJDNXNpc2VrdnVBWDlpanUzMlFybEU0RTR1UzNYREdVZkhGSFhMcWxBRU9RclUvRzQ0RGgKa0I3ajJOcDRzbk9IckF0aDA3TStvbXBmVklhSTlkQmdYY3hsUE5QRkNNamlOb1VweVM4eXNha3RQRXFjZTBpawpmNDBYVERmN1YwekFFelI0QkE4Yzh0b05UMVNnSXFIV0xueERKcnZRempDaTVFN2NMNkpmTmhlZDQ5MUVNWlEwCmVnbkV5bXd6d1Jya3BYTkZ4RHJzSXpOZmhHelB6RGJLdmFIUHh5NUwvM3h3clZ3VHllbklaOVExK0tjemtCSksKRXZIaVVKL1BML0VYZkloakFnTUJBQUdqWURCZU1BNEdBMVVkRHdFQi93UUVBd0lGb0RBZEJnTlZIU1VFRmpBVQpCZ2dyQmdFRkJRY0RBUVlJS3dZQkJRVUhBd0l3TFFZRFZSMFJCQ1l3SklJSmJHOWpZV3hvYjNOMGdoRmlZWE5wCll5NWtaV1poZFd4MExuTjJZNGNFZndBQUFUQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFEa1hsbGZMTlpzWDEKYmp1b0h4RXVUWitaODlMWUxPUDBMM0dHMFgwdVdkZzJFcXY1bmZNRHVRVmJIRmt5dVo3ZDlDY01QYk12MTdDWgoxZGwwQk1GQTJkTkJzK3V1UXFIUFh3RkI4SFdPSDhBc1pMMnYvbG91T3g2dU1QQk9uWUhuQ3pFY21FQXZoR2dLCkpXMDNkd2QwNlJPeUdLT29qSklFTlRnd0xnQ1dZSytPWmIzQklyMUJqS012Q2dHN3pJVDFUUVNna3hGN1NGNzUKYk5BaEdOa0NWMGVrSnNXQWk1UGhzVS9IdWthdGVHUGNMS3hia0RGdHpSV2tRNmdKUXhkZmVuOVBKTjVJVCt4RQpFci8wYUkrOFM5Y1FPUnk0VTNDSFRodmlnOGFyZ3FucmFWMU92OXZNTWxzZ3pnYXc3SjdaeGtkWWwrSkMyWUcvCjJrUThVd1IzQnc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
-  tls.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb3dJQkFBS0NBUUVBclRDcmNYTExYTHp2cmVTNU9rQVF3SU1lWXhRZjJycnZsS0tRaG44MWZtUko0WjFvCm9mOWRWYjh6ZksvSDdYNTBSUlRGYzI0MjFHaUxBdkZ1Y1d3dWJJckhwTDdnRi9Zbzd0OWtLNVJPQk9Ma3Qxd3gKbEh4eFIxeTZwUUJEa0sxUHh1T0E0WkFlNDlqYWVMSnpoNndMWWRPelBxSnFYMVNHaVBYUVlGM01aVHpUeFFqSQo0amFGS2Nrdk1yR3BMVHhLbkh0SXBIK05GMHczKzFkTXdCTTBlQVFQSFBMYURVOVVvQ0toMWk1OFF5YTcwTTR3Cm91Uk8zQytpWHpZWG5lUGRSREdVTkhvSnhNcHNNOEVhNUtWelJjUTY3Q016WDRSc3o4dzJ5cjJoejhjdVMvOTgKY0sxY0U4bnB5R2ZVTmZpbk01QVNTaEx4NGxDZnp5L3hGM3lJWXdJREFRQUJBb0lCQUJWWU16ajNLZU1URWdMLwpkbWljYnJRYk5NcUhOMm5Rc2loQ1pNZCt0QXdRdGg1Tk5SRUtGT20xZDlYOUlBbkFGUHBTbGdjazVUTUdjMk40CmQrRVlzUndGZXBkdVF0WVJLM2hOSmQ1TkY5UjRWakhXOWZGVDZPNGZtbzB0WENaZmhiNkFXV2p6Unl0VGxaRmMKaE9xS3BKaDQ2OVZqVlBMTXl3dmtKN3RJdENFaHl4b0t0VVhwcm45SXBLNnNUa051OTFmMVA4czJNbDd1RlVqYwpJdGhMb3JnMEYyU3RaeEJmVDJGaFRYaFZxRlRJS1pmazFGbnRpbUwyWlQrRXZzQlpnZHYwa2Z1Q2hFdE5jRW1PCnRZc2dKT3ExTWF5M2d0dlk3VDB6WkRtTTIrOVpKQ0JLcm8yV2IxdGw0RHNnaWNkR0I2SlhnTi81aklSMTNmbDUKMTRJd1hza0NnWUVBemtQb1MrTko0QkJkR3RYem5tZWVhRFFQVVU0dkF1R3YyU2VtajR3RG1KRXB6aDdoMWlQZAprVWxmYjcxZ1VMbmk0SDVkVFlyVFpwOElUaXZvM3A1bUNrV3lFV09wMmx4VUZoM3JnVWN6NWt0RUhkejl1bjNoCnFYNVJpTWlkM0Y3dWRIODdqYTdJVi9mUEFGSnlremQrWHNaZGFuT0tPK1UvV0t2ek0rSFEzUThDZ1lFQTF2TWoKdml3dnFxM0FBa0VpN2RlOUxLUE1uS1N5VE9BdHQzS2dqV1RLNU5aQUdqeWpoSGxEbjRCempSS25DWk8xY0lJZwo0Wnl1VzQrUlB5aGQreEFubzVoMVh0Ny9LYzNFaW1ucjBLU0ZmRWVza2NORFIyVHNTdCtjYTl6aFFPTFJ0TWRCCnE5OWZDeFprK1pmcEhpSzJCK0pHVExNdVJRY0tDYU43RldKTkIyMENnWUJhc2k5bGx3WjMySm9uMzZYa3BDbGEKSm5JSnpUZ01xMUlZU1VBSzVJVDhRL0ErNndOZ2xwcXBkTHJiTmtrd2xkdjEzSHFJU3gvVGd1QXpCMG01QWF0YQpudlRDZ3JGQUM5TUplcFNBWHQrcVJyUW44WEU3M0hncWdCbTM3SWJGVEpUTGN0cXIzUXZJNm5VQjdqN2xEc1NwClJjM3pyZVE5bS9yenNZQVo4eFJVN3dLQmdRQ0JYTjg4Q3JlOVRzaHFFdTJFbXZ4ZEswOXZUcWVJSUxzaTFyZk4Kb01XREozWjQwOW5OVm5YZVBwNU1YdGRzcWhyZVZWS1l0WVV4MFp1bW1STEdrSmhxbXN5NGhoaW0vaEcxQTc1SwpXVm1FekZZTmU2aTRCUU00cEk4dFUwZTFsMHlDTWhGUjhTTHdOMUFaN3RUN3NBUkJobXFzcW9IRVJWSkRMc0phCndraDltUUtCZ0NYR2xoZzY4aVMzMldmSWVtYUFRMTJpNFRUUk1FNWppTFl0ZlkyREJTMDBWV3NxY0l1OEFUWm0KVHVoZHBRVG9mKzE3LzFyU0cyYnFaWFA2L0h3ak14OTVIdWlXbjVKSjA3RTduOUVCUDlkQTY0K0lHdWlvd0h5RAo2a3g3VVhuTUtTYXdiV2JxZ1JGZTFOZEdLbkh0ZE5GOGxndEdjdytxUTk3YkIreXFreXMxCi0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg==
----
-apiVersion: apiextensions.k8s.io/v1
-kind: CustomResourceDefinition
-metadata:
-  annotations:
-    controller-gen.kubebuilder.io/version: v0.12.1
-  name: discoveryrules.inv.sdcio.dev
-spec:
-  group: inv.sdcio.dev
-  names:
-    categories:
-    - sdc
-    - inv
-    kind: DiscoveryRule
-    listKind: DiscoveryRuleList
-    plural: discoveryrules
-    singular: discoveryrule
-  scope: Namespaced
-  versions:
-  - additionalPrinterColumns:
-    - jsonPath: .status.conditions[?(@.type=='Ready')].status
-      name: READY
-      type: string
-    name: v1alpha1
-    schema:
-      openAPIV3Schema:
-        description: DiscoveryRule is the Schema for the DiscoveryRule API
-        properties:
-          apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation
-              of an object. Servers should convert recognized schemas to the latest
-              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
-            type: string
-          kind:
-            description: 'Kind is a string value representing the REST resource this
-              object represents. Servers may infer this from the endpoint the client
-              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
-            type: string
-          metadata:
-            type: object
-          spec:
-            description: DiscoveryRuleSpec defines the desired state of DiscoveryRule
-            properties:
-              concurrentScans:
-                default: 10
-                description: number of concurrent IP scan
-                format: int64
-                type: integer
-              discover:
-                description: Discovery rule defines the profiles and templates generic
-                  to any discovery rule class/type Discover defines if discovery is
-                  enabled or not
-                type: boolean
-              discoveryProfile:
-                description: DiscoveryProfile define the profiles the discovery controller
-                  uses to discover targets
-                properties:
-                  connectionProfiles:
-                    description: ConnectionProfiles define the list of profiles the
-                      discovery controller uses to discover the target. The order
-                      in which they are specified is the order in which discovery
-                      is executed.
-                    items:
-                      type: string
-                    type: array
-                  credentials:
-                    description: Credentials defines the name of the secret that holds
-                      the credentials to connect to the target
-                    type: string
-                  tlsSecret:
-                    description: TLSSecret defines the name of the TLS secret to connect
-                      to the target if mtls is used
-                    type: string
-                required:
-                - connectionProfiles
-                - credentials
-                type: object
-              kind:
-                default: ip
-                enum:
-                - unknown
-                - ip
-                - pod
-                - svc
-                type: string
-              period:
-                default: 1m
-                description: Period defines the wait period between discovery rule
-                  runs
-                type: string
-              prefixes:
-                description: IP Prefixes for which this discovery rule applies
-                items:
-                  properties:
-                    excludes:
-                      description: IP Prefixes to be excluded
-                      items:
-                        type: string
-                      type: array
-                    hostName:
-                      description: HostName of the ip prefix; used for /32 or /128
-                        addresses with discovery disabled
-                      type: string
-                    prefix:
-                      description: Prefix of the target/target(s)
-                      type: string
-                  required:
-                  - prefix
-                  type: object
-                type: array
-              selector:
-                description: Selector defines the selector used to select which POD/SVC
-                  are subject to this discovery rule
-                properties:
-                  matchExpressions:
-                    description: matchExpressions is a list of label selector requirements.
-                      The requirements are ANDed.
-                    items:
-                      description: A label selector requirement is a selector that
-                        contains values, a key, and an operator that relates the key
-                        and values.
-                      properties:
-                        key:
-                          description: key is the label key that the selector applies
-                            to.
-                          type: string
-                        operator:
-                          description: operator represents a key's relationship to
-                            a set of values. Valid operators are In, NotIn, Exists
-                            and DoesNotExist.
-                          type: string
-                        values:
-                          description: values is an array of string values. If the
-                            operator is In or NotIn, the values array must be non-empty.
-                            If the operator is Exists or DoesNotExist, the values
-                            array must be empty. This array is replaced during a strategic
-                            merge patch.
-                          items:
-                            type: string
-                          type: array
-                      required:
-                      - key
-                      - operator
-                      type: object
-                    type: array
-                  matchLabels:
-                    additionalProperties:
-                      type: string
-                    description: matchLabels is a map of {key,value} pairs. A single
-                      {key,value} in the matchLabels map is equivalent to an element
-                      of matchExpressions, whose key field is "key", the operator
-                      is "In", and the values array contains only "value". The requirements
-                      are ANDed.
-                    type: object
-                type: object
-                x-kubernetes-map-type: atomic
-              targetConnectionProfiles:
-                description: TargetConnectionProfiles define the profile the discovery
-                  controller uses to create targets once discovered
-                items:
-                  properties:
-                    connectionProfile:
-                      description: ConnectionProfile define the profile used to connect
-                        to the target once discovered
-                      type: string
-                    credentials:
-                      description: Credentials defines the name of the secret that
-                        holds the credentials to connect to the target
-                      type: string
-                    defaultSchema:
-                      description: DefaultSchema define the default schema used to
-                        connect to a target Used when discovery is disabled or when
-                        discovery is unsuccessful.
-                      properties:
-                        provider:
-                          description: Provider specifies the provider of the schema.
-                          type: string
-                        version:
-                          description: Version defines the version of the schema
-                          type: string
-                      required:
-                      - provider
-                      - version
-                      type: object
-                    syncProfile:
-                      description: SyncProfile define the profile used to sync to
-                        the target config once discovered
-                      type: string
-                    tlsSecret:
-                      description: TLSSecret defines the name of the TLS secret to
-                        connect to the target if mtls is used
-                      type: string
-                  required:
-                  - connectionProfile
-                  - credentials
-                  type: object
-                type: array
-              targetTemplate:
-                description: TargetTemplate defines the template the discovery controller
-                  uses to create the targets as a result of the discovery
-                properties:
-                  annotations:
-                    additionalProperties:
-                      type: string
-                    description: Annotations is a key value map to be copied to the
-                      target CR.
-                    type: object
-                  labels:
-                    additionalProperties:
-                      type: string
-                    description: Labels is a key value map to be copied to the target
-                      CR.
-                    type: object
-                  nameTemplate:
-                    description: target name template
-                    type: string
-                    x-kubernetes-validations:
-                    - message: nameTemplate is immutable
-                      rule: self == oldSelf
-                type: object
-            required:
-            - discover
-            - kind
-            - period
-            - targetConnectionProfiles
-            type: object
-          status:
-            description: DiscoveryRuleStatus defines the observed state of DiscoveryRule
-            properties:
-              conditions:
-                description: Conditions of the resource.
-                items:
-                  properties:
-                    lastTransitionTime:
-                      description: lastTransitionTime is the last time the condition
-                        transitioned from one status to another. This should be when
-                        the underlying condition changed.  If that is not known, then
-                        using the time when the API field changed is acceptable.
-                      format: date-time
-                      type: string
-                    message:
-                      description: message is a human readable message indicating
-                        details about the transition. This may be an empty string.
-                      maxLength: 32768
-                      type: string
-                    observedGeneration:
-                      description: observedGeneration represents the .metadata.generation
-                        that the condition was set based upon. For instance, if .metadata.generation
-                        is currently 12, but the .status.conditions[x].observedGeneration
-                        is 9, the condition is out of date with respect to the current
-                        state of the instance.
-                      format: int64
-                      minimum: 0
-                      type: integer
-                    reason:
-                      description: reason contains a programmatic identifier indicating
-                        the reason for the condition's last transition. Producers
-                        of specific condition types may define expected values and
-                        meanings for this field, and whether the values are considered
-                        a guaranteed API. The value should be a CamelCase string.
-                        This field may not be empty.
-                      maxLength: 1024
-                      minLength: 1
-                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
-                      type: string
-                    status:
-                      description: status of the condition, one of True, False, Unknown.
-                      enum:
-                      - "True"
-                      - "False"
-                      - Unknown
-                      type: string
-                    type:
-                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
-                        --- Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important. The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)
-                      maxLength: 316
-                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
-                      type: string
-                  required:
-                  - lastTransitionTime
-                  - message
-                  - reason
-                  - status
-                  - type
-                  type: object
-                type: array
-              startTime:
-                description: StartTime identifies when the dr got started
-                format: date-time
-                type: string
-            type: object
-        type: object
-    served: true
-    storage: true
-    subresources:
-      status: {}
+    config-server: "true"
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -425,6 +114,7 @@ spec:
                 - message: dirs is immutable
                   rule: oldSelf.all(x, x in self)
               kind:
+                default: tag
                 description: Kind defines the that the BranchOrTag string is a repository
                   branch or a tag
                 enum:
@@ -496,7 +186,6 @@ spec:
                 - message: version is immutable
                   rule: self == oldSelf
             required:
-            - dirs
             - kind
             - provider
             - ref
@@ -615,12 +304,8 @@ spec:
               TargetConnectionProfile
             properties:
               connectRetry:
-                default: 0
-                description: A Duration represents the elapsed time between two instants
-                  as an int64 nanosecond count. The representation limits the largest
-                  representable duration to approximately 290 years.
-                format: int64
-                type: integer
+                default: 10s
+                type: string
                 x-kubernetes-validations:
                 - message: connectRetry is immutable
                   rule: self == oldSelf
@@ -690,12 +375,8 @@ spec:
                 - message: skipVerify is immutable
                   rule: self == oldSelf
               timeout:
-                default: 10
-                description: A Duration represents the elapsed time between two instants
-                  as an int64 nanosecond count. The representation limits the largest
-                  representable duration to approximately 290 years.
-                format: int64
-                type: integer
+                default: 10s
+                type: string
                 x-kubernetes-validations:
                 - message: timeout is immutable
                   rule: self == oldSelf
@@ -984,9 +665,8 @@ spec:
                       - config
                       type: string
                     interval:
-                      default: 0
-                      format: int64
-                      type: integer
+                      default: 60s
+                      type: string
                     mode:
                       enum:
                       - unknown
@@ -1040,7 +720,359 @@ spec:
         type: object
     served: true
     storage: true
-
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.12.1
+  name: discoveryrules.inv.sdcio.dev
+spec:
+  group: inv.sdcio.dev
+  names:
+    categories:
+    - sdc
+    - inv
+    kind: DiscoveryRule
+    listKind: DiscoveryRuleList
+    plural: discoveryrules
+    singular: discoveryrule
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: DiscoveryRule is the Schema for the DiscoveryRule API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: DiscoveryRuleSpec defines the desired state of DiscoveryRule
+            properties:
+              addresses:
+                description: IP Prefixes for which this discovery rule applies
+                items:
+                  properties:
+                    address:
+                      description: Address (specified as IP or DNS name) of the target/target(s)
+                      type: string
+                    hostName:
+                      description: HostName of the ip prefix; used for /32 or /128
+                        addresses with discovery disabled
+                      type: string
+                  required:
+                  - address
+                  type: object
+                type: array
+              concurrentScans:
+                default: 10
+                description: number of concurrent IP scan
+                format: int64
+                type: integer
+              defaultSchema:
+                description: DefaultSchema define the default schema used to connect
+                  to a target Indicates that discovery is disable; cannot be used
+                  for prefix based discovery rules
+                properties:
+                  provider:
+                    description: Provider specifies the provider of the schema.
+                    type: string
+                  version:
+                    description: Version defines the version of the schema
+                    type: string
+                required:
+                - provider
+                - version
+                type: object
+              discoveryProfile:
+                description: DiscoveryProfile define the profiles the discovery controller
+                  uses to discover targets
+                properties:
+                  connectionProfiles:
+                    description: ConnectionProfiles define the list of profiles the
+                      discovery controller uses to discover the target. The order
+                      in which they are specified is the order in which discovery
+                      is executed.
+                    items:
+                      type: string
+                    type: array
+                  credentials:
+                    description: Credentials defines the name of the secret that holds
+                      the credentials to connect to the target
+                    type: string
+                  tlsSecret:
+                    description: TLSSecret defines the name of the TLS secret to connect
+                      to the target if mtls is used
+                    type: string
+                required:
+                - connectionProfiles
+                - credentials
+                type: object
+              period:
+                default: 1m
+                description: Period defines the wait period between discovery rule
+                  runs
+                type: string
+              podSelector:
+                description: PodSelector defines the pod selector for which this discovery
+                  rule applies
+                properties:
+                  matchExpressions:
+                    description: matchExpressions is a list of label selector requirements.
+                      The requirements are ANDed.
+                    items:
+                      description: A label selector requirement is a selector that
+                        contains values, a key, and an operator that relates the key
+                        and values.
+                      properties:
+                        key:
+                          description: key is the label key that the selector applies
+                            to.
+                          type: string
+                        operator:
+                          description: operator represents a key's relationship to
+                            a set of values. Valid operators are In, NotIn, Exists
+                            and DoesNotExist.
+                          type: string
+                        values:
+                          description: values is an array of string values. If the
+                            operator is In or NotIn, the values array must be non-empty.
+                            If the operator is Exists or DoesNotExist, the values
+                            array must be empty. This array is replaced during a strategic
+                            merge patch.
+                          items:
+                            type: string
+                          type: array
+                      required:
+                      - key
+                      - operator
+                      type: object
+                    type: array
+                  matchLabels:
+                    additionalProperties:
+                      type: string
+                    description: matchLabels is a map of {key,value} pairs. A single
+                      {key,value} in the matchLabels map is equivalent to an element
+                      of matchExpressions, whose key field is "key", the operator
+                      is "In", and the values array contains only "value". The requirements
+                      are ANDed.
+                    type: object
+                type: object
+                x-kubernetes-map-type: atomic
+              prefixes:
+                description: IP Prefixes for which this discovery rule applies
+                items:
+                  properties:
+                    excludes:
+                      description: IP Prefixes to be excluded
+                      items:
+                        type: string
+                      type: array
+                    prefix:
+                      description: Prefix of the target/target(s)
+                      type: string
+                  required:
+                  - prefix
+                  type: object
+                type: array
+              serviceSelector:
+                description: ServiceSelector defines the service selector for which
+                  this discovery rule applies
+                properties:
+                  matchExpressions:
+                    description: matchExpressions is a list of label selector requirements.
+                      The requirements are ANDed.
+                    items:
+                      description: A label selector requirement is a selector that
+                        contains values, a key, and an operator that relates the key
+                        and values.
+                      properties:
+                        key:
+                          description: key is the label key that the selector applies
+                            to.
+                          type: string
+                        operator:
+                          description: operator represents a key's relationship to
+                            a set of values. Valid operators are In, NotIn, Exists
+                            and DoesNotExist.
+                          type: string
+                        values:
+                          description: values is an array of string values. If the
+                            operator is In or NotIn, the values array must be non-empty.
+                            If the operator is Exists or DoesNotExist, the values
+                            array must be empty. This array is replaced during a strategic
+                            merge patch.
+                          items:
+                            type: string
+                          type: array
+                      required:
+                      - key
+                      - operator
+                      type: object
+                    type: array
+                  matchLabels:
+                    additionalProperties:
+                      type: string
+                    description: matchLabels is a map of {key,value} pairs. A single
+                      {key,value} in the matchLabels map is equivalent to an element
+                      of matchExpressions, whose key field is "key", the operator
+                      is "In", and the values array contains only "value". The requirements
+                      are ANDed.
+                    type: object
+                type: object
+                x-kubernetes-map-type: atomic
+              targetConnectionProfiles:
+                description: TargetConnectionProfiles define the profile the discovery
+                  controller uses to create targets once discovered
+                items:
+                  properties:
+                    connectionProfile:
+                      description: ConnectionProfile define the profile used to connect
+                        to the target once discovered
+                      type: string
+                    credentials:
+                      description: Credentials defines the name of the secret that
+                        holds the credentials to connect to the target
+                      type: string
+                    syncProfile:
+                      description: SyncProfile define the profile used to sync to
+                        the target config once discovered
+                      type: string
+                    tlsSecret:
+                      description: TLSSecret defines the name of the TLS secret to
+                        connect to the target if mtls is used
+                      type: string
+                  required:
+                  - connectionProfile
+                  - credentials
+                  type: object
+                type: array
+              targetTemplate:
+                description: TargetTemplate defines the template the discovery controller
+                  uses to create the targets as a result of the discovery
+                properties:
+                  annotations:
+                    additionalProperties:
+                      type: string
+                    description: Annotations is a key value map to be copied to the
+                      target CR.
+                    type: object
+                  labels:
+                    additionalProperties:
+                      type: string
+                    description: Labels is a key value map to be copied to the target
+                      CR.
+                    type: object
+                  nameTemplate:
+                    description: target name template
+                    type: string
+                    x-kubernetes-validations:
+                    - message: nameTemplate is immutable
+                      rule: self == oldSelf
+                type: object
+            required:
+            - period
+            - targetConnectionProfiles
+            type: object
+          status:
+            description: DiscoveryRuleStatus defines the observed state of DiscoveryRule
+            properties:
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      description: lastTransitionTime is the last time the condition
+                        transitioned from one status to another. This should be when
+                        the underlying condition changed.  If that is not known, then
+                        using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: message is a human readable message indicating
+                        details about the transition. This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: observedGeneration represents the .metadata.generation
+                        that the condition was set based upon. For instance, if .metadata.generation
+                        is currently 12, but the .status.conditions[x].observedGeneration
+                        is 9, the condition is out of date with respect to the current
+                        state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: reason contains a programmatic identifier indicating
+                        the reason for the condition's last transition. Producers
+                        of specific condition types may define expected values and
+                        meanings for this field, and whether the values are considered
+                        a guaranteed API. The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                        --- Many .condition.type values are consistent across resources
+                        like Available, but because arbitrary conditions can be useful
+                        (see .node.status.conditions), the ability to deconflict is
+                        important. The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              startTime:
+                description: StartTime identifies when the dr got started
+                format: date-time
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/tls
+metadata:
+  name: config-server
+  namespace: network-system
+  labels:
+    config-server: "true"
+data:
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURZekNDQWt1Z0F3SUJBZ0lJSC9mSFZHenZ3cnN3RFFZSktvWklodmNOQVFFTEJRQXdaVEVMTUFrR0ExVUUKQmhNQ2RXNHhDekFKQmdOVkJBZ01Bbk4wTVFvd0NBWURWUVFIREFGc01Rb3dDQVlEVlFRS0RBRnZNUXN3Q1FZRApWUVFMREFKdmRURWtNQ0lHQTFVRUF3d2JZbUZ6YVdNdFkyVnlkR2xtYVdOaGRHVXRZWFYwYUc5eWFYUjVNQjRYCkRUSXlNRE16TVRBNU1UYzFNMW9YRFRNeU1ETXlPREE1TVRjMU5Gb3dIREVhTUJnR0ExVUVBeE1SWW1GemFXTXUKWkdWbVlYVnNkQzV6ZG1Nd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUUN0TUt0eApjc3Rjdk8rdDVMazZRQkRBZ3g1akZCL2F1dStVb3BDR2Z6VitaRW5obldpaC8xMVZ2ek44cjhmdGZuUkZGTVZ6CmJqYlVhSXNDOFc1eGJDNXNpc2VrdnVBWDlpanUzMlFybEU0RTR1UzNYREdVZkhGSFhMcWxBRU9RclUvRzQ0RGgKa0I3ajJOcDRzbk9IckF0aDA3TStvbXBmVklhSTlkQmdYY3hsUE5QRkNNamlOb1VweVM4eXNha3RQRXFjZTBpawpmNDBYVERmN1YwekFFelI0QkE4Yzh0b05UMVNnSXFIV0xueERKcnZRempDaTVFN2NMNkpmTmhlZDQ5MUVNWlEwCmVnbkV5bXd6d1Jya3BYTkZ4RHJzSXpOZmhHelB6RGJLdmFIUHh5NUwvM3h3clZ3VHllbklaOVExK0tjemtCSksKRXZIaVVKL1BML0VYZkloakFnTUJBQUdqWURCZU1BNEdBMVVkRHdFQi93UUVBd0lGb0RBZEJnTlZIU1VFRmpBVQpCZ2dyQmdFRkJRY0RBUVlJS3dZQkJRVUhBd0l3TFFZRFZSMFJCQ1l3SklJSmJHOWpZV3hvYjNOMGdoRmlZWE5wCll5NWtaV1poZFd4MExuTjJZNGNFZndBQUFUQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFEa1hsbGZMTlpzWDEKYmp1b0h4RXVUWitaODlMWUxPUDBMM0dHMFgwdVdkZzJFcXY1bmZNRHVRVmJIRmt5dVo3ZDlDY01QYk12MTdDWgoxZGwwQk1GQTJkTkJzK3V1UXFIUFh3RkI4SFdPSDhBc1pMMnYvbG91T3g2dU1QQk9uWUhuQ3pFY21FQXZoR2dLCkpXMDNkd2QwNlJPeUdLT29qSklFTlRnd0xnQ1dZSytPWmIzQklyMUJqS012Q2dHN3pJVDFUUVNna3hGN1NGNzUKYk5BaEdOa0NWMGVrSnNXQWk1UGhzVS9IdWthdGVHUGNMS3hia0RGdHpSV2tRNmdKUXhkZmVuOVBKTjVJVCt4RQpFci8wYUkrOFM5Y1FPUnk0VTNDSFRodmlnOGFyZ3FucmFWMU92OXZNTWxzZ3pnYXc3SjdaeGtkWWwrSkMyWUcvCjJrUThVd1IzQnc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+  tls.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb3dJQkFBS0NBUUVBclRDcmNYTExYTHp2cmVTNU9rQVF3SU1lWXhRZjJycnZsS0tRaG44MWZtUko0WjFvCm9mOWRWYjh6ZksvSDdYNTBSUlRGYzI0MjFHaUxBdkZ1Y1d3dWJJckhwTDdnRi9Zbzd0OWtLNVJPQk9Ma3Qxd3gKbEh4eFIxeTZwUUJEa0sxUHh1T0E0WkFlNDlqYWVMSnpoNndMWWRPelBxSnFYMVNHaVBYUVlGM01aVHpUeFFqSQo0amFGS2Nrdk1yR3BMVHhLbkh0SXBIK05GMHczKzFkTXdCTTBlQVFQSFBMYURVOVVvQ0toMWk1OFF5YTcwTTR3Cm91Uk8zQytpWHpZWG5lUGRSREdVTkhvSnhNcHNNOEVhNUtWelJjUTY3Q016WDRSc3o4dzJ5cjJoejhjdVMvOTgKY0sxY0U4bnB5R2ZVTmZpbk01QVNTaEx4NGxDZnp5L3hGM3lJWXdJREFRQUJBb0lCQUJWWU16ajNLZU1URWdMLwpkbWljYnJRYk5NcUhOMm5Rc2loQ1pNZCt0QXdRdGg1Tk5SRUtGT20xZDlYOUlBbkFGUHBTbGdjazVUTUdjMk40CmQrRVlzUndGZXBkdVF0WVJLM2hOSmQ1TkY5UjRWakhXOWZGVDZPNGZtbzB0WENaZmhiNkFXV2p6Unl0VGxaRmMKaE9xS3BKaDQ2OVZqVlBMTXl3dmtKN3RJdENFaHl4b0t0VVhwcm45SXBLNnNUa051OTFmMVA4czJNbDd1RlVqYwpJdGhMb3JnMEYyU3RaeEJmVDJGaFRYaFZxRlRJS1pmazFGbnRpbUwyWlQrRXZzQlpnZHYwa2Z1Q2hFdE5jRW1PCnRZc2dKT3ExTWF5M2d0dlk3VDB6WkRtTTIrOVpKQ0JLcm8yV2IxdGw0RHNnaWNkR0I2SlhnTi81aklSMTNmbDUKMTRJd1hza0NnWUVBemtQb1MrTko0QkJkR3RYem5tZWVhRFFQVVU0dkF1R3YyU2VtajR3RG1KRXB6aDdoMWlQZAprVWxmYjcxZ1VMbmk0SDVkVFlyVFpwOElUaXZvM3A1bUNrV3lFV09wMmx4VUZoM3JnVWN6NWt0RUhkejl1bjNoCnFYNVJpTWlkM0Y3dWRIODdqYTdJVi9mUEFGSnlremQrWHNaZGFuT0tPK1UvV0t2ek0rSFEzUThDZ1lFQTF2TWoKdml3dnFxM0FBa0VpN2RlOUxLUE1uS1N5VE9BdHQzS2dqV1RLNU5aQUdqeWpoSGxEbjRCempSS25DWk8xY0lJZwo0Wnl1VzQrUlB5aGQreEFubzVoMVh0Ny9LYzNFaW1ucjBLU0ZmRWVza2NORFIyVHNTdCtjYTl6aFFPTFJ0TWRCCnE5OWZDeFprK1pmcEhpSzJCK0pHVExNdVJRY0tDYU43RldKTkIyMENnWUJhc2k5bGx3WjMySm9uMzZYa3BDbGEKSm5JSnpUZ01xMUlZU1VBSzVJVDhRL0ErNndOZ2xwcXBkTHJiTmtrd2xkdjEzSHFJU3gvVGd1QXpCMG01QWF0YQpudlRDZ3JGQUM5TUplcFNBWHQrcVJyUW44WEU3M0hncWdCbTM3SWJGVEpUTGN0cXIzUXZJNm5VQjdqN2xEc1NwClJjM3pyZVE5bS9yenNZQVo4eFJVN3dLQmdRQ0JYTjg4Q3JlOVRzaHFFdTJFbXZ4ZEswOXZUcWVJSUxzaTFyZk4Kb01XREozWjQwOW5OVm5YZVBwNU1YdGRzcWhyZVZWS1l0WVV4MFp1bW1STEdrSmhxbXN5NGhoaW0vaEcxQTc1SwpXVm1FekZZTmU2aTRCUU00cEk4dFUwZTFsMHlDTWhGUjhTTHdOMUFaN3RUN3NBUkJobXFzcW9IRVJWSkRMc0phCndraDltUUtCZ0NYR2xoZzY4aVMzMldmSWVtYUFRMTJpNFRUUk1FNWppTFl0ZlkyREJTMDBWV3NxY0l1OEFUWm0KVHVoZHBRVG9mKzE3LzFyU0cyYnFaWFA2L0h3ak14OTVIdWlXbjVKSjA3RTduOUVCUDlkQTY0K0lHdWlvd0h5RAo2a3g3VVhuTUtTYXdiV2JxZ1JGZTFOZEdLbkh0ZE5GOGxndEdjdytxUTk3YkIreXFreXMxCi0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg==
 ---
 apiVersion: apiregistration.k8s.io/v1
 kind: APIService
@@ -1052,7 +1084,7 @@ spec:
   groupPriorityMinimum: 1000
   versionPriority: 15
   service:
-    name: capis
+    name: config-server
     namespace: network-system
     port: 6443
   version: v1alpha1
@@ -1068,7 +1100,7 @@ roleRef:
   name: system:auth-delegator
 subjects:
 - kind: ServiceAccount
-  name: config-apiserver
+  name: config-server
   namespace: network-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -1082,26 +1114,26 @@ roleRef:
   name: extension-apiserver-authentication-reader
 subjects:
 - kind: ServiceAccount
-  name: config-apiserver
+  name: config-server
   namespace: network-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: config-apiserver-clusterrolebinding
+  name: config-server-clusterrolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: config-apiserver-clusterrole
+  name: config-server-clusterrole
 subjects:
 - kind: ServiceAccount
-  name: config-apiserver
+  name: config-server
   namespace: network-system
 ---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: config-apiserver-clusterrole
+  name: config-server-clusterrole
 rules:
 - apiGroups: [""]
   resources: ["namespaces", "secrets"]
@@ -1131,14 +1163,14 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: config-apiserver-clusterrolebinding
+  name: config-server-clusterrolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: config-apiserver-clusterrole
+  name: config-server-clusterrole
 subjects:
 - kind: ServiceAccount
-  name: config-apiserver
+  name: config-server
   namespace: network-system
 ---
 kind: Role
@@ -1221,30 +1253,54 @@ data:
     prometheus:
       address: ":56090"
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-config-store
+  namespace: network-system
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-schema-store
+  namespace: network-system
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: config-apiserver
+  name: config-server
   namespace: network-system
   labels:
-    config-apiserver: "true"
+    config-server: "true"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      config-apiserver: "true"
+      config-server: "true"
   template:
     metadata:
       labels:
-        config-apiserver: "true"
+        config-server: "true"
     spec:
-      serviceAccountName: config-apiserver
+      serviceAccountName: config-server
       containers:
-      - name: capis
-        image: ndd.artifactory-espoo2.int.net.nokia.com/yndd/config-server:v0.0.1
+      - name: config-server
+        image: europe-docker.pkg.dev/srlinux/eu.gcr.io/config-server:v0.0.4
         imagePullPolicy: Always
         command:
-        - /app/capis
+        - /app/config-server
         args:
         - "--tls-cert-file=/apiserver.local.config/certificates/tls.crt"
         - "--tls-private-key-file=/apiserver.local.config/certificates/tls.key"
@@ -1288,7 +1344,7 @@ spec:
         - name: schema-store
           mountPath: /schemas
       - name: data-server
-        image: ndd.artifactory-espoo2.int.net.nokia.com/yndd/data-server:v0.0.22
+        image: ndd.artifactory-espoo2.int.net.nokia.com/yndd/data-server:v0.0.24
         imagePullPolicy: Always
         command:
         - /app/data-server
@@ -1307,7 +1363,7 @@ spec:
           name: dataserver
       - name: apiserver-certs
         secret:
-          secretName: capis
+          secretName: config-server
       - name: cache
         emptyDir:
           sizeLimit: 10Gi
@@ -1317,30 +1373,6 @@ spec:
       - name: schema-store
         persistentVolumeClaim:
           claimName: pvc-schema-store
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-config-store
-  namespace: network-system
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-schema-store
-  namespace: network-system
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
 EOF
 ```
 
