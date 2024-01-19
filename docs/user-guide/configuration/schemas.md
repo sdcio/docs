@@ -1,6 +1,4 @@
-# SDC Schema loading guide
-
-## Introduction to SDC Schema Loading
+# Schema
 
 The initial step in integrating a device with SDC involves importing the device's schema.
 SDC is equipped to handle YANG schemas, provided all necessary model files and their respective dependencies are available in a git repository.
