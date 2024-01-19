@@ -40,7 +40,7 @@ spec:
     protocol: netconf
     paths:
     - /
-    interval: 3600
+    interval: 10s
 ```
 
 ### gNMI Sync strategy
