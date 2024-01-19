@@ -24,7 +24,9 @@ nav:
         - Service Selector (future): user-guide/configuration/discovery/service.md
         - POD Selector (future): user-guide/configuration/discovery/pod.md
       - Target: user-guide/configuration/target/target.md
-      - Configuration Intent: user-guide/configuration/intent/intent.md
+      - Configuration:
+        - Config: user-guide/configuration/config/config.md
+        - ConfigSet: user-guide/configuration/config/configset.md
   - System architecture:
       - Design: system-architecture/architecture.md
       - Components:

@@ -168,5 +168,4 @@ spec:
     includes:
     - ietf
     - nokia-sros-yang-extensions.yang
-    excludes: []
 ```

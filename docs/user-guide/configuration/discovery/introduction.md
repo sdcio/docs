@@ -7,7 +7,18 @@ A central aspect of this discovery process is the `DiscoveryRule` CustomResource
 
 ## Overview of Discovery Methods in SDC
 
-TBD
+SDC offer 4 kinds of discovery:
+
+- IP Prefix Based Discovery: Ideal for handling IP ranges and scenarios where the specific target IP address is unknown. This method allows `sdc` to intelligently explore and identify devices within specified IP prefixes.
+- IP Address Based Discovery: Perfect for situations where the exact IP address of the target device is known. `sdc` enables precise discovery based on provided IP addresses, ensuring accuracy in device identification.
+- POD Based Discovery (Future): In upcoming releases, `sdc` will introduce the ability to discover devices based on the address of Kubernetes Pods. This advancement aligns with modern containerized environments, providing enhanced visibility into your network infrastructure.
+- SVC Based Discovery (Future): Future updates will empower `sdc` to discover devices by utilizing the address of Kubernetes Services. This approach ensures comprehensive network mapping within dynamic Kubernetes services.
+
+Discovery Configuration Options:
+
+In addition to the diverse discovery methods, `sdc` offers the flexibility to enable or disable discovery based on your specific requirements. However, it's important to note that for IP Prefix Based Discovery, disabling discovery is not supported, as this method is designed to continuously scan and adapt to changing IP ranges.
+
+Disabling discovery is enabled by supplying a `defaultSchema` in the CR definition
 
 ## The DiscoveryRule CustomResource
 
@@ -34,7 +45,29 @@ For every device discovered, DiscoveryRule creates a `Target` CustomResource. Th
 Example of a `DiscoveryRule`
 
 ```yaml
-# TBD
+apiVersion: inv.sdcio.dev/v1alpha1
+kind: DiscoveryRule
+metadata:
+  name: dr-static
+  namespace: default
+spec:
+  period: 1m
+  concurrentScans: 2
+  defaultSchema:
+    provider: srl.nokia.sdcio.dev  
+    version: 23.10.1
+  addresses:
+  - address: 172.18.0.4
+    hostName: dev1
+  - address: 172.18.0.3
+    hostName: dev2
+  targetConnectionProfiles:
+  - credentials: srl.nokia.sdcio.dev 
+    connectionProfile: gnmi-skipverify
+    syncProfile: gnmi-onchange
+  targetTemplate:
+    labels:
+      sdcio.dev/region: us-east
 ```
 
 This documentation page highlights the versatility and sophistication of SDC's device discovery capabilities. By leveraging DiscoveryRule, users can efficiently integrate a wide range of devices into their network management workflows, paving the way for a more automated and streamlined network configuration process.
