@@ -169,3 +169,107 @@ spec:
     - ietf
     - nokia-sros-yang-extensions.yang
 ```
+
+### Juniper MX 23.2R1
+
+```yaml
+apiVersion: inv.sdcio.dev/v1alpha1
+kind: Schema
+metadata:
+  name: mx.juniper.23.2r1
+  namespace: default
+spec:
+  repoURL: https://github.com/Juniper/yang
+  provider: mx.juniper.sdcio.dev
+  version: 23.2R1
+  kind: branch
+  ref: master
+  dirs:
+  - src: 23.2/23.2R1/junos/conf
+    dst: junos
+  - src: 23.2/23.2R1/common
+    dst: common
+  schema:
+    models:
+    - junos
+    includes:
+    - common
+```
+
+### Juniper QFX 23.2R1
+
+```yaml
+apiVersion: inv.sdcio.dev/v1alpha1
+kind: Schema
+metadata:
+  name: qfx.juniper.23.2r1
+  namespace: default
+spec:
+  repoURL: https://github.com/Juniper/yang
+  provider: qfx.juniper.sdcio.dev
+  version: 23.2R1
+  kind: branch
+  ref: master
+  dirs:
+  - src: 23.2/23.2R1/junos-qfx/conf
+    dst: junos
+  - src: 23.2/23.2R1/common
+    dst: common
+  schema:
+    models:
+    - junos
+    includes:
+    - common
+```
+
+### Juniper EX 23.2R1
+
+```yaml
+apiVersion: inv.sdcio.dev/v1alpha1
+kind: Schema
+metadata:
+  name: ex.juniper.23.2r1
+  namespace: default
+spec:
+  repoURL: https://github.com/Juniper/yang
+  provider: ex.juniper.sdcio.dev
+  version: 23.2R1
+  kind: branch
+  ref: master
+  dirs:
+  - src: 23.2/23.2R1/junos-ex/conf
+    dst: junos
+  - src: 23.2/23.2R1/common
+    dst: common
+  schema:
+    models:
+    - junos
+    includes:
+    - common
+```
+
+### Juniper NFX 23.2R1
+
+```yaml
+apiVersion: inv.sdcio.dev/v1alpha1
+kind: Schema
+metadata:
+  name: nfx.juniper.23.2r1
+  namespace: default
+spec:
+  repoURL: https://github.com/Juniper/yang
+  provider: nfx.juniper.sdcio.dev
+  version: 23.2R1
+  kind: branch
+  ref: master
+  dirs:
+  - src: 23.2/23.2R1/junos-nfx/conf
+    dst: junos
+  - src: 23.2/23.2R1/common
+    dst: common
+  schema:
+    models:
+    - junos
+    includes:
+    - common
+```
