@@ -175,17 +175,17 @@ spec:
   period: 1m
   concurrentScans: 2
   defaultSchema:
-    provider: srl.nokia.sdcio.dev  
+    provider: sros.nokia.sdcio.dev  
     version: 23.10.1
   addresses:
-  - address: 172.20.20.3
+  - address: 172.20.20.11
     hostName: dev1
-  - address: 172.20.20.2
+  - address: 172.20.20.12
     hostName: dev2
   targetConnectionProfiles:
-  - credentials: srl.nokia.sdcio.dev 
-    connectionProfile: gnmi-skipverify
-    syncProfile: gnmi-onchange
+  - credentials: sros.nokia.sdcio.dev
+    connectionProfile: netconf
+    syncProfile: netconf-getconfig
   targetTemplate:
     labels:
       sdcio.dev/region: us-east
