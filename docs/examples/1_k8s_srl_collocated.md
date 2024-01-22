@@ -169,22 +169,23 @@ metadata:
   name: dr-static
   namespace: default
 spec:
-  kind: ip
   period: 1m
   concurrentScans: 2
-  prefixes:
-  - prefix: 172.20.20.3
+  defaultSchema:
+    provider: srl.nokia.sdcio.dev  
+    version: 23.10.1
+  addresses:
+  - address: 172.20.20.3
     hostName: dev1
-  - prefix: 172.20.20.2
+  - address: 172.20.20.2
     hostName: dev2
-  discover: false
   targetConnectionProfiles:
   - credentials: srl.nokia.sdcio.dev 
     connectionProfile: gnmi-skipverify
     syncProfile: gnmi-onchange
-    defaultSchema:
-      provider: srl.nokia.sdcio.dev  
-      version: 23.10.1
+  targetTemplate:
+    labels:
+      sdcio.dev/region: us-east
 EOF
 ```
 
