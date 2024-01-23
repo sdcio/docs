@@ -73,7 +73,6 @@ spec:
     includes:
     - ietf
     - nokia-sros-yang-extensions.yang
-    excludes: []
 EOF
 ```
 
@@ -173,22 +172,23 @@ metadata:
   name: dr-static
   namespace: default
 spec:
-  kind: ip
   period: 1m
   concurrentScans: 2
-  prefixes:
-  - prefix: 172.20.20.11
+  defaultSchema:
+    provider: sros.nokia.sdcio.dev  
+    version: 23.10.1
+  addresses:
+  - address: 172.20.20.11
     hostName: dev1
-  - prefix: 172.20.20.12
+  - address: 172.20.20.12
     hostName: dev2
-  discover: false
   targetConnectionProfiles:
-  - credentials: sros.nokia.sdcio.dev 
+  - credentials: sros.nokia.sdcio.dev
     connectionProfile: netconf
     syncProfile: netconf-getconfig
-    defaultSchema:
-      provider: sros.nokia.sdcio.dev 
-      version: 23.10.1
+  targetTemplate:
+    labels:
+      sdcio.dev/region: us-east
 EOF
 ```
 
