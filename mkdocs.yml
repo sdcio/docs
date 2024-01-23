@@ -13,7 +13,7 @@ nav:
   - User guide:
     - Introduction: user-guide/introduction.md
     - Configuration:
-      - Defining and loading Schemas: user-guide/configuration/schemas.md
+      - Schema: user-guide/configuration/schemas.md
       - Target Profiles:
         - Connection Profile: user-guide/configuration/target-profiles/connection-profile.md
         - Sync Profile: user-guide/configuration/target-profiles/sync-profile.md
