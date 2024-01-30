@@ -16,4 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: pip3 install -r artifacts_collector/requirements.txt
+      - shell: bash
+        env:
+          IPTECHARCH_GITHUB_PAT: ${{ secrets.IPTECHARCH_GITHUB_PAT }}
+        run: |
+          python3 artifacts_collector/main.py
       - run: docker run -v $(pwd):/docs --entrypoint ash squidfunk/mkdocs-material:${MKDOCS_MATERIAL_VER} -c 'git config --global --add safe.directory /docs; mkdocs gh-deploy --force --strict'
