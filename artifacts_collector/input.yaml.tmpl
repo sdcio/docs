@@ -1,0 +1,12 @@
+{% set github_org = "iptecharch" -%}
+{% set github_org_url = "https://raw.githubusercontent.com/" + github_org -%}
+
+{% set data_server_raw_base_url = github_org_url + "/data-server/" + data_server_version -%}
+{% set config_server_raw_base_url = github_org_url + "/config-server/" + config_server_version -%}
+
+
+urls:
+  - url: {{ config_server_raw_base_url }}/artifacts/out/artifacts.yaml
+    file: artifacts.yaml
+  - url: https://raw.githubusercontent.com/iptecharch/config-server/main/artifacts/out/artifacts.yaml
+    file: af.yaml
