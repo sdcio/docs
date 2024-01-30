@@ -13,10 +13,10 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 artefact_folder = os.path.join(script_dir,"..","artifacts")
 
 def parse():
-    environment = Environment(loader=FileSystemLoader("./"))
-    template = environment.get_template("input.yaml.tmpl")
+    environment = Environment(loader=FileSystemLoader(script_dir))
+    template = environment.get_template(os.path.join("input.yaml.tmpl"))
 
-    with open('versions.yaml', 'r') as file:
+    with open(os.path.join(script_dir,'versions.yaml'), 'r') as file:
         data = yaml.safe_load(file)
 
     content = template.render(data)
