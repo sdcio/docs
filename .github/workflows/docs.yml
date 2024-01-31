@@ -22,7 +22,7 @@ jobs:
           repository: 'iptecharch/config-server'
           ref: '${CONFIG_SERVER_VERSION}'
           path: 'config-server-repo'
-          token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
+          token: ${{ secrets.IPTECHARCH_GITHUB_PAT }} # `GH_PAT` is a secret that contains your PAT
       - shell: bash
         run: |
           cd config-server-repo
