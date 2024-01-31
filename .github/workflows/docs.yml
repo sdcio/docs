@@ -9,6 +9,7 @@ on:
 
 env:
   MKDOCS_MATERIAL_VER: 9.1.4
+  CONFIG_SERVER_VERSION: v0.0.4
 
 jobs:
   publish:
@@ -16,10 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pip3 install -r artifacts_collector/requirements.txt
+      - uses: actions/checkout@v4
+        with:
+          repository: 'iptecharch/config-server'
+          ref: '${CONFIG_SERVER_VERSION}'
+          path: 'config-server-repo'
       - shell: bash
-        env:
-          IPTECHARCH_GITHUB_PAT: ${{ secrets.IPTECHARCH_GITHUB_PAT }}
         run: |
-          python3 artifacts_collector/main.py
+          cd config-server-repo
+          make manifests
       - run: docker run -v $(pwd):/docs --entrypoint ash squidfunk/mkdocs-material:${MKDOCS_MATERIAL_VER} -c 'git config --global --add safe.directory /docs; mkdocs gh-deploy --force --strict'
