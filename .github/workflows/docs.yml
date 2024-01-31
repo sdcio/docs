@@ -11,6 +11,7 @@ env:
   GOVER: 1.21.4
   MKDOCS_MATERIAL_VER: 9.1.4
   CONFIG_SERVER_VERSION: v0.0.4
+  DATA_SERVER_VERSION: v0.0.27
 
 jobs:
   publish:
@@ -30,5 +31,14 @@ jobs:
       - shell: bash
         run: |
           cd config-server-repo
+          cat << EOF > artifacts/in/configmap-input-vars.yaml
+          apiVersion: v1
+          kind: ConfigMap
+          metadata:
+            name: context
+          data: 
+            configServerImage: ghcr.io/sdcio/config-server:${{ secrets.CONFIG_SERVER_VERSION }}
+            dataServerImage: ghcr.io/sdcio/data-server:${{ secrets.DATA_SERVER_VERSION }}
+          EOF
           make artifacts
       - run: docker run -v $(pwd):/docs --entrypoint ash squidfunk/mkdocs-material:${MKDOCS_MATERIAL_VER} -c 'git config --global --add safe.directory /docs; mkdocs gh-deploy --force --strict'
