@@ -30,5 +30,5 @@ jobs:
       - shell: bash
         run: |
           cd config-server-repo
-          make manifests
+          make artifacts
       - run: docker run -v $(pwd):/docs --entrypoint ash squidfunk/mkdocs-material:${MKDOCS_MATERIAL_VER} -c 'git config --global --add safe.directory /docs; mkdocs gh-deploy --force --strict'
