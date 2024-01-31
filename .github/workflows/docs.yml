@@ -41,5 +41,7 @@ jobs:
             configServerImage: ghcr.io/sdcio/config-server:${{ secrets.CONFIG_SERVER_VERSION }}
             dataServerImage: ghcr.io/sdcio/data-server:${{ secrets.DATA_SERVER_VERSION }}
           EOF
+          cat artifacts/in/configmap-input-vars.yaml
+
           make artifacts
       - run: docker run -v $(pwd):/docs --entrypoint ash squidfunk/mkdocs-material:${MKDOCS_MATERIAL_VER} -c 'git config --global --add safe.directory /docs; mkdocs gh-deploy --force --strict'
