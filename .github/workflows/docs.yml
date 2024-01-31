@@ -38,8 +38,8 @@ jobs:
           metadata:
             name: context
           data: 
-            configServerImage: ghcr.io/sdcio/config-server:${{ secrets.CONFIG_SERVER_VERSION }}
-            dataServerImage: ghcr.io/sdcio/data-server:${{ secrets.DATA_SERVER_VERSION }}
+            configServerImage: ghcr.io/sdcio/config-server:${{ env.CONFIG_SERVER_VERSION }}
+            dataServerImage: ghcr.io/sdcio/data-server:${{ env.DATA_SERVER_VERSION }}
           EOF
           cat artifacts/in/configmap-input-vars.yaml
 
