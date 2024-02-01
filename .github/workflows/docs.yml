@@ -16,9 +16,6 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
-      - shell: bash
-        run: |
-          cat versions.env >> $GITHUB_ENV
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
         with:
@@ -30,6 +27,9 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ env.GOVER }}
+      - shell: bash
+        run: |
+          cat versions.env >> $GITHUB_ENV
       - shell: bash
         run: |
           cat configmap-input-vars.yaml.tmpl | envsubst > config-server-repo/artifacts/in/configmap-input-vars.yaml
