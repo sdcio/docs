@@ -16,6 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - shell: bash
+        run: |
+          cat versions.env >> $GITHUB_ENV
       - uses: actions/checkout@v4
         with:
           repository: 'iptecharch/config-server'
