@@ -8,7 +8,6 @@ on:
       - "v*"
 
 env:
-  GOVER: 1.21.4
   MKDOCS_MATERIAL_VER: 9.1.4
 
 jobs:
