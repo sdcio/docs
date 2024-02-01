@@ -10,14 +10,15 @@ on:
 env:
   GOVER: 1.21.4
   MKDOCS_MATERIAL_VER: 9.1.4
-  CONFIG_SERVER_VERSION: v0.0.4
-  DATA_SERVER_VERSION: v0.0.27
 
 jobs:
   publish:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
+      - shell: bash
+        run: |
+          cat versions.env >> $GITHUB_ENV
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
         with:
@@ -31,17 +32,10 @@ jobs:
           go-version: ${{ env.GOVER }}
       - shell: bash
         run: |
+          cat configmap-input-vars.yaml.tmpl | envsubst > config-server-repo/artifacts/in/configmap-input-vars.yaml
           cd config-server-repo
-          cat << EOF > artifacts/in/configmap-input-vars.yaml
-          apiVersion: v1
-          kind: ConfigMap
-          metadata:
-            name: context
-          data: 
-            configServerImage: ghcr.io/sdcio/config-server:${{ env.CONFIG_SERVER_VERSION }}
-            dataServerImage: ghcr.io/sdcio/data-server:${{ env.DATA_SERVER_VERSION }}
-          EOF
-          cat artifacts/in/configmap-input-vars.yaml
-
           make artifacts
       - run: docker run -v $(pwd):/docs --entrypoint ash squidfunk/mkdocs-material:${MKDOCS_MATERIAL_VER} -c 'git config --global --add safe.directory /docs; mkdocs gh-deploy --force --strict'
+
+
+      
