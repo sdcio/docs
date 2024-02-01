@@ -30,8 +30,6 @@ jobs:
       - shell: bash
         run: |
           cat versions.env >> $GITHUB_ENV
-      - shell: bash
-        run: |
           cat configmap-input-vars.yaml.tmpl | envsubst > config-server-repo/artifacts/in/configmap-input-vars.yaml
           cd config-server-repo
           make artifacts
