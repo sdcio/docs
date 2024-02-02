@@ -178,6 +178,7 @@ markdown_extensions:
       base_path:
         - config-server-repo/artifacts/out/
         - config-server-repo/example/
+        - artifacts-repo/
       url_download: true
   - pymdownx.superfences:
       custom_fences:

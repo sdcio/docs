@@ -65,3 +65,14 @@ spec:
   encoding: ASCII
   skipVerify: true
 ```
+
+
+
+TEST:
+CONN PROFILE FROM ARTIFACTS REPO
+
+```yaml
+--8<--
+inventory/profiles/target-conn-profile-gnmi.yaml
+--8<--
+```

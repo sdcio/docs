@@ -21,9 +21,16 @@ jobs:
           cat versions.env >> $GITHUB_ENV
       - uses: actions/checkout@v4
         with:
+          repository: 'iptecharch/artifacts'
+          # TODO: add the ref back again was just temp fix
+          # ref: '${{ env.ARTIFACTS_VERSION }}'
+          path: 'artifacts-repo'
+          token: ${{ secrets.IPTECHARCH_GITHUB_PAT }} # `GH_PAT` is a secret that contains your PAT
+      - uses: actions/checkout@v4
+        with:
           repository: 'iptecharch/config-server'
           # TODO: add the ref back again was just temp fix
-          # ref: '${{ env.CONFIG_SERVER_VERSION }}'
+          ref: '${{ env.CONFIG_SERVER_VERSION }}'
           path: 'config-server-repo'
           token: ${{ secrets.IPTECHARCH_GITHUB_PAT }} # `GH_PAT` is a secret that contains your PAT
       - uses: actions/setup-go@v5
