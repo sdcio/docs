@@ -25,6 +25,7 @@ For connections via NETCONF, the `protocol` needs to be set to `netconf`. Specif
 * `operationWithNS`: Activates proper namespacing for the `edit-config` RPC operation attribute in NETCONF.
 * `useOperationRemove`: If set to true, SDC utilizes the NETCONF operation `remove` rather than `delete`.
 * `preferredNetconfVersion`: Selects between NETCONF versions `1.0` or `1.1`.
+* `commitCandidate`: Selects the datastore on the target for applying the config to. Defaults to `candidate`, but can be set to `running` if the target does not support a `candidate` datastore.
 
 ```yaml
 apiVersion: inv.sdcio.dev/v1alpha1

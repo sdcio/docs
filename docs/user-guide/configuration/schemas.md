@@ -12,16 +12,38 @@ The Schema CustomResource is configured using three main parameter groups:
 
 ## Source of Schema: Repository Configuration
 
-To successfully retrieve the schema, it is essential for users to provide three key parameters: `repoURL`, `kind`, and `ref`.
+To successfully retrieve the schema, it is essential for users to provide four key parameters: `repoURL`, `kind`, `ref` and `credentials`.
 These parameters jointly establish the methodology for schema acquisition:
 
 * `repoURL`: This parameter is pivotal as it specifies the repository's URL where the schema is located.
 * `kind`: It determines the nature of the reference point within the repository, offering options between a "tag" or a "branch".
 * `ref`: This parameter is closely linked to kind and pinpoints the exact tag or branch name within the repository.
+* `credentials`: This parameter is point to a secret name in the same namespace as the `schema` CR. It is required if your repository requires authentication e.g. a private repo.
 
 Following the identification of schema directories and files for download, the `dirs` attribute plays a crucial role. It allows users to map each source directory to a corresponding local storage location. Essentially, dirs is an array comprising pairs of `src` (source directory) and `dst` (destination path). This setup facilitates the organization of downloaded schema files, ensuring they are stored in designated local directories for easy access and management.
 
 If the dirs attribute is not set, it defaults to `$pwd` for both `src` and `dst`.
+
+## Repository authentication
+
+If your schema repository requires authentication a secret of type `kubernetes.io/basic-auth` is referenced in the schema CR. An Example of such secret is provided below.
+
+!!!note "username/password"
+  Please fill out your own username and password/token
+
+!!!note "namespace"
+  The secret MUST use the same namespace as the schema CR that is referencing it.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: personal-access-token
+data:
+  password: <e.g. personal access token>
+  username: <your username>
+type: kubernetes.io/basic-auth
+```
 
 ## Schema Identification: Naming Conventions
 

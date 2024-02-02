@@ -9,8 +9,8 @@ metadata:
   name: dev1-interface-system0
   namespace: default
   labels:
-    targetName: dev1
-    targetNamespace: default
+    config.sdcio.dev/targetName: dev1
+    config.sdcio.dev/targetNamespace: default
 spec:
   priority: 10
   config:
