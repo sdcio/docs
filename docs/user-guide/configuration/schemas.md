@@ -40,8 +40,8 @@ kind: Secret
 metadata:
   name: personal-access-token
 data:
-  password: <e.g. personal access token>
-  username: <your username>
+  username: <base64-encoded-username>
+  password: <base64-encoded-password>
 type: kubernetes.io/basic-auth
 ```
 
