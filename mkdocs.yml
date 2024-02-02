@@ -176,9 +176,7 @@ markdown_extensions:
       check_paths: true
       #dedent_subsections: true
       base_path:
-        - config-server-repo/artifacts/out/
-        - config-server-repo/example/
-        - artifacts-repo/
+        - ./
       url_download: true
   - pymdownx.superfences:
       custom_fences:

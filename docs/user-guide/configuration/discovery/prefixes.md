@@ -6,6 +6,6 @@ Example of a `DiscoveryRule`
 
 ```yaml
 --8<--
-discovery-rule/discovery_prefix.yaml
+config-server-repo/example/discovery-rule/discovery_prefix.yaml
 --8<--
 ```

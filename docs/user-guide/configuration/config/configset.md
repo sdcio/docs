@@ -4,7 +4,7 @@ ConfigSets are partial or complete pieces of configuration that are intended to 
 ## Example
 ```yaml
 --8<--
-config/configset.yaml
+config-server-repo/example/config/configset.yaml
 --8<--
 ```
 

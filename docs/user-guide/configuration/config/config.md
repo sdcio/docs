@@ -4,7 +4,7 @@ Configs are partial or complete pieces of configuration that are intended to be 
 ## Example
 ```yaml
 --8<--
-config/config.yaml
+config-server-repo/example/config/config.yaml
 --8<--
 ```
 

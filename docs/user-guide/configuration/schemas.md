@@ -73,29 +73,9 @@ The YANG files will be retrieved from the github repo `https://github.com/nokia/
 The remote directory `srlinux-yang-models` at the roo level of the git repository will be mapped to `$pwd` (`dst: .`) in the local file system
 
 ```yaml
-apiVersion: inv.sdcio.dev/v1alpha1
-kind: Schema
-metadata:
-  name: srl.nokia.sdcio.dev-23.10.1
-  namespace: default
-spec:
-  repoURL: https://github.com/nokia/srlinux-yang-models
-  provider: srl.nokia.sdcio.dev
-  version: 23.10.1
-  kind: tag
-  ref: v23.10.1
-  dirs:
-  - src: srlinux-yang-models
-    dst: .
-  schema:
-    models:
-    - srl_nokia/models
-    includes:
-    - ietf
-    - openconfig/extensions
-    - openconfig/openconfig-extensions.yang
-    excludes:
-    - .*tools.*
+--8<--
+example/schemas/schema-nokia-srl-23.10.1.yaml
+--8<--
 ```
 
 To apply the CR, store the above content in a file (e.g: `srlinux_23.10.1_schema.yaml`) and run the command:
@@ -168,128 +148,39 @@ status:
 ### SROS 23.10.2
 
 ```yaml
-apiVersion: inv.sdcio.dev/v1alpha1
-kind: Schema
-metadata:
-  name: sros.nokia.sdcio.dev-23.10.2
-  namespace: default
-spec:
-  repoURL: https://github.com/nokia/7x50_YangModels
-  provider: sros.nokia.sdcio.dev
-  version: 23.10.2
-  kind: tag
-  ref: sros_23.10.r2
-  dirs:
-  - src: YANG
-    dst: .
-  schema:
-    models:
-    - nokia-combined
-    includes:
-    - ietf
-    - nokia-sros-yang-extensions.yang
+--8<--
+example/schemas/schema-nokia-sros-23.10.yaml
+--8<--
 ```
 
 ### Juniper MX 23.2R1
 
 ```yaml
-apiVersion: inv.sdcio.dev/v1alpha1
-kind: Schema
-metadata:
-  name: mx.juniper.23.2r1
-  namespace: default
-spec:
-  repoURL: https://github.com/Juniper/yang
-  provider: mx.juniper.sdcio.dev
-  version: 23.2R1
-  kind: branch
-  ref: master
-  dirs:
-  - src: 23.2/23.2R1/junos/conf
-    dst: junos
-  - src: 23.2/23.2R1/common
-    dst: common
-  schema:
-    models:
-    - junos
-    includes:
-    - common
+--8<--
+config-server-repo/example/schemas/schema-juniper-mx-23.2R1.yaml
+--8<--
 ```
 
 ### Juniper QFX 23.2R1
 
 ```yaml
-apiVersion: inv.sdcio.dev/v1alpha1
-kind: Schema
-metadata:
-  name: qfx.juniper.23.2r1
-  namespace: default
-spec:
-  repoURL: https://github.com/Juniper/yang
-  provider: qfx.juniper.sdcio.dev
-  version: 23.2R1
-  kind: branch
-  ref: master
-  dirs:
-  - src: 23.2/23.2R1/junos-qfx/conf
-    dst: junos
-  - src: 23.2/23.2R1/common
-    dst: common
-  schema:
-    models:
-    - junos
-    includes:
-    - common
+--8<--
+config-server-repo/example/schemas/schema-juniper-qfx-23.2R1.yaml
+--8<--
 ```
 
 ### Juniper EX 23.2R1
 
 ```yaml
-apiVersion: inv.sdcio.dev/v1alpha1
-kind: Schema
-metadata:
-  name: ex.juniper.23.2r1
-  namespace: default
-spec:
-  repoURL: https://github.com/Juniper/yang
-  provider: ex.juniper.sdcio.dev
-  version: 23.2R1
-  kind: branch
-  ref: master
-  dirs:
-  - src: 23.2/23.2R1/junos-ex/conf
-    dst: junos
-  - src: 23.2/23.2R1/common
-    dst: common
-  schema:
-    models:
-    - junos
-    includes:
-    - common
+--8<--
+config-server-repo/example/schemas/schema-juniper-ex-23.2R1.yaml
+--8<--
 ```
 
 ### Juniper NFX 23.2R1
 
 ```yaml
-apiVersion: inv.sdcio.dev/v1alpha1
-kind: Schema
-metadata:
-  name: nfx.juniper.23.2r1
-  namespace: default
-spec:
-  repoURL: https://github.com/Juniper/yang
-  provider: nfx.juniper.sdcio.dev
-  version: 23.2R1
-  kind: branch
-  ref: master
-  dirs:
-  - src: 23.2/23.2R1/junos-nfx/conf
-    dst: junos
-  - src: 23.2/23.2R1/common
-    dst: common
-  schema:
-    models:
-    - junos
-    includes:
-    - common
+--8<--
+config-server-repo/example/schemas/schema-juniper-nfx-23.2R1.yaml
+--8<--
 ```

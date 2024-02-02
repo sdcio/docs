@@ -12,7 +12,7 @@ Once the cluster is deployed we install the `sdc` components. These manifests de
 ```yaml
 kubectl apply -f - <<EOF
 --8<--
-artifacts.yaml
+config-server-repo/artifacts/out/artifacts.yaml
 --8<--
 EOF
 ```

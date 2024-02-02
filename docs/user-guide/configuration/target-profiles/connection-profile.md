@@ -28,18 +28,9 @@ For connections via NETCONF, the `protocol` needs to be set to `netconf`. Specif
 * `commitCandidate`: Selects the datastore on the target for applying the config to. Defaults to `candidate`, but can be set to `running` if the target does not support a `candidate` datastore.
 
 ```yaml
-apiVersion: inv.sdcio.dev/v1alpha1
-kind: TargetConnectionProfile
-metadata:
-  name: netconf-connection-profile
-  namespace: default
-spec:
-  protocol: netconf
-  port: 830
-  includeNS: true
-  operationWithNS: true
-  useOperationRemove: false
-  preferredNetconfVersion: "1.0"
+--8<--
+config-server-repo/example/connection-profiles/target-conn-profile-netconf.yaml
+--8<--
 ```
 
 #### gNMI Connection Attributes
@@ -54,25 +45,7 @@ For gNMI protocol connections, set protocol to gnmi. Key attributes for gNMI are
 Example gNMI Configuration with Skip-Verify:
 
 ```yaml
-apiVersion: inv.sdcio.dev/v1alpha1
-kind: TargetConnectionProfile
-metadata:
-  name: gnmi-skipverify
-  namespace: default
-spec:
-  port: 57400
-  protocol: gnmi
-  encoding: ASCII
-  skipVerify: true
-```
-
-
-
-TEST:
-CONN PROFILE FROM ARTIFACTS REPO
-
-```yaml
 --8<--
-inventory/profiles/target-conn-profile-gnmi.yaml
+config-server-repo/example/connection-profiles/target-conn-profile-gnmi.yaml
 --8<--
 ```
