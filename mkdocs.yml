@@ -34,24 +34,24 @@ nav:
         - Data-server: system-architecture/data-server.md
         - Cache: system-architecture/cache.md
         - Config-server: system-architecture/config-server.md
-  - Deployment Examples:
-    - Intro: placeholder.md
-    - Collocated deployment: placeholder.md
-    - Distributed deployment: placeholder.md
-    - K8s Collocated deployment: placeholder.md
-    - K8s Distributed deployment: placeholder.md
+  # - Deployment Examples:
+  #   - Intro: placeholder.md
+  #   - Collocated deployment: placeholder.md
+  #   - Distributed deployment: placeholder.md
+  #   - K8s Collocated deployment: placeholder.md
+  #   - K8s Distributed deployment: placeholder.md
   - Lab Examples:
     - About: examples/0_about.md
     - K8s with gNMI devices (SR Linux): examples/1_k8s_srl_collocated.md
     - K8s with NETCONF devices (SROS): examples/2_k8s_sros_collocated.md
   - Release Notes:
     - "0.0.1": rn/0.0.1.md
-  - FAQ: faq/faq.md
-  - Community: 
-    - About: community/community.md
-    - Contributing:
-      - About: dev/about.md
-      - Ways to contribute: dev/about.md
+  # - FAQ: faq/faq.md
+  # - Community: 
+  #   - About: community/community.md
+  #   - Contributing:
+  #     - About: dev/about.md
+  #     - Ways to contribute: dev/about.md
 
 site_author: Wim Henderickx
 site_description: >-
