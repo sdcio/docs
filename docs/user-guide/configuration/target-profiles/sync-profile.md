@@ -27,7 +27,7 @@ Example NETCONF Sync Profile:
 
 ```yaml
 --8<--
-example/sync-profiles/target-sync-profile-netconf.yaml
+config-server-repo/example/sync-profiles/target-sync-profile-netconf.yaml
 --8<--
 ```
 

@@ -74,7 +74,7 @@ The remote directory `srlinux-yang-models` at the roo level of the git repositor
 
 ```yaml
 --8<--
-example/schemas/schema-nokia-srl-23.10.1.yaml
+config-server-repo/example/schemas/schema-nokia-srl-23.10.1.yaml
 --8<--
 ```
 
@@ -149,7 +149,7 @@ status:
 
 ```yaml
 --8<--
-example/schemas/schema-nokia-sros-23.10.yaml
+config-server-repo/example/schemas/schema-nokia-sros-23.10.yaml
 --8<--
 ```
 
