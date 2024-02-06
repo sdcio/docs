@@ -16,4 +16,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - shell: bash
+        run: |
+          cat versions.env >> $GITHUB_ENV
+      - uses: actions/checkout@v4
+        with:
+          repository: 'iptecharch/config-server'
+          # TODO: add the ref back again was just temp fix
+          ref: '${{ env.CONFIG_SERVER_VERSION }}'
+          path: 'config-server-repo'
+          token: ${{ secrets.IPTECHARCH_GITHUB_PAT }} # `GH_PAT` is a secret that contains your PAT
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GOVER }}
+      - shell: bash
+        run: |
+          cat versions.env >> $GITHUB_ENV
+          cat configmap-input-vars.yaml.tmpl | envsubst > config-server-repo/artifacts/in/configmap-input-vars.yaml
+          cd config-server-repo
+          make artifacts
       - run: docker run -v $(pwd):/docs --entrypoint ash squidfunk/mkdocs-material:${MKDOCS_MATERIAL_VER} -c 'git config --global --add safe.directory /docs; mkdocs gh-deploy --force --strict'
+
+
+      

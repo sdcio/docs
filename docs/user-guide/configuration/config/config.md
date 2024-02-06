@@ -3,23 +3,9 @@ Configs are partial or complete pieces of configuration that are intended to be 
 
 ## Example
 ```yaml
-apiVersion: config.sdcio.dev/v1alpha1
-kind: Config
-metadata:
-  name: dev1-interface-system0
-  namespace: default
-  labels:
-    config.sdcio.dev/targetName: dev1
-    config.sdcio.dev/targetNamespace: default
-spec:
-  priority: 10
-  config:
-  - path: /
-    value:
-      interface:
-      - name: "system0"
-        admin-state: "enable"
-        description: "k8s-system0-dummy"
+--8<--
+config-server-repo/example/config/config.yaml
+--8<--
 ```
 
 ## Attributes

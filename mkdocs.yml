@@ -174,7 +174,10 @@ markdown_extensions:
       fractions: false
   - pymdownx.snippets:
       check_paths: true
-      # dedent_subsections: true
+      #dedent_subsections: true
+      base_path:
+        - ./
+      url_download: true
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid

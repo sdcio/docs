@@ -26,21 +26,9 @@ For NETCONF synchronization, the netconf strategy is used with protocol: netconf
 Example NETCONF Sync Profile:
 
 ```yaml
-apiVersion: inv.sdcio.dev/v1alpha1
-kind: TargetSyncProfile
-metadata:
-  name: netconf-getconfig
-  namespace: default
-spec:
-  buffer: 0
-  workers: 10
-  validate: true
-  sync:
-  - name: config
-    protocol: netconf
-    paths:
-    - /
-    interval: 10s
+--8<--
+config-server-repo/example/sync-profiles/target-sync-profile-netconf.yaml
+--8<--
 ```
 
 ### gNMI Sync strategy
@@ -60,48 +48,15 @@ Other gNMI specific attributes:
 Example of an `onChange` gNMI SyncProfile:
 
 ```yaml
-apiVersion: inv.sdcio.dev/v1alpha1
-kind: TargetSyncProfile
-metadata:
-  name: gnmi-onchange
-  namespace: default
-spec:
-  buffer: 0
-  workers: 10
-  validate: true
-  sync:
-  - name: config
-    protocol: gnmi
-    paths:
-    - /
-    mode: onChange
-    encoding: config # SRLinux specific encoding (id: 45)
+--8<--
+config-server-repo/example/sync-profiles/target-sync-profile-gnmi.yaml
+--8<--
 ```
 
 Example of a gNMI `TargetSyncProfile` with both `once` and `onChange` modes:
 
 ```yaml
-apiVersion: inv.sdcio.dev/v1alpha1
-kind: TargetSyncProfile
-metadata:
-  name: gnmi-onchange
-  namespace: default
-spec:
-  buffer: 0
-  workers: 10
-  validate: true
-  sync:
-  - name: config
-    protocol: gnmi
-    paths:
-    - /
-    mode: onChange
-    encoding: config
-  - name: all_once
-    protocol: gnmi
-    paths:
-    - /
-    mode: once
-    encoding: ascii
-    interval: 5m
+--8<--
+config-server-repo/example/sync-profiles/target-sync-profile-gnmi-once-and-onchange.yaml
+--8<--
 ```

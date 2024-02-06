@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: context
+data: 
+  configServerImage: ghcr.io/sdcio/config-server:${CONFIG_SERVER_VERSION}
+  dataServerImage: ghcr.io/sdcio/data-server:${DATA_SERVER_VERSION}

@@ -3,25 +3,9 @@ ConfigSets are partial or complete pieces of configuration that are intended to 
 
 ## Example
 ```yaml
-apiVersion: config.sdcio.dev/v1alpha1
-kind: ConfigSet
-metadata:
-  name: intent1
-  namespace: default
-spec:
-  target:
-    targetSelector:
-      matchLabels:
-        sdcio.dev/region: us-east
-  priority: 10
-  config:
-  - path: /
-    value:
-      interface:
-      - name: ethernet-1/1
-        admin-state: "enable"
-        description: "intent1"
-        vlan-tagging: true
+--8<--
+config-server-repo/example/config/configset.yaml
+--8<--
 ```
 
 ## Attributes
