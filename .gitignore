@@ -9,7 +9,7 @@
 *.dylib
 bin/*
 .venv
-config-server/*
+config-server-repo/*
 
 # Test binary, built with `go test -c`
 *.test
