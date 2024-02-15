@@ -33,11 +33,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 ## Installation
 To install SDCIO, copy the following snippet into a shell and execute it.
 ```yaml
-kubectl apply -f - <<EOF
---8<--
-config-server-repo/artifacts/out/artifacts.yaml
---8<--
-EOF
+kubectl apply -f https://docs.sdcio.dev/artifacts/colocated.yaml
 ```
 
 
