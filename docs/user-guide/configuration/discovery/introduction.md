@@ -14,11 +14,11 @@ SDC offer 4 kinds of discovery:
 - POD Based Discovery: Ideal when devices are instantiated as pods in a cluster. `sdc` enables device discovery based on the address of Kubernetes Pods. This advancement aligns with modern containerized environments, providing enhanced visibility into your network infrastructure.
 - SVC Based Discovery: Ideal when devices are accessible through services in a pod. `sdc` discovers devices by utilizing the address of Kubernetes Services. This approach ensures comprehensive network mapping within dynamic Kubernetes services.
 
-Discovery Configuration Options:
+## Discovery Configuration Options
 
 In addition to the diverse discovery methods, `sdc` offers the flexibility to enable or disable discovery based on your specific requirements. However, it's important to note that for IP Prefix Based Discovery, disabling discovery is not supported, as this method is designed to continuously scan and adapt to changing IP ranges.
 
-Disabling discovery is enabled by supplying a `defaultSchema` in the CR definition
+Disabling discovery is enabled by supplying a `defaultSchema` in the CR definition.
 
 ## The DiscoveryRule CustomResource
 

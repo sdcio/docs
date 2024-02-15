@@ -1,6 +1,6 @@
 # Device discovery using k8s services
 
-Service discovery uses the provided `serviceSelector` section of the `DiscoveryRule` CustomResource to identify the target device(s). With service discovery `sdc` allows to enable or disable full discovery. Service discovery uses the kubernetes `Service` to identify the target using the cluster domain name following the [kubernetes logic](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#services).
+Service discovery uses the provided `serviceSelector` section of the `DiscoveryRule` CustomResource to identify the target device(s). With service discovery `sdc` allows to enable or disable full discovery (see [Discovery Configuration Options](introduction.md#discovery-configuration-options)). Service discovery uses the kubernetes `Service` to identify the target using the cluster domain name following the [kubernetes logic](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#services).
 
 ## Attributes
 
