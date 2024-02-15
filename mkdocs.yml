@@ -21,8 +21,8 @@ nav:
         - Intro: user-guide/configuration/discovery/introduction.md
         - Addresses: user-guide/configuration/discovery/addresses.md
         - Prefixes: user-guide/configuration/discovery/prefixes.md
-        - Service Selector (future): user-guide/configuration/discovery/service.md
-        - POD Selector (future): user-guide/configuration/discovery/pod.md
+        - Service Selector: user-guide/configuration/discovery/service.md
+        - POD Selector: user-guide/configuration/discovery/pod.md
       - Target: user-guide/configuration/target/target.md
       - Configuration:
         - Config: user-guide/configuration/config/config.md

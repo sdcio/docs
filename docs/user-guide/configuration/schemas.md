@@ -29,10 +29,12 @@ If the dirs attribute is not set, it defaults to `$pwd` for both `src` and `dst`
 If your schema repository requires authentication a secret of type `kubernetes.io/basic-auth` is referenced in the schema CR. An Example of such secret is provided below.
 
 !!!note "username/password"
-    Please fill out your own username and password/token
+
+  Please fill out your own username and password/token
 
 !!!note "namespace"
-    The secret MUST use the same namespace as the schema CR that is referencing it.
+
+  The secret MUST use the same namespace as the schema CR that is referencing it.
 
 ```yaml
 apiVersion: v1
