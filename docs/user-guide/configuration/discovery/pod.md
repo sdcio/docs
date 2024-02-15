@@ -1,6 +1,6 @@
 # Device discovery using k8s PODs
 
-Pod discovery uses the provided `podSelector` section of the `DiscoveryRule` CustomResource to identify the target device(s). With pod discovery `sdc` allows to enable or disable full discovery. POD discovery checks if the `Pod` is ready and uses the first IP adddress in the POD status to identify the `target`.
+Pod discovery uses the provided `podSelector` section of the `DiscoveryRule` CustomResource to identify the target device(s). With pod discovery `sdc` allows to enable or disable full discovery (see [Discovery Configuration Options](introduction.md#discovery-configuration-options)). POD discovery checks if the `Pod` is ready and uses the first IP adddress in the POD status to identify the `target`.
 
 ## Attributes
 

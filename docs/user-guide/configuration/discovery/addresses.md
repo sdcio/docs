@@ -1,6 +1,6 @@
 # Device discovery using Addresses (IPs or DNS names)
 
-Address discovery uses the provided address in the `addresses` section of the `DiscoveryRule` CustomResource to identify the target device. With address discovery `sdc` allows to enable or disable full discovery.
+Address discovery uses the provided address in the `addresses` section of the `DiscoveryRule` CustomResource to identify the target device. With address discovery `sdc` allows to enable or disable full discovery (see [Discovery Configuration Options](introduction.md#discovery-configuration-options)).
 
 ## Attributes
 
