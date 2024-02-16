@@ -40,12 +40,42 @@ To install Containerlab follow the instruction at https://containerlab.dev/insta
 bash -c "$(curl -sL https://get.containerlab.dev)"
 ```
 
+## Infrastructure
+The following contains information on how to deploy a Nokia SR Linux NOS container, which will consecutively be managed via sdcio.
+
+### Installation
+Deploy a [Nokia SR Linux](https://learn.srlinux.dev/) device via [Containerlab](https://containerlab.dev).
+
+```bash
+sudo containerlab deploy -t https://docs.sdcio.dev/artifacts/basic-usage.clab.yaml
+```
+
+Following is the topology definition:
+
+```yaml
+--8<--
+docs/getting-started/basic-usage.clab.yaml
+--8<--
+```
+
+### Verification
+
+The output of the containerlab deploy from above should indicate, that the node `clab-basic-usage-srl` is in the running state.
+
+```
++---+----------------------+--------------+-----------------------+---------------+---------+-----------------+--------------+
+| # |         Name         | Container ID |         Image         |     Kind      |  State  |  IPv4 Address   | IPv6 Address |
++---+----------------------+--------------+-----------------------+---------------+---------+-----------------+--------------+
+| 1 | clab-basic-usage-srl | e84130ad8b49 | ghcr.io/nokia/srlinux | nokia_srlinux | running | 172.21.0.200/16 | N/A          |
++---+----------------------+--------------+-----------------------+---------------+---------+-----------------+--------------+
+```
+
 ## SDCIO
 
 ### Installation
 To install SDCIO, copy the following snippet into a shell and execute it.
 ```yaml
-kubectl apply -f https://docs.sdcio.dev/artifacts/colocated.yaml
+kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/colocated.yaml
 ```
 
 ### Verification
@@ -110,18 +140,19 @@ subsets:
     protocol: TCP
 ```
 
-## Infrastructure
+## Basic Usage Scenario
+In the following the different kubernetes resources will be created, which are needed to manage the previousely deployed SR Linux instance.
 
-Deploy a Nokia SR Linux device via [Containerlab](https://containerlab.dev).
-
+### Installation
 ```bash
-containerlab deploy -t https://docs.sdcio.dev/artifacts/basic-usage.clab.yaml
-```
-
-Following is the topology definition:
-
-```yaml
---8<--
-docs/getting-started/basic-usage.clab.yaml
---8<--
+# SR Linux Yang Schema
+kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/schema-nokia-srl-23.10.1.yaml
+# Discovery Rule
+kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/discovery_address.yaml
+# Connection Profile
+kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/target-conn-profile-gnmi.yaml
+# Sync Profile
+kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/target-sync-profile-gnmi.yaml
+# SRL Secret
+kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/secret-srl.yaml
 ```
