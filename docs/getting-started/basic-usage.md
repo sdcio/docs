@@ -54,7 +54,7 @@ Following is the topology definition:
 
 ```yaml
 --8<--
-docs/getting-started/basic-usage.clab.yaml
+docs/getting-started/artifacts/basic-usage.clab.yaml
 --8<--
 ```
 
