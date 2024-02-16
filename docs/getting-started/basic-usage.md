@@ -16,7 +16,21 @@ sudo mv ./kind /usr/local/bin/kind
 To create a Kind based Kubernetes Cluster, issue the following command.
 ```bash
 kind create cluster
+# Allow the kind cluster to communicate with the later created containerlab topology
+sudo iptables -I DOCKER-USER -o br-$(docker network inspect kind | jq ".[0].Id[:12]" -r) -j ACCEPT
 ```
+
+/// details | iptables command description
+
+```
+sudo iptables -I DOCKER-USER -o br-$(docker network inspect kind | jq ".[0].Id[:12]" -r) -j ACCEPT
+```
+
+- `docker network inspect kind` - inspects the kind docker network, that the kind cluster is attached to
+- `| jq ".[0].Id[:12]" -r` - extract from the json that is returned, the first 12 characters of the Id field of the first list entry in raw (-r without quotes ")
+-  `sudo iptables -I DOCKER-USER -o br-$(...) -j ACCEPT` - as root insert a firewall rule to the DOCKER-USER chain, concerning the bridge with the name "br-<FIRST-12-CHAR-OF-THE-DOCKER-NETWORK-ID>" with the action ACCEPT
+
+///
 
 ## kubectl
 `kubectl` is a command-line tool used to control and manage Kubernetes clusters. It allows developers and administrators to execute commands to create, monitor, and manage resources such as pods, services, deployments, and more within a Kubernetes cluster.
@@ -218,3 +232,65 @@ docs/getting-started/artifacts/secret-srl.yaml
 ```
 
 ///
+
+### Verification
+```bash
+kubectl get sdc
+```
+
+The output provides an overview of all the SDCIO originating CRs.
+
+
+First of all the `Ready` flag of the `Schema` CR is expected to be `True`. Which indicates, that the provided Yang Schema was successfully downloaded.
+Next, the `DiscoveryRule` is supposed to be `Ready=True`, which is a pre-requisite for the `Target` to be created by the `DiscoverRule` controller.
+On the Target, all three Fields (`Ready`, `Datastore` and `Config`) have to be `True` and in successfull connection the additional fields like Address, Platform, Serialnumber and MAC Address will be populated.
+```
+NAME                                       READY
+discoveryrule.inv.sdcio.dev/dev1-address   True
+
+NAME                                               READY   URL                                            REF        PROVIDER              VERSION
+schema.inv.sdcio.dev/srl.nokia.sdcio.dev-23.10.1   True    https://github.com/nokia/srlinux-yang-models   v23.10.1   srl.nokia.sdcio.dev   23.10.1
+
+NAME                                                    AGE
+targetconnectionprofile.inv.sdcio.dev/gnmi-skipverify   21m
+
+NAME                       READY   DATASTORE   CONFIG   PROVIDER              ADDRESS              PLATFORM      SERIALNUMBER     MACADDRESS
+target.inv.sdcio.dev/srl   True    True        True     srl.nokia.sdcio.dev   172.21.0.200:57400   7220 IXR-D3   Sim Serial No.   1A:AB:00:FF:00:00
+
+NAME                                            AGE
+targetsyncprofile.inv.sdcio.dev/gnmi-onchange   21m
+```
+
+
+### Retrieve Configuration
+To retrieve the running configuration from the device, the `RunningConfig` CR can be queried.
+It contains an empty spec, but the config is presented in the `status` -> `value` field.
+
+```bash
+kubectl get runningconfigs.config.sdcio.dev srl 
+```
+
+The output is quite extensive so lets just take a look at the *network-instance* configuration.
+
+```bash
+kubectl get runningconfigs.config.sdcio.dev srl -ojsonpath="{.status.value.network-instance}" | jq
+```
+
+Output:
+```json
+[
+  {
+    "description": "Management network instance",
+    "name": "mgmt",
+    "protocols": {
+      "linux": {
+        "export-routes": true,
+        "import-routes": true
+      }
+    },
+    "type": "ip-vrf"
+  }
+]
+```
+
+### Set Configuration
