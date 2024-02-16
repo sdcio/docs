@@ -50,13 +50,15 @@ Deploy a [Nokia SR Linux](https://learn.srlinux.dev/) device via [Containerlab](
 sudo containerlab deploy -t https://docs.sdcio.dev/artifacts/basic-usage/basic-usage.clab.yaml
 ```
 
-Following is the topology definition:
+/// details | Topology Content
 
 ```yaml
 --8<--
 docs/getting-started/artifacts/basic-usage.clab.yaml
 --8<--
 ```
+
+///
 
 ### Verification
 
@@ -78,13 +80,23 @@ To install SDCIO, copy the following snippet into a shell and execute it.
 kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/colocated.yaml
 ```
 
+/// details | Artifact Content
+
+```yaml
+--8<--
+config-server-repo/artifacts/out/artifacts.yaml
+--8<--
+```
+
+///
+
 ### Verification
 To verify that the installation did succeed, the following resources can be checked.
 
 #### API Registration
 Checking the api-registrations exist.
 ```bash
-kubectl get apiservices.apiregistration.k8s.io | grep "sdcio.dev|NAME"
+kubectl get apiservices.apiregistration.k8s.io | grep "sdcio.dev\|NAME"
 ```
 
 The two services should be available.
@@ -145,14 +157,64 @@ In the following the different kubernetes resources will be created, which are n
 
 ### Installation
 ```bash
-# SR Linux Yang Schema
+# Nokia SR Linux Yang Schema
 kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/schema-nokia-srl-23.10.1.yaml
-# Discovery Rule
-kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/discovery_address.yaml
 # Connection Profile
 kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/target-conn-profile-gnmi.yaml
 # Sync Profile
 kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/target-sync-profile-gnmi.yaml
 # SRL Secret
 kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/secret-srl.yaml
+# Discovery Rule
+kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/discovery_address.yaml
 ```
+
+/// details | Nokia SR Linux Yang Schema Content
+
+```yaml
+--8<--
+config-server-repo/example/schemas/schema-nokia-srl-23.10.1.yaml
+--8<--
+```
+
+///
+
+/// details | Discovery Rule Content
+
+```yaml
+--8<--
+docs/getting-started/artifacts/discovery_address.yaml
+--8<--
+```
+
+///
+
+/// details | Connection Profile Content
+
+```yaml
+--8<--
+config-server-repo/example/connection-profiles/target-conn-profile-gnmi.yaml
+--8<--
+```
+
+///
+
+/// details | Sync Profile Content
+
+```yaml
+--8<--
+config-server-repo/example/sync-profiles/target-sync-profile-gnmi.yaml
+--8<--
+```
+
+///
+
+/// details | Nokia SR Linux Secret Content
+
+```yaml
+--8<--
+docs/getting-started/artifacts/secret-srl.yaml
+--8<--
+```
+
+///
