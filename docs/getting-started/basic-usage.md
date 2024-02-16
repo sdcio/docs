@@ -47,7 +47,7 @@ The following contains information on how to deploy a Nokia SR Linux NOS contain
 Deploy a [Nokia SR Linux](https://learn.srlinux.dev/) device via [Containerlab](https://containerlab.dev).
 
 ```bash
-sudo containerlab deploy -t https://docs.sdcio.dev/artifacts/basic-usage.clab.yaml
+sudo containerlab deploy -t https://docs.sdcio.dev/artifacts/basic-usage/basic-usage.clab.yaml
 ```
 
 Following is the topology definition:
