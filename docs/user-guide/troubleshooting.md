@@ -39,7 +39,7 @@ kubectl get -n network-system endpoints config-server -o yaml
 ```
 
 The Subsets addresses must list the config-server pod.
-```
+```yaml
 apiVersion: v1
 kind: Endpoints
 metadata:
