@@ -31,5 +31,11 @@ def on_post_build(config, **kwargs):
     # discovery rule
     shutil.copy('docs/getting-started/artifacts/discovery_address.yaml', os.path.join(basic_usage_dir, 'discovery_address.yaml'))
 
-    #secret srl
+    # secret srl
     shutil.copy('docs/getting-started/artifacts/secret-srl.yaml', os.path.join(basic_usage_dir, 'secret-srl.yaml'))
+
+    # config
+    shutil.copy('config-server-repo/example/config/config.yaml', os.path.join(basic_usage_dir, 'config.yaml'))
+
+    # config set
+    shutil.copy('config-server-repo/example/config/configset.yaml', os.path.join(basic_usage_dir, 'configset.yaml'))

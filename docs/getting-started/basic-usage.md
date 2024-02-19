@@ -292,4 +292,33 @@ Output:
 ]
 ```
 
-### Set Configuration
+### Apply Config
+To apply configuration for the `dev1` device apply the following `config` CR.
+
+```bash
+kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/config.yaml
+```
+
+/// details | Config Content
+```yaml
+--8<--
+config-server-repo/example/config/config.yaml
+--8<--
+```
+///
+
+
+### Apply ConfigSet
+To apply a `ConfigSet`, that is a configuration template that can be applied to multiple devices, apply the following `ConfigSet`.
+
+```bash
+kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/configset.yaml
+```
+
+/// details | ConfigSet Content
+```yaml
+--8<--
+config-server-repo/example/config/configset.yaml
+--8<--
+```
+///
