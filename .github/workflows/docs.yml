@@ -28,7 +28,9 @@ jobs:
           token: ${{ secrets.IPTECHARCH_GITHUB_PAT }} # `GH_PAT` is a secret that contains your PAT
       - uses: actions/setup-go@v5
         with:
-          go-version: ${{ env.GOVER }}
+          go-version-file: 'config-server-repo/go.mod'
+          cache-dependency-path: |
+            config-server-repo/go.sum
       - shell: bash
         run: |
           cat versions.env >> $GITHUB_ENV

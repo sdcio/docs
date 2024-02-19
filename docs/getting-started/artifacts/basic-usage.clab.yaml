@@ -1,0 +1,15 @@
+name: basic-usage
+
+mgmt:
+  network: basic-usage
+  ipv4-subnet: 172.21.0.0/16
+
+topology:
+  kinds:
+    nokia_srlinux:
+      type: ixrd3
+      image: ghcr.io/nokia/srlinux
+  nodes:
+    srl:
+      kind: nokia_srlinux
+      mgmt-ipv4: 172.21.0.200

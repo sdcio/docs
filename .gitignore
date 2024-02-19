@@ -24,4 +24,4 @@ config-server-repo/*
 go.work
 vendor
 scripts/
-artifacts/
+./artifacts/
