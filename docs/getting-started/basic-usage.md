@@ -293,7 +293,7 @@ Output:
 ```
 
 ### Apply Config
-To apply configuration for the `dev1` device apply the following `config` CR.
+To apply configuration for the `dev1` device apply the following [`Config`](../user-guide/configuration/config/config.md) CR.
 
 ```bash
 kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/config.yaml
@@ -309,7 +309,7 @@ config-server-repo/example/config/config.yaml
 
 
 ### Apply ConfigSet
-To apply a `ConfigSet`, that is a configuration template that can be applied to multiple devices, apply the following `ConfigSet`.
+To apply a [`ConfigSet`](../user-guide/configuration/config/configset.md), that is a configuration template that can be applied to multiple devices, apply the following `ConfigSet`.
 
 ```bash
 kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/configset.yaml
