@@ -44,8 +44,8 @@ nav:
     - About: examples/0_about.md
     - K8s with gNMI devices (SR Linux): examples/1_k8s_srl_collocated.md
     - K8s with NETCONF devices (SROS): examples/2_k8s_sros_collocated.md
-  - Release Notes:
-    - "0.0.1": rn/0.0.1.md
+  # - Release Notes:
+  #   - "0.0.1": rn/0.0.1.md
   # - FAQ: faq/faq.md
   # - Community: 
   #   - About: community/community.md
