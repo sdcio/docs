@@ -3,14 +3,14 @@ nav:
   - Home: index.md
   - Getting Started:
     # - Installation: getting-started/installation.md
-    - Basic usage: getting-started/basic-usage.md
+    - Basic Usage: getting-started/basic-usage.md
     # - User guide: getting-started/user-guide.md
   - Installation:
     - Overview: install/1_overview.md
     - Pre-Requisites: install/2_prereq.md
     - Kubernetes-collocated: install/3_k8s_collocated.md
     - Kubernetes-distributed: install/4_k8s_distributed.md
-  - User guide:
+  - User Guide:
     - Introduction: user-guide/introduction.md
     - Configuration:
       - Schema: user-guide/configuration/schemas.md
@@ -161,8 +161,8 @@ markdown_extensions:
   - pymdownx.critic
   - pymdownx.details
   - pymdownx.emoji:
-  #    emoji_index: !!python/name:materialx.emoji.twemoji
-  #    emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.highlight:
       line_spans: __span
       anchor_linenums: true
