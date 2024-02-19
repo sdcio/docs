@@ -17,18 +17,17 @@ To create a Kind based Kubernetes Cluster, issue the following command.
 ```bash
 kind create cluster
 # Allow the kind cluster to communicate with the later created containerlab topology
-sudo iptables -I DOCKER-USER -o br-$(docker network inspect kind | jq ".[0].Id[:12]" -r) -j ACCEPT
+sudo iptables -I DOCKER-USER -o br-$(docker network inspect -f '{{ printf "%.12s" .ID }}' kind) -j ACCEPT
 ```
 
 /// details | iptables command description
 
 ```
-sudo iptables -I DOCKER-USER -o br-$(docker network inspect kind | jq ".[0].Id[:12]" -r) -j ACCEPT
+sudo iptables -I DOCKER-USER -o br-$(docker network inspect -f '{{ printf "%.12s" .ID }}' kind) -j ACCEPT
 ```
 
-- `docker network inspect kind` - inspects the kind docker network, that the kind cluster is attached to
-- `| jq ".[0].Id[:12]" -r` - extract from the json that is returned, the first 12 characters of the Id field of the first list entry in raw (-r without quotes ")
--  `sudo iptables -I DOCKER-USER -o br-$(...) -j ACCEPT` - as root insert a firewall rule to the DOCKER-USER chain, concerning the bridge with the name "br-<FIRST-12-CHAR-OF-THE-DOCKER-NETWORK-ID>" with the action ACCEPT
+- `docker network inspect -f '{{ printf "%.12s" .ID }}' kind` - inspects the kind docker network, that the kind cluster is attached to. Extract from the json that is returned, the first 12 characters of the Id field.
+- `sudo iptables -I DOCKER-USER -o br-$(...) -j ACCEPT` - as root insert a firewall rule to the DOCKER-USER chain, concerning the bridge with the name "br-<FIRST-12-CHAR-OF-THE-DOCKER-NETWORK-ID>" with the action ACCEPT.
 
 ///
 
