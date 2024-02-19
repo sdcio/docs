@@ -27,6 +27,7 @@ nav:
       - Configuration:
         - Config: user-guide/configuration/config/config.md
         - ConfigSet: user-guide/configuration/config/configset.md
+    - Troubeshooting: user-guide/troubleshooting.md
   - System architecture:
       - Design: system-architecture/architecture.md
       - Components:
