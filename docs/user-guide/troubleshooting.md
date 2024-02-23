@@ -80,6 +80,20 @@ kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:{{ environment.SDCTL_VERS
 ```bash
 kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:{{ environment.SDCTL_VERSION }} --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 schema list
 ```
+/// details | schema list
+
+```
+request:
+
+response:
++------+----------------------+---------+
+| Name |        Vendor        | Version |
++------+----------------------+---------+
+|      | srl.nokia.sdcio.dev  | 23.10.1 |
+|      | sros.nokia.sdcio.dev | 23.10.2 |
++------+----------------------+---------+
+pod "sdctl" deleted
+```
 
 ## Data-Server
 
@@ -87,8 +101,196 @@ Listing data-stores
 ```bash
 kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:{{ environment.SDCTL_VERSION }} --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 datastore list
 ```
+/// details | datastore list
+
+```
+datastores: {
+  name: "default.dev1"
+  datastore: {
+    name: "default.dev1"
+  }
+  schema: {
+    vendor: "srl.nokia.sdcio.dev"
+    version: "23.10.1"
+  }
+  target: {
+    type: "gnmi"
+    address: "172.18.0.4:57400"
+  }
+}
+datastores: {
+  name: "default.sr1"
+  datastore: {
+    name: "default.sr1"
+  }
+  schema: {
+    vendor: "sros.nokia.sdcio.dev"
+    version: "23.10.2"
+  }
+  target: {
+    type: "netconf"
+    address: "172.22.1.11:830"
+    status: CONNECTED
+  }
+}
+datastores: {
+  name: "default.dev2"
+  datastore: {
+    name: "default.dev2"
+  }
+  schema: {
+    vendor: "srl.nokia.sdcio.dev"
+    version: "23.10.1"
+  }
+  target: {
+    type: "gnmi"
+    address: "172.18.0.3:57400"
+  }
+}
+datastores: {
+  name: "default.sr2"
+  datastore: {
+    name: "default.sr2"
+  }
+  schema: {
+    vendor: "sros.nokia.sdcio.dev"
+    version: "23.10.2"
+  }
+  target: {
+    type: "netconf"
+    address: "172.22.1.12:830"
+    status: CONNECTED
+  }
+}
+
+pod "sdctl" deleted
+```
+
+///
 
 Fetching config from the data-store
 ```bash
-kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:{{ environment.SDCTL_VERSION }} --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 data get --ds default.sr1 --candidate default --path /configure/service
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:{{ environment.SDCTL_VERSION }} --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 data get --ds default.sr1 --path /configure/service
+```
+/// details | data get
+
+```
+request:
+name: "default.sr1"
+path: {
+  elem: {
+    name: "configure"
+  }
+  elem: {
+    name: "service"
+  }
+}
+
+notification: {
+  timestamp: 1708694690324217499
+  update: {
+    path: {
+      elem: {
+        name: "configure"
+      }
+      elem: {
+        name: "service"
+      }
+      elem: {
+        name: "vprn"
+        key: {
+          key: "service-name"
+          value: "vprn123"
+        }
+      }
+      elem: {
+        name: "admin-state"
+      }
+    }
+    value: {
+      string_val: "enable"
+    }
+  }
+}
+
+notification: {
+  timestamp: 1708694690324355878
+  update: {
+    path: {
+      elem: {
+        name: "configure"
+      }
+      elem: {
+        name: "service"
+      }
+      elem: {
+        name: "vprn"
+        key: {
+          key: "service-name"
+          value: "vprn123"
+        }
+      }
+      elem: {
+        name: "customer"
+      }
+    }
+    value: {
+      string_val: "1"
+    }
+  }
+}
+
+notification: {
+  timestamp: 1708694690324481720
+  update: {
+    path: {
+      elem: {
+        name: "configure"
+      }
+      elem: {
+        name: "service"
+      }
+      elem: {
+        name: "vprn"
+        key: {
+          key: "service-name"
+          value: "vprn123"
+        }
+      }
+      elem: {
+        name: "service-id"
+      }
+    }
+    value: {
+      uint_val: 101
+    }
+  }
+}
+
+notification: {
+  timestamp: 1708694690324648209
+  update: {
+    path: {
+      elem: {
+        name: "configure"
+      }
+      elem: {
+        name: "service"
+      }
+      elem: {
+        name: "vprn"
+        key: {
+          key: "service-name"
+          value: "vprn123"
+        }
+      }
+      elem: {
+        name: "service-name"
+      }
+    }
+    value: {
+      string_val: "vprn123"
+    }
+  }
+}
 ```
