@@ -66,3 +66,29 @@ subsets:
     protocol: TCP
 ```
 
+## SDCTL
+
+sdctl is a binary available for gRPC interaction with the schema-server, data-server and cache.
+In a kubernetes environment, it can be launched by executing a container image.
+
+```bash
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:{{ environment.SDCTL_VERSION }} --restart=Never --command -- /bin/bash
+```
+
+## Schema-Server
+
+```bash
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:{{ environment.SDCTL_VERSION }} --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 schema list
+```
+
+## Data-Server
+
+Listing data-stores
+```bash
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:{{ environment.SDCTL_VERSION }} --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 datastore list
+```
+
+Fetching config from the data-store
+```bash
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:{{ environment.SDCTL_VERSION }} --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 data get --ds default.sr1 --candidate default --path /configure/service
+```
