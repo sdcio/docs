@@ -72,13 +72,13 @@ sdctl is a binary available for gRPC interaction with the schema-server, data-se
 In a kubernetes environment, it can be launched by executing a container image.
 
 ```bash
-kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:{{ environment.SDCTL_VERSION }} --restart=Never --command -- /bin/bash
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:${SDCTL_VERSION} --restart=Never --command -- /bin/bash
 ```
 
 ## Schema-Server
 
 ```bash
-kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:{{ environment.SDCTL_VERSION }} --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 schema list
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:${SDCTL_VERSION} --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 schema list
 ```
 /// details | schema list
 
@@ -94,12 +94,131 @@ response:
 +------+----------------------+---------+
 pod "sdctl" deleted
 ```
+///
+
+```bash
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:${SDCTL_VERSION} --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 schema get --vendor sros.nokia.sdcio.dev --version 23.10.2 --path /configure
+```
+
+/// details | schema get 
+```
+sdctl:/app$ /app/sdctl -a data-server.network-system.svc.cluster.local:56000 schema get --vendor sros.nokia.sdcio.dev --version 23.10.2 --path /configure
+request:
+path: {
+  elem: {
+    name: "configure"
+  }
+}
+schema: {
+  vendor: "sros.nokia.sdcio.dev"
+  version: "23.10.2"
+}
+
+response:
+schema: {
+  container: {
+    name: "configure"
+    description: "Configure system configuration"
+    namespace: "urn:nokia.com:sros:ns:yang:sr:conf"
+    prefix: "conf"
+    leaflists: {
+      name: "apply-groups"
+      description: "Apply a configuration group at this level"
+      namespace: "urn:nokia.com:sros:ns:yang:sr:conf"
+      prefix: "conf"
+      type: {
+        type: "leafref"
+        type_name: "leafref"
+        leafref: "../groups/group/name"
+      }
+      max_elements: 8
+      is_user_ordered: true
+    }
+    children: "aaa"
+    children: "anysec"
+    children: "application-assurance"
+    children: "aps"
+    children: "bfd"
+    children: "bmp"
+    children: "call-trace"
+    children: "card"
+    children: "cflowd"
+    children: "chassis"
+    children: "connection-profile"
+    children: "esa"
+    children: "eth-cfm"
+    children: "eth-ring"
+    children: "filter"
+    children: "fwd-path-ext"
+    children: "group-encryption"
+    children: "groups"
+    children: "ipsec"
+    children: "isa"
+    children: "lag"
+    children: "log"
+    children: "macsec"
+    children: "mcac"
+    children: "mirror"
+    children: "multicast-management"
+    children: "oam-pm"
+    children: "openflow"
+    children: "policy-options"
+    children: "port"
+    children: "port-policy"
+    children: "port-xc"
+    children: "pw-port"
+    children: "python"
+    children: "qos"
+    children: "redundancy"
+    children: "router"
+    children: "routing-options"
+    children: "saa"
+    children: "satellite"
+    children: "service"
+    children: "sfm"
+    children: "subscriber-mgmt"
+    children: "system"
+    children: "test-oam"
+    children: "vrrp"
+  }
+}
+
+sdctl:/app$
+```
+///
+/// details | schema get 2
+```
+sdctl:/app$ /app/sdctl -a data-server.network-system.svc.cluster.local:56000 schema get --vendor srl.nokia.sdcio.dev --version 23.10.1 --path /srl_nokia-interfaces
+request:
+path: {
+  elem: {
+    name: "srl_nokia-interfaces"
+  }
+}
+schema: {
+  vendor: "srl.nokia.sdcio.dev"
+  version: "23.10.1"
+}
+
+response:
+schema: {
+  container: {
+    name: "srl_nokia-interfaces"
+    description: "Model for managing network interfaces and subinterfaces.\n\nThis model reuses data items defined in the IETF YANG model for\ninterfaces described by RFC 7223"
+    namespace: "urn:srl_nokia/interfaces"
+    prefix: "srl_nokia-if"
+    children: "interface"
+  }
+}
+
+```
+///
 
 ## Data-Server
 
 Listing data-stores
 ```bash
-kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:{{ environment.SDCTL_VERSION }} --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 datastore list
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:${SDCTL_VERSION} --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 datastore list
 ```
 /// details | datastore list
 
@@ -165,12 +284,11 @@ datastores: {
 
 pod "sdctl" deleted
 ```
-
 ///
 
 Fetching config from the data-store
 ```bash
-kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:{{ environment.SDCTL_VERSION }} --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 data get --ds default.sr1 --path /configure/service
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:${SDCTL_VERSION} --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 data get --ds default.sr1 --path /configure/service
 ```
 /// details | data get
 
@@ -294,3 +412,4 @@ notification: {
   }
 }
 ```
+///
