@@ -41,6 +41,6 @@ jobs:
           # remove the HEADER from artifacts
           find ./ -name *yaml -exec grep -l "####### HEADER END #######" {} ';' | xargs -I{} gawk -i inplace '/####### HEADER END #######/ {p=1;next}p' {}
           # Replace version numbers in troubleshooting guide with env.
-          cat docs/user-guide/troubleshooting.md | envsubst > docs/user-guide/troubleshooting.md
+          cat docs/user-guide/troubleshooting.tmpl.md | envsubst > docs/user-guide/troubleshooting.md
       - run: docker run -v $(pwd):/docs --entrypoint ash squidfunk/mkdocs-material:${MKDOCS_MATERIAL_VER} -c 'git config --global --add safe.directory /docs; mkdocs gh-deploy --force --strict'
       
