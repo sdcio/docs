@@ -44,7 +44,7 @@ The config-server is a Kubernetes-based Operator and comprises of several contro
 
 ## Join us
 
-Have questions, ideas, bug reports or just want to chat? Come join [our discord server](https://discord.gg/6P8mDvAh).
+Have questions, ideas, bug reports or just want to chat? Come join [our discord server](https://discord.gg/fHCNahWR2T).
 
 <script type="text/javascript" src="https://viewer.diagrams.net/js/viewer-static.min.js" async></script>
 
