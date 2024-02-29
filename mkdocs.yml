@@ -133,8 +133,8 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/sdcio
-    - icon: fontawesome/brands/discord
-      link: https://discord.gg/6P8mDvAh
+    # - icon: fontawesome/brands/discord
+    #   link: https://discord.gg/fHCNahWR2T
     
 extra_css:
   - stylesheets/extra.css

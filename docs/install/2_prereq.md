@@ -41,6 +41,16 @@ kind create cluster --name sdc
 /// tab | other
 ///
 
+## Install Cert-Manager
+The config-server (extension api-server) requires a certificate, which is created via cert-manager. The corresponding CA cert needs to be injected into the cabundle spec field of the `api-service` resource.
+
+```bash
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.3/cert-manager.yaml
+# If the SDCIO resources, see below are being applied to fast, the webhook of the cert-manager is not already there.
+# Hence we need to wait for the resource be become Available
+kubectl wait -n cert-manager --for=condition=Available=True --timeout=300s deployments.apps cert-manager-webhook
+```
+
 [kind-install]: (https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 [kind]: (https://kind.sigs.k8s.io/)
 [kubectl]: (https://kubernetes.io/docs/tasks/tools/)

@@ -1,6 +1,6 @@
 
 MKDOCS_MATERIAL_VERSION := 9.1.4
-PORT := 8000
+PORT ?= 8000
 
 docker-run: pull-config-server generate-template
 	docker run --rm --name sdcio-docs -v "$$(pwd)":/docs -p ${PORT}:${PORT} --entrypoint ash squidfunk/mkdocs-material:${MKDOCS_MATERIAL_VERSION} -c 'mkdocs serve -a 0.0.0.0:${PORT}'
