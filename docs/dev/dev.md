@@ -35,6 +35,12 @@ telepresence connect -n network-system
 telepresence intercept config-server --port 6443:api-service
 ```
 
+/// details | mounts
+telepresence allows for the mounts of the config-server pod to be forwarded via sshfs to the dev machine.
+
+It might be necessary to set the `user_allow_other` in the fuse config file `/etc/fuse.conf`.
+///
+
 ### Retrieve Config-Server Api-Service Certificate
 
 ```
@@ -52,9 +58,9 @@ yq -i 'del(.users)' kubeconfig
 ```
 
 ### Retrieve ServiceAccount Token
-Retrieve a 9 hour long valid ServiceAccount token and put it into the kubeconfig.
+Retrieve a 30 day valid ServiceAccount token and put it into the kubeconfig.
 ```
-token=$(kubectl create token -n network-system --duration 9h config-server)  yq -i '. + {"users": [ { "name": "kind-kind","user": {"token": strenv(token)}} ]}' kubeconfig
+kubectl config --kubeconfig ./kubeconfig set-credentials kind-kind --token=$(kubectl create token -n network-system --duration 720h config-server)
 ```
 
 ### Run config-server locally
