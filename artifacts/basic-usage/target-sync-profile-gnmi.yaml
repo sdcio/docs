@@ -1,0 +1,17 @@
+apiVersion: inv.sdcio.dev/v1alpha1
+kind: TargetSyncProfile
+metadata:
+  name: gnmi-onchange
+  namespace: default
+spec:
+  buffer: 0
+  workers: 10
+  validate: true
+  sync:
+  - name: config
+    protocol: gnmi
+    paths:
+    - /
+    mode: onChange
+    encoding: config     # SRLinux specific encoding (id: 45)
+ 

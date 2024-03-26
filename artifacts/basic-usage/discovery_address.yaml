@@ -1,0 +1,21 @@
+apiVersion: inv.sdcio.dev/v1alpha1
+kind: DiscoveryRule
+metadata:
+  name: dev1-address
+  namespace: default
+spec:
+  period: 1m
+  addresses:
+  - address: 172.21.0.200
+    hostName: dev1
+  discoveryProfile:
+    credentials: srl.nokia.sdcio.dev 
+    connectionProfiles:
+    - gnmi-skipverify
+  targetConnectionProfiles:
+  - credentials: srl.nokia.sdcio.dev 
+    connectionProfile: gnmi-skipverify
+    syncProfile: gnmi-onchange
+  targetTemplate:
+    labels:
+      sdcio.dev/region: us-east
