@@ -50,9 +50,9 @@ jobs:
           token: ${{ secrets.IPTECHARCH_GITHUB_PAT }} # `GH_PAT` is a secret that contains your PAT
       - shell: bash
         run: |
-          mkdir -p dot-github-repo/docs/diagrams/
-          cp docs/diagrams/sdc-architecture.drawio.png dot-github-repo/docs/diagrams/sdc-architecture.drawio.png
-          cp README.md dot-github-repo/
+          mkdir -p dot-github-repo/profile/docs/diagrams/
+          cp docs/diagrams/sdc-architecture.drawio.png dot-github-repo/profile/docs/diagrams/sdc-architecture.drawio.png
+          cp README.md dot-github-repo/profile
       - uses: EndBug/add-and-commit@v9
         with:
           message: Update README.md
