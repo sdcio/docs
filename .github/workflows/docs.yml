@@ -58,5 +58,5 @@ jobs:
           message: Update README.md
           committer_name: GitHub Actions
           committer_email: 41898282+github-actions[bot]@users.noreply.github.com
-          add: '["README.md", "docs/diagrams/sdc-architecture.drawio.png"]'
+          add: '["profile"]'
           cwd: './dot-github-repo/'
