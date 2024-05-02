@@ -52,6 +52,12 @@ The config-server is a Kubernetes-based Operator and comprises of several contro
 - Full Config or Config Snippets
 - Declarative Operation
 
+## Presentations
+
+Presentations about SDCIO:
+
+- ONE Summit 2024: [Cloud Native YANG Mgmt - Wim Henderickx, Nokia](https://sched.co/1YUs3)
+
 ## Join us
 
 Have questions, ideas, bug reports or just want to chat? Come join [our discord server](https://discord.gg/fHCNahWR2T).
