@@ -67,6 +67,12 @@ Code in the SDCIO public repositories licensed with Apache License 2.0.
 At the moment the project is governed by the benevolent dictatorship of @henderiw @steiler @karimra and @hansthienpondt 
 On the long run we plan to move to a meritocracy based governance model.
 
+## Presentations
+
+Presentations about SDCIO:
+
+- ONE Summit 2024: [Cloud Native YANG Mgmt - Wim Henderickx, Nokia](https://sched.co/1YUs3)
+
 ## Join us
 
 Have questions, ideas, bug reports or just want to chat? Come join [our discord server](https://discord.gg/fHCNahWR2T).
