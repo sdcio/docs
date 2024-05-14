@@ -71,7 +71,7 @@ On the long run we plan to move to a meritocracy based governance model.
 
 Presentations about SDCIO:
 
-- ONE Summit 2024: [Cloud Native YANG Mgmt - Wim Henderickx, Nokia](https://sched.co/1YUs3)
+- ONE Summit 2024: [Cloud Native YANG Mgmt - Wim Henderickx, Nokia](https://sched.co/1YUs3), [video](https://www.youtube.com/watch?v=dHOeqbqkN1s)
 
 ## Join us
 
