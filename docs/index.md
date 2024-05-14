@@ -56,7 +56,7 @@ The config-server is a Kubernetes-based Operator and comprises of several contro
 
 Presentations about SDCIO:
 
-- ONE Summit 2024: [Cloud Native YANG Mgmt - Wim Henderickx, Nokia](https://sched.co/1YUs3)
+- ONE Summit 2024: [Cloud Native YANG Mgmt - Wim Henderickx, Nokia](https://sched.co/1YUs3), [video](https://www.youtube.com/watch?v=dHOeqbqkN1s)
 
 ## Join us
 
