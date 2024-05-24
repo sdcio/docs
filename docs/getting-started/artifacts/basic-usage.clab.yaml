@@ -10,6 +10,6 @@ topology:
       type: ixrd3
       image: ghcr.io/nokia/srlinux:23.10.1
   nodes:
-    srl:
+    dev1:
       kind: nokia_srlinux
       mgmt-ipv4: 172.21.0.200
