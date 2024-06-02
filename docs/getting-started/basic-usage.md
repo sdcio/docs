@@ -16,20 +16,28 @@ sudo mv ./kind /usr/local/bin/kind
 To create a Kind based Kubernetes Cluster, issue the following command.
 ```bash
 kind create cluster
-# Allow the kind cluster to communicate with the later created containerlab topology
-sudo iptables -I DOCKER-USER -o br-$(docker network inspect -f '{{ printf "%.12s" .ID }}' kind) -j ACCEPT
 ```
 
-/// details | iptables command description
-
+### Allow communication between containers attached to different network
+Find the linux bridge interface dedicated to `basic-usage` container. 
 ```
-sudo iptables -I DOCKER-USER -o br-$(docker network inspect -f '{{ printf "%.12s" .ID }}' kind) -j ACCEPT
+docker network inspect -f '{{ printf "%.12s" .ID }}' basic-usage
+37e8bb64ef43
 ```
 
-- `docker network inspect -f '{{ printf "%.12s" .ID }}' kind` - inspects the kind docker network, that the kind cluster is attached to. Extract from the json that is returned, the first 12 characters of the Id field.
-- `sudo iptables -I DOCKER-USER -o br-$(...) -j ACCEPT` - as root insert a firewall rule to the DOCKER-USER chain, concerning the bridge with the name "br-<FIRST-12-CHAR-OF-THE-DOCKER-NETWORK-ID>" with the action ACCEPT.
+Find the linux bridge interface dedicated to `kind` container.
+```
+docker network inspect -f '{{ printf "%.12s" .ID }}' kind
+e4d20d240e19
+```
 
-///
+
+Allow traffic back and forth issued from host belonging to each of these bridges respectively.    
+(Otherwise traffic will be blocked DOCKER-ISOLATION-STAGE-[x])
+```
+sudo iptables -I DOCKER-USER -i br-e4d20d240e19 -o br-37e8bb64ef43 -j ACCEPT
+sudo iptables -I DOCKER-USER -i br-37e8bb64ef43 -o br-e4d20d240e19 -j ACCEPT
+```
 
 ## kubectl
 `kubectl` is a command-line tool used to control and manage Kubernetes clusters. It allows developers and administrators to execute commands to create, monitor, and manage resources such as pods, services, deployments, and more within a Kubernetes cluster.
@@ -57,7 +65,7 @@ bash -c "$(curl -sL https://get.containerlab.dev)"
 The following contains information on how to deploy a Nokia SR Linux NOS container, which will consecutively be managed via sdcio.
 
 ### Installation
-Deploy a [Nokia SR Linux](https://learn.srlinux.dev/) device via [Containerlab](https://containerlab.dev).
+Deploy a [Nokia SR Linux](https://learn.srlinux.dev/) device called `dev1`via [Containerlab](https://containerlab.dev).
 
 ```bash
 sudo containerlab deploy -t https://docs.sdcio.dev/artifacts/basic-usage/basic-usage.clab.yaml
@@ -75,15 +83,67 @@ docs/getting-started/artifacts/basic-usage.clab.yaml
 
 ### Verification
 
-The output of the containerlab deploy from above should indicate, that the node `clab-basic-usage-srl` is in the running state.
+The output of the containerlab deploy from above should indicate, that the node `clab-basic-usage-dev1` is in the running state.
 
 ```
-+---+----------------------+--------------+-----------------------+---------------+---------+-----------------+--------------+
-| # |         Name         | Container ID |         Image         |     Kind      |  State  |  IPv4 Address   | IPv6 Address |
-+---+----------------------+--------------+-----------------------+---------------+---------+-----------------+--------------+
-| 1 | clab-basic-usage-srl | e84130ad8b49 | ghcr.io/nokia/srlinux | nokia_srlinux | running | 172.21.0.200/16 | N/A          |
-+---+----------------------+--------------+-----------------------+---------------+---------+-----------------+--------------+
+sudo clab inspect -t basic-usage.clab.yaml
+INFO[0000] Parsing & checking topology file: basic-usage.clab.yaml
++---+-----------------------+--------------+-------------------------------+---------------+---------+-----------------+--------------+
+| # |         Name          | Container ID |             Image             |     Kind      |  State  |  IPv4 Address   | IPv6 Address |
++---+-----------------------+--------------+-------------------------------+---------------+---------+-----------------+--------------+
+| 1 | clab-basic-usage-dev1 | c76bb71b56a8 | ghcr.io/nokia/srlinux:23.10.1 | nokia_srlinux | running | 172.21.0.200/16 | N/A          |
++---+-----------------------+--------------+-------------------------------+---------------+---------+-----------------+--------------+
 ```
+
+
+/// details | Connectivity verification 
+
+Spin a basic linux pod in kind cluster such as the one below:
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu
+  labels:
+    app: ubuntu
+spec:
+  containers:
+  - image: ubuntu
+    command:
+      - "sleep"
+      - "604800"
+    imagePullPolicy: IfNotPresent
+    name: ubuntu
+  restartPolicy: Always
+```
+
+log into the pod
+```
+kubectl exec -it ubuntu -- /bin/bash
+```
+
+install ping
+```
+apt install inetutils-ping
+```
+
+ping SRL `dev1` node (should work after having applied iptables rules above)
+```
+root@ubuntu:/# ping 172.21.0.200 -c 5
+PING 172.21.0.200 (172.21.0.200): 56 data bytes
+64 bytes from 172.21.0.200: icmp_seq=0 ttl=62 time=13.209 ms
+64 bytes from 172.21.0.200: icmp_seq=1 ttl=62 time=13.391 ms
+64 bytes from 172.21.0.200: icmp_seq=2 ttl=62 time=12.021 ms
+64 bytes from 172.21.0.200: icmp_seq=3 ttl=62 time=11.237 ms
+64 bytes from 172.21.0.200: icmp_seq=4 ttl=62 time=19.536 ms
+--- 172.21.0.200 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 11.237/13.879/19.536/2.937 ms
+root@ubuntu:/#
+```
+
+///
+
 ## Cert-Manager
 The config-server (extension api-server) requires a certificate, which is created via cert-manager. The corresponding CA cert needs to be injected into the cabundle spec field of the `api-service` resource.
 
@@ -231,13 +291,21 @@ To retrieve the running configuration from the device, the `RunningConfig` CR ca
 It contains an empty spec, but the config is presented in the `status` -> `value` field.
 
 ```bash
-kubectl get runningconfigs.config.sdcio.dev srl 
+# node name is dev1
+kubectl get runningconfigs.config.sdcio.dev dev1
+NAME
+dev1
 ```
 
-The output is quite extensive so lets just take a look at the *network-instance* configuration.
+The output of:
+```
+kubectl get runningconfigs.config.sdcio.dev dev1 -ojsonpath="{.status}" | jq
+```
+
+is quite extensive so lets just take a look at the *network-instance* configuration.
 
 ```bash
-kubectl get runningconfigs.config.sdcio.dev srl -ojsonpath="{.status.value.network-instance}" | jq
+kubectl get runningconfigs.config.sdcio.dev dev1 -ojsonpath="{.status.value.network-instance}" | jq
 ```
 
 Output:
