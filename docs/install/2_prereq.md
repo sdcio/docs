@@ -51,6 +51,6 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/
 kubectl wait -n cert-manager --for=condition=Available=True --timeout=300s deployments.apps cert-manager-webhook
 ```
 
-[kind-install]: (https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-[kind]: (https://kind.sigs.k8s.io/)
-[kubectl]: (https://kubernetes.io/docs/tasks/tools/)
+[kind-install]: https://kind.sigs.k8s.io/docs/user/quick-start/#installation
+[kind]: https://kind.sigs.k8s.io/
+[kubectl]: https://kubernetes.io/docs/tasks/tools/

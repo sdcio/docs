@@ -33,6 +33,6 @@ kubectl get pods -n network-system
 output
 
 ```
-NAME                                READY   STATUS    RESTARTS        AGE
-config-apiserver-5d56bf5776-kktst   2/2     Running   1 (6m49s ago)   6m55s
+NAME                             READY   STATUS    RESTARTS   AGE
+config-server-7fcd95b976-p2pn7   2/2     Running   0          3d5h
 ```
