@@ -57,7 +57,7 @@ bash -c "$(curl -sL https://get.containerlab.dev)"
 The following contains information on how to deploy a Nokia SR Linux NOS container, which will consecutively be managed via sdcio.
 
 ### Installation
-Deploy a [Nokia SR Linux](https://learn.srlinux.dev/) device via [Containerlab](https://containerlab.dev).
+Deploy a [Nokia SR Linux](https://learn.srlinux.dev/) device called `dev1` via [Containerlab](https://containerlab.dev).
 
 ```bash
 sudo containerlab deploy -t https://docs.sdcio.dev/artifacts/basic-usage/basic-usage.clab.yaml
@@ -219,7 +219,7 @@ NAME                                                    AGE
 targetconnectionprofile.inv.sdcio.dev/gnmi-skipverify   21m
 
 NAME                       READY   DATASTORE   CONFIG   PROVIDER              ADDRESS              PLATFORM      SERIALNUMBER     MACADDRESS
-target.inv.sdcio.dev/srl   True    True        True     srl.nokia.sdcio.dev   172.21.0.200:57400   7220 IXR-D3   Sim Serial No.   1A:AB:00:FF:00:00
+target.inv.sdcio.dev/dev1   True    True        True     srl.nokia.sdcio.dev   172.21.0.200:57400   7220 IXR-D3   Sim Serial No.   1A:AB:00:FF:00:00
 
 NAME                                            AGE
 targetsyncprofile.inv.sdcio.dev/gnmi-onchange   21m
@@ -231,13 +231,13 @@ To retrieve the running configuration from the device, the `RunningConfig` CR ca
 It contains an empty spec, but the config is presented in the `status` -> `value` field.
 
 ```bash
-kubectl get runningconfigs.config.sdcio.dev srl 
+kubectl get runningconfigs.config.sdcio.dev dev1 
 ```
 
 The output is quite extensive so lets just take a look at the *network-instance* configuration.
 
 ```bash
-kubectl get runningconfigs.config.sdcio.dev srl -ojsonpath="{.status.value.network-instance}" | jq
+kubectl get runningconfigs.config.sdcio.dev dev1 -ojsonpath="{.status.value.network-instance}" | jq
 ```
 
 Output:
