@@ -212,7 +212,7 @@ Now that targets are ready to be comsumed we can provision the targets with conf
 
 The following parameters are important
 - metadata.name: name of the intent
-- metadata.labels: targetName and targetNamespace tell the config-server which device this configuration applies to
+- metadata.labels: config.sdcio.dev/targetName and config.sdcio.dev/targetNamespace tell the config-server which device this configuration applies to
 - priority: defines the priority of the intent if overlapping intents apply to the target
 - Config has a:
   - path: relative to the root
@@ -226,8 +226,8 @@ metadata:
   name: intent1-sros
   namespace: default
   labels:
-    targetName: dev1
-    targetNamespace: default
+    config.sdcio.dev/targetName: dev1
+    config.sdcio.dev/targetNamespace: default
 spec:
   priority: 10
   config:
