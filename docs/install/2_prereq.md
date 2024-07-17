@@ -26,7 +26,7 @@ complete -F _start_kubectl k
 ## Install Kubernetes (optional)
 
 To install `sdc` on a kubernetes cluster we first need to install a `kubernetes` cluster. 
-Other than the minimum version being `v1.29`[ˆ1], `Sdc` has no special requirements on the `k8s` cluster, so any `k8s` flavor should work, bearing in mind the minimum version[ˆ1] 
+Other than the minimum version being `v1.29`[^1], `Sdc` has no special requirements on the `k8s` cluster, so any `k8s` flavor should work, bearing in mind the minimum version[^1] 
 
 /// tab | kind
 
