@@ -40,6 +40,7 @@ SDC supports various gNMI subscription modes:
 * `onChange`: Corresponds to gNMI stream mode ON_CHANGE.
 * `sample`: Matches gNMI stream mode SAMPLE, using interval as the sample-interval.
 * `once`: Equivalent to gNMI mode ONCE, where a SubscribeRequest is sent at each interval.
+* `get`: Periodic get Config, interval needs to be specified.
 
 Other gNMI specific attributes:
 
