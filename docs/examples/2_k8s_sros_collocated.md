@@ -156,8 +156,7 @@ spec:
     paths:
     - /
     mode: sample
-    encoding: config
-    interval: 10
+    interval: 10s
 EOF
 ```
 Once profiles are up installed, you can now deploy a `DiscoveryRule`. In this example we use static ip discovery (or better no discovery). It means the `ip address/prefix`  containerlab returned should be used as the ip prefix in the following CRD.
