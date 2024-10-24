@@ -32,7 +32,7 @@ telepresence connect -n network-system
 
 #### Config Server
 ```
-telepresence intercept config-server --port 6443:api-service
+telepresence intercept config-server-api --workload config-server --service config-server --port 6443:api-service
 ```
 
 /// details | mounts
@@ -40,6 +40,11 @@ telepresence allows for the mounts of the config-server pod to be forwarded via 
 
 It might be necessary to set the `user_allow_other` in the fuse config file `/etc/fuse.conf`.
 ///
+
+#### Data Server
+```
+telepresence intercept data-server --workload config-server --service data-server --port 56000:grpc
+```
 
 ### Retrieve Config-Server Api-Service Certificate
 
@@ -76,7 +81,6 @@ The VSCode configuration is as follows.
             "args": [
                 "--tls-cert-file=./tls.crt",
                 "--tls-private-key-file=./tls.key",
-                "--feature-gates=APIPriorityAndFairness=false",
                 "--audit-log-path=-",
                 "--audit-log-maxage=0",
                 "--audit-log-maxbackup=0",
