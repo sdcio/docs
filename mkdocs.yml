@@ -49,7 +49,7 @@ nav:
   #   - "0.0.1": rn/0.0.1.md
   # - FAQ: faq/faq.md
   - Development: dev/dev.md
-  # - Community: 
+  - Community: community/community.md
   #   - About: community/community.md
   #   - Contributing:
   #     - About: dev/about.md
@@ -121,7 +121,9 @@ theme:
     logo: fontawesome/solid/sitemap
     repo: fontawesome/brands/github
     edit: material/file-edit-outline
-  favicon: images/flask.svg
+  favicon: assets/logos/SDC-logo.svg
+  logo: assets/logos/SDC-logo.svg
+
 
 # Plugins
 plugins:
