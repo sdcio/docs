@@ -200,9 +200,9 @@ kubectl get targets.inv.sdcio.dev
 When target are successfully discovered you should see both `READY` and `DATASTORE` set to `True`.
 
 ```
-NAME   READY   DATASTORE   PROVIDER              ADDRESS             PLATFORM   SERIALNUMBER   MACADDRESS
-dev1   True    True        sros.nokia.sdcio.dev   172.20.20.11:57400
-dev2   True    True        sros.nokia.sdcio.dev   172.20.20.12:57400
+NAME   READY   REASON   PROVIDER               ADDRESS             PLATFORM   SERIALNUMBER   MACADDRESS
+dev1   True             sros.nokia.sdcio.dev   172.20.20.11
+dev2   True             sros.nokia.sdcio.dev   172.20.20.12
 ```
 
 ## Configure Intents

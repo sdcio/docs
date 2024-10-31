@@ -19,10 +19,13 @@ These parameters jointly establish the methodology for schema acquisition:
 * `kind`: It determines the nature of the reference point within the repository, offering options between a "tag" or a "branch".
 * `ref`: This parameter is closely linked to kind and pinpoints the exact tag or branch name within the repository.
 * `credentials`: This parameter is point to a secret name in the same namespace as the `schema` CR. It is required if your repository requires authentication e.g. a private repo.
+* `proxy`: This determines the proxy parameters to use if the git repo is behind a proxy
 
 Following the identification of schema directories and files for download, the `dirs` attribute plays a crucial role. It allows users to map each source directory to a corresponding local storage location. Essentially, dirs is an array comprising pairs of `src` (source directory) and `dst` (destination path). This setup facilitates the organization of downloaded schema files, ensuring they are stored in designated local directories for easy access and management.
 
 If the dirs attribute is not set, it defaults to `$pwd` for both `src` and `dst`.
+
+Some vendors publish their primary YANG files in a central repository; however, included files may reside in separate repositories. To address this, the repository definition in the Schema Custom Resource Definition (CRD) allows for the specification of multiple repositories. This setup ensures that all components contributing to the schema are accessible and properly linked, even if they are stored across different locations.
 
 ## Repository authentication
 
@@ -184,5 +187,13 @@ config-server-repo/example/schemas/schema-juniper-ex-23.2R1.yaml
 ```yaml
 --8<--
 config-server-repo/example/schemas/schema-juniper-nfx-23.2R1.yaml
+--8<--
+```
+
+### Arista EOS 4.31.2.F
+
+```yaml
+--8<--
+config-server-repo/example/schemas/schema-arista-4.31.2.f.yaml
 --8<--
 ```

@@ -9,11 +9,11 @@ metadata:
   name: dev-man
   namespace: default
 spec:
-  address: 172.18.0.5:57400
+  address: 172.18.0.5
   connectionProfile: gnmi-skipverify
   credentials: srl.nokia.sdcio.dev
   provider: srl.nokia.sdcio.dev
-  syncProfile: gnmi-onchange
+  syncProfile: gnmi-get
 ```
 
 ## Attributes

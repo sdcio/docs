@@ -126,7 +126,7 @@ metadata:
 spec:
   port: 57400
   protocol: gnmi
-  encoding: ASCII
+  encoding: JSON_IETF
   skipVerify: true
   insecure: false
 EOF
@@ -141,7 +141,7 @@ kubectl apply -f - <<EOF
 apiVersion: inv.sdcio.dev/v1alpha1
 kind: TargetSyncProfile
 metadata:
-  name: gnmi-onchange
+  name: gnmi-get
   namespace: default
 spec:
   buffer: 0
@@ -150,10 +150,11 @@ spec:
   sync:
   - name: config
     protocol: gnmi
+    port: 57400
     paths:
     - /
     mode: get
-    encoding: ASCII
+    encoding: JSON_IETF
     interval: 10s
 EOF
 ```
@@ -198,9 +199,9 @@ kubectl get targets.inv.sdcio.dev
 When target are successfully discovered you should see both `READY` and `DATASTORE` set to `True`.
 
 ```
-NAME   READY   DATASTORE   PROVIDER              ADDRESS             PLATFORM   SERIALNUMBER   MACADDRESS
-dev1   True    True        srl.nokia.sdcio.dev   172.20.20.3:57400
-dev2   True    True        srl.nokia.sdcio.dev   172.20.20.2:57400
+NAME   READY   REASON   PROVIDER              ADDRESS             PLATFORM   SERIALNUMBER   MACADDRESS
+dev1   True             srl.nokia.sdcio.dev   172.20.20.3
+dev2   True             srl.nokia.sdcio.dev   172.20.20.2
 ```
 
 ## Configure Intents
