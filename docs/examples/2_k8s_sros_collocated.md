@@ -59,20 +59,22 @@ metadata:
   name: sros.nokia.sdcio.dev-23.10.1
   namespace: default
 spec:
-  repoURL: https://github.com/nokia/7x50_YangModels
   provider: sros.nokia.sdcio.dev
-  version: 23.10.1
-  kind: tag
-  ref: sros_23.10.r1
-  dirs:
-  - src: YANG
-    dst: .
-  schema:
-    models:
-    - nokia-combined
-    includes:
-    - ietf
-    - nokia-sros-yang-extensions.yang
+  version: 23.10.2
+  repositories:
+  - repoURL: https://github.com/nokia/7x50_YangModels
+    kind: tag
+    ref: sros_23.10.r2
+    dirs:
+    - src: YANG
+      dst: .
+    schema:
+      models:
+      - nokia-combined
+      includes:
+      - ietf
+      - nokia-sros-yang-extensions.yang
+      excludes: []
 EOF
 ```
 

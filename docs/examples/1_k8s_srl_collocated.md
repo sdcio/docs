@@ -47,7 +47,6 @@ Record the ip addresses containerlab provided to both containers. You will need 
 
 Once the devices/targets are up and running you need to install the corresponding device schema's. In this example we use Nokia SRLinux version 23.10.1
 
-
 ```yaml
 kubectl apply -f - <<EOF
 apiVersion: inv.sdcio.dev/v1alpha1
@@ -56,23 +55,24 @@ metadata:
   name: srl.nokia.sdcio.dev-23.10.1
   namespace: default
 spec:
-  repoURL: https://github.com/nokia/srlinux-yang-models
   provider: srl.nokia.sdcio.dev
   version: 23.10.1
-  kind: tag
-  ref: v23.10.1
-  dirs:
-  - src: srlinux-yang-models
-    dst: .
-  schema:
-    models:
-    - srl_nokia/models
-    includes:
-    - ietf
-    - openconfig/extensions
-    - openconfig/openconfig-extensions.yang
-    excludes:
-    - .*tools.*
+  repositories:
+  - repoURL: https://github.com/nokia/srlinux-yang-models
+    kind: tag
+    ref: v23.10.1
+    dirs:
+    - src: srlinux-yang-models
+      dst: .
+    schema:
+      models:
+      - srl_nokia/models
+      includes:
+      - ietf
+      - openconfig/extensions
+      - openconfig/openconfig-extensions.yang
+      excludes:
+      - .*tools.*
 EOF
 ```
 
