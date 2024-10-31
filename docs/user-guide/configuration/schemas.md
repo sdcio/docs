@@ -103,8 +103,8 @@ Sample outputs:
 
 ```shell
 $ kubectl get schemas.inv.sdcio.dev
-NAME                           READY   URL                                            REF             PROVIDER               VERSION
-srl.nokia.sdcio.dev-23.10.1    True    https://github.com/nokia/srlinux-yang-models   v23.10.1        srl.nokia.sdcio.dev    23.10.1
+NAME                          READY   PROVIDER              VERSION   URL                                            REF
+srl.nokia.sdcio.dev-23.10.1   True    srl.nokia.sdcio.dev   23.10.1   https://github.com/nokia/srlinux-yang-models   v23.10.1
 ```
 
 ```shell
@@ -114,36 +114,38 @@ kind: Schema
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"inv.sdcio.dev/v1alpha1","kind":"Schema","metadata":{"annotations":{},"name":"srl.nokia.sdcio.dev-23.10.1","namespace":"default"},"spec":{"dirs":[{"dst":".","src":"srlinux-yang-models"}],"kind":"tag","provider":"srl.nokia.sdcio.dev","ref":"v23.10.1","repoURL":"https://github.com/nokia/srlinux-yang-models","schema":{"excludes":[".*tools.*"],"includes":["ietf","openconfig/extensions","openconfig/openconfig-extensions.yang"],"models":["srl_nokia/models"]},"version":"23.10.1"}}
-  creationTimestamp: "2024-01-09T23:05:13Z"
+      {"apiVersion":"inv.sdcio.dev/v1alpha1","kind":"Schema","metadata":{"annotations":{},"name":"srl.nokia.sdcio.dev-23.10.1","namespace":"default"},"spec":{"provider":"srl.nokia.sdcio.dev","repositories":[{"dirs":[{"dst":".","src":"srlinux-yang-models"}],"kind":"tag","ref":"v23.10.1","repoURL":"https://github.com/nokia/srlinux-yang-models","schema":{"excludes":[".*tools.*"],"includes":["ietf","openconfig/extensions","openconfig/openconfig-extensions.yang"],"models":["srl_nokia/models"]}}],"version":"23.10.1"}}
+  creationTimestamp: "2024-10-31T17:04:34Z"
   finalizers:
   - schema.inv.sdcio.dev/finalizer
-  generation: 1
+  generation: 2
   name: srl.nokia.sdcio.dev-23.10.1
   namespace: default
-  resourceVersion: "872"
-  uid: 8b533cc2-38fa-4487-965d-3877beb455fc
+  resourceVersion: "250684"
+  uid: beb741df-9273-43a5-bd92-dcd0293905b4
 spec:
-  dirs:
-  - dst: .
-    src: srlinux-yang-models
-  kind: tag
   provider: srl.nokia.sdcio.dev
-  ref: v23.10.1
-  repoURL: https://github.com/nokia/srlinux-yang-models
-  schema:
-    excludes:
-    - .*tools.*
-    includes:
-    - ietf
-    - openconfig/extensions
-    - openconfig/openconfig-extensions.yang
-    models:
-    - srl_nokia/models
+  repositories:
+  - dirs:
+    - dst: .
+      src: srlinux-yang-models
+    kind: tag
+    proxy: {}
+    ref: v23.10.1
+    repoURL: https://github.com/nokia/srlinux-yang-models
+    schema:
+      excludes:
+      - .*tools.*
+      includes:
+      - ietf
+      - openconfig/extensions
+      - openconfig/openconfig-extensions.yang
+      models:
+      - srl_nokia/models
   version: 23.10.1
 status:
   conditions:
-  - lastTransitionTime: "2024-01-09T23:05:16Z"
+  - lastTransitionTime: "2024-10-31T17:04:36Z"
     message: ""
     reason: Ready
     status: "True"

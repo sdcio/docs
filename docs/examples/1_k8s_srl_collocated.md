@@ -86,8 +86,8 @@ kubectl get schema srl.nokia.sdcio.dev-23.10.1
 If successfull you should see the `READY` state being `True`
 
 ```
-NAME                          READY   URL                                            REF        PROVIDER              VERSION
-srl.nokia.sdcio.dev-23.10.1   True    https://github.com/nokia/srlinux-yang-models   v23.10.1   srl.nokia.sdcio.dev   23.10.1
+NAME                           READY   PROVIDER               VERSION    URL                                            REF
+srl.nokia.sdcio.dev-23.10.1    True    srl.nokia.sdcio.dev    23.10.1    https://github.com/nokia/srlinux-yang-models   v23.10.1
 ```
 
 ## Discovering targets

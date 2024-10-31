@@ -11,7 +11,7 @@ SDC will need to interact with a device that talks `YANG`. You can use physical,
 [containerlab]: (https://containerlab.dev/install/)
 
 ## SDC on kubernetes
-
+f
 Install the [k8s-collocated](../install/3_k8s_collocated.md) environment using a [kind][kind] cluster 
 
 ## Devices
@@ -86,8 +86,8 @@ kubectl get schema sros.nokia.sdcio.dev-23.10.1
 If successfull you should see the `READY` state being `True`
 
 ```
-NAME                          READY   URL                                            REF        PROVIDER              VERSION
-sros.nokia.sdcio.dev-23.10.1   True    https://github.com/nokia/7x50_YangModels   sros_23.10.r1   sros.nokia.sdcio.dev   23.10.1
+NAME                           READY   PROVIDER               VERSION    URL                                            REF
+sros.nokia.sdcio.dev-23.10.1   True    sros.nokia.sdcio.dev   23.10.2    https://github.com/nokia/7x50_YangModels       sros_23.10.r2
 ```
 
 ## Discovering targets
@@ -128,7 +128,7 @@ metadata:
 spec:
   port: 830
   protocol: netconf
-  encoding: ASCII
+  encoding: JSON_IETF
   skipVerify: true
   includeNS: true
   operationWithNS: true
