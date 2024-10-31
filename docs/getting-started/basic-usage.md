@@ -198,12 +198,13 @@ docs/getting-started/artifacts/secret-srl.yaml
 ///
 
 ### Verification
+
+When running the below command you are provides with an overview of all the SDCIO originating CRs in the system
+
+
 ```bash
 kubectl get sdc
 ```
-
-The output provides an overview of all the SDCIO originating CRs.
-
 
 First of all the `Ready` flag of the `Schema` CR is expected to be `True`. Which indicates, that the provided Yang Schema was successfully downloaded.
 Next, the `DiscoveryRule` is supposed to be `Ready=True`, which is a pre-requisite for the `Target` to be created by the `DiscoverRule` controller.
