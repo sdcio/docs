@@ -37,16 +37,18 @@ For gNMI synchronization, set the protocol to `protocol: gnmi`:
 
 SDC supports various gNMI subscription modes:
 
+* `get`: Periodic get Config, interval needs to be specified.
 * `onChange`: Corresponds to gNMI stream mode ON_CHANGE.
 * `sample`: Matches gNMI stream mode SAMPLE, using interval as the sample-interval.
 * `once`: Equivalent to gNMI mode ONCE, where a SubscribeRequest is sent at each interval.
-* `get`: Periodic get Config, interval needs to be specified.
 
 Other gNMI specific attributes:
 
-* `encoding`: The gNMI encoding used for subscriptions.
+* `protocol`: the protocol used for syncing: options being `netconf` or `gnmi`
+* `encoding`: The gNMI encoding used for subscriptions. (only relevant for gNMI with options (`JSON`, `JSON_IETF`, `PROTO`))
+* `port`: The port used to access the target for syncing
 
-Example of an `onChange` gNMI SyncProfile:
+Example of an `get` gNMI SyncProfile:
 
 ```yaml
 --8<--

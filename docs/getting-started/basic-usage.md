@@ -218,11 +218,11 @@ schema.inv.sdcio.dev/srl.nokia.sdcio.dev-23.10.1   True    https://github.com/no
 NAME                                                    AGE
 targetconnectionprofile.inv.sdcio.dev/gnmi-skipverify   21m
 
-NAME                       READY   DATASTORE   CONFIG   PROVIDER              ADDRESS              PLATFORM      SERIALNUMBER     MACADDRESS
-target.inv.sdcio.dev/dev1   True    True        True     srl.nokia.sdcio.dev   172.21.0.200:57400   7220 IXR-D3   Sim Serial No.   1A:AB:00:FF:00:00
+NAME                       READY   REASON    PROVIDER              ADDRESS              PLATFORM      SERIALNUMBER     MACADDRESS
+target.inv.sdcio.dev/dev1   True    True     srl.nokia.sdcio.dev   172.21.0.200:57400   7220 IXR-D3   Sim Serial No.   1A:AB:00:FF:00:00
 
 NAME                                            AGE
-targetsyncprofile.inv.sdcio.dev/gnmi-onchange   21m
+targetsyncprofile.inv.sdcio.dev/gnmi-get   21m
 ```
 
 

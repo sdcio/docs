@@ -86,8 +86,8 @@ kubectl get schema srl.nokia.sdcio.dev-23.10.1
 If successfull you should see the `READY` state being `True`
 
 ```
-NAME                          READY   URL                                            REF        PROVIDER              VERSION
-srl.nokia.sdcio.dev-23.10.1   True    https://github.com/nokia/srlinux-yang-models   v23.10.1   srl.nokia.sdcio.dev   23.10.1
+NAME                           READY   PROVIDER               VERSION    URL                                            REF
+srl.nokia.sdcio.dev-23.10.1    True    srl.nokia.sdcio.dev    23.10.1    https://github.com/nokia/srlinux-yang-models   v23.10.1
 ```
 
 ## Discovering targets
@@ -126,7 +126,7 @@ metadata:
 spec:
   port: 57400
   protocol: gnmi
-  encoding: ASCII
+  encoding: JSON_IETF
   skipVerify: true
   insecure: false
 EOF
@@ -141,7 +141,7 @@ kubectl apply -f - <<EOF
 apiVersion: inv.sdcio.dev/v1alpha1
 kind: TargetSyncProfile
 metadata:
-  name: gnmi-onchange
+  name: gnmi-get
   namespace: default
 spec:
   buffer: 0
@@ -150,10 +150,11 @@ spec:
   sync:
   - name: config
     protocol: gnmi
+    port: 57400
     paths:
     - /
     mode: get
-    encoding: ASCII
+    encoding: JSON_IETF
     interval: 10s
 EOF
 ```
@@ -198,9 +199,9 @@ kubectl get targets.inv.sdcio.dev
 When target are successfully discovered you should see both `READY` and `DATASTORE` set to `True`.
 
 ```
-NAME   READY   DATASTORE   PROVIDER              ADDRESS             PLATFORM   SERIALNUMBER   MACADDRESS
-dev1   True    True        srl.nokia.sdcio.dev   172.20.20.3:57400
-dev2   True    True        srl.nokia.sdcio.dev   172.20.20.2:57400
+NAME   READY   REASON   PROVIDER              ADDRESS             PLATFORM   SERIALNUMBER   MACADDRESS
+dev1   True             srl.nokia.sdcio.dev   172.20.20.3
+dev2   True             srl.nokia.sdcio.dev   172.20.20.2
 ```
 
 ## Configure Intents

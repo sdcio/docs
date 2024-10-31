@@ -19,10 +19,13 @@ These parameters jointly establish the methodology for schema acquisition:
 * `kind`: It determines the nature of the reference point within the repository, offering options between a "tag" or a "branch".
 * `ref`: This parameter is closely linked to kind and pinpoints the exact tag or branch name within the repository.
 * `credentials`: This parameter is point to a secret name in the same namespace as the `schema` CR. It is required if your repository requires authentication e.g. a private repo.
+* `proxy`: This determines the proxy parameters to use if the git repo is behind a proxy
 
 Following the identification of schema directories and files for download, the `dirs` attribute plays a crucial role. It allows users to map each source directory to a corresponding local storage location. Essentially, dirs is an array comprising pairs of `src` (source directory) and `dst` (destination path). This setup facilitates the organization of downloaded schema files, ensuring they are stored in designated local directories for easy access and management.
 
 If the dirs attribute is not set, it defaults to `$pwd` for both `src` and `dst`.
+
+Some vendors publish their primary YANG files in a central repository; however, included files may reside in separate repositories. To address this, the repository definition in the Schema Custom Resource Definition (CRD) allows for the specification of multiple repositories. This setup ensures that all components contributing to the schema are accessible and properly linked, even if they are stored across different locations.
 
 ## Repository authentication
 
@@ -100,8 +103,8 @@ Sample outputs:
 
 ```shell
 $ kubectl get schemas.inv.sdcio.dev
-NAME                           READY   URL                                            REF             PROVIDER               VERSION
-srl.nokia.sdcio.dev-23.10.1    True    https://github.com/nokia/srlinux-yang-models   v23.10.1        srl.nokia.sdcio.dev    23.10.1
+NAME                          READY   PROVIDER              VERSION   URL                                            REF
+srl.nokia.sdcio.dev-23.10.1   True    srl.nokia.sdcio.dev   23.10.1   https://github.com/nokia/srlinux-yang-models   v23.10.1
 ```
 
 ```shell
@@ -111,36 +114,38 @@ kind: Schema
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"inv.sdcio.dev/v1alpha1","kind":"Schema","metadata":{"annotations":{},"name":"srl.nokia.sdcio.dev-23.10.1","namespace":"default"},"spec":{"dirs":[{"dst":".","src":"srlinux-yang-models"}],"kind":"tag","provider":"srl.nokia.sdcio.dev","ref":"v23.10.1","repoURL":"https://github.com/nokia/srlinux-yang-models","schema":{"excludes":[".*tools.*"],"includes":["ietf","openconfig/extensions","openconfig/openconfig-extensions.yang"],"models":["srl_nokia/models"]},"version":"23.10.1"}}
-  creationTimestamp: "2024-01-09T23:05:13Z"
+      {"apiVersion":"inv.sdcio.dev/v1alpha1","kind":"Schema","metadata":{"annotations":{},"name":"srl.nokia.sdcio.dev-23.10.1","namespace":"default"},"spec":{"provider":"srl.nokia.sdcio.dev","repositories":[{"dirs":[{"dst":".","src":"srlinux-yang-models"}],"kind":"tag","ref":"v23.10.1","repoURL":"https://github.com/nokia/srlinux-yang-models","schema":{"excludes":[".*tools.*"],"includes":["ietf","openconfig/extensions","openconfig/openconfig-extensions.yang"],"models":["srl_nokia/models"]}}],"version":"23.10.1"}}
+  creationTimestamp: "2024-10-31T17:04:34Z"
   finalizers:
   - schema.inv.sdcio.dev/finalizer
-  generation: 1
+  generation: 2
   name: srl.nokia.sdcio.dev-23.10.1
   namespace: default
-  resourceVersion: "872"
-  uid: 8b533cc2-38fa-4487-965d-3877beb455fc
+  resourceVersion: "250684"
+  uid: beb741df-9273-43a5-bd92-dcd0293905b4
 spec:
-  dirs:
-  - dst: .
-    src: srlinux-yang-models
-  kind: tag
   provider: srl.nokia.sdcio.dev
-  ref: v23.10.1
-  repoURL: https://github.com/nokia/srlinux-yang-models
-  schema:
-    excludes:
-    - .*tools.*
-    includes:
-    - ietf
-    - openconfig/extensions
-    - openconfig/openconfig-extensions.yang
-    models:
-    - srl_nokia/models
+  repositories:
+  - dirs:
+    - dst: .
+      src: srlinux-yang-models
+    kind: tag
+    proxy: {}
+    ref: v23.10.1
+    repoURL: https://github.com/nokia/srlinux-yang-models
+    schema:
+      excludes:
+      - .*tools.*
+      includes:
+      - ietf
+      - openconfig/extensions
+      - openconfig/openconfig-extensions.yang
+      models:
+      - srl_nokia/models
   version: 23.10.1
 status:
   conditions:
-  - lastTransitionTime: "2024-01-09T23:05:16Z"
+  - lastTransitionTime: "2024-10-31T17:04:36Z"
     message: ""
     reason: Ready
     status: "True"
@@ -184,5 +189,13 @@ config-server-repo/example/schemas/schema-juniper-ex-23.2R1.yaml
 ```yaml
 --8<--
 config-server-repo/example/schemas/schema-juniper-nfx-23.2R1.yaml
+--8<--
+```
+
+### Arista EOS 4.31.2.F
+
+```yaml
+--8<--
+config-server-repo/example/schemas/schema-arista-4.31.2.f.yaml
 --8<--
 ```

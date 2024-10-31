@@ -72,13 +72,13 @@ sdctl is a binary available for gRPC interaction with the schema-server, data-se
 In a kubernetes environment, it can be launched by executing a container image.
 
 ```bash
-kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.4 --restart=Never --command -- /bin/bash
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.8 --restart=Never --command -- /bin/bash
 ```
 
 ## Schema-Server
 
 ```bash
-kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.4 --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 schema list
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.8 --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 schema list
 ```
 /// details | schema list
 
@@ -97,7 +97,7 @@ pod "sdctl" deleted
 ///
 
 ```bash
-kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.4 --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 schema get --vendor sros.nokia.sdcio.dev --version 23.10.2 --path /configure
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.8 --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 schema get --vendor sros.nokia.sdcio.dev --version 23.10.2 --path /configure
 ```
 
 /// details | schema get 
@@ -218,7 +218,7 @@ schema: {
 
 Listing data-stores
 ```bash
-kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.4 --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 datastore list
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.8 --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 datastore list
 ```
 /// details | datastore list
 
@@ -288,7 +288,7 @@ pod "sdctl" deleted
 
 Fetching config from the data-store
 ```bash
-kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.4 --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 data get --ds default.sr1 --path /configure/service
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.8 --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 data get --ds default.sr1 --path /configure/service
 ```
 /// details | data get
 

@@ -38,7 +38,7 @@ config-server-repo/example/connection-profiles/target-conn-profile-netconf.yaml
 For gNMI protocol connections, set protocol to gnmi. Key attributes for gNMI are:
 
 * `port`: The default TCP port for gNMI sessions is `57400`.
-* `encoding`: Specifies the encoding format for gNMI (`JSON`, `JSON_IETF`, `BYTES`, `ASCII`, `PROTO`, or an integer).
+* `encoding`: Specifies the encoding format for gNMI (`JSON`, `JSON_IETF`, `PROTO`).
 * `skipVerify`: If enabled, SDC secures the connection without validating device certificates.
 * `insecure`: Establishes an insecure gNMI connection when set to true.
 
