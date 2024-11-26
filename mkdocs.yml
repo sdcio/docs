@@ -49,6 +49,9 @@ nav:
   #   - "0.0.1": rn/0.0.1.md
   # - FAQ: faq/faq.md
   - Development: dev/dev.md
+  - Monitoring: 
+    - About: monitoring/0_about.md
+    - Prometheus Operator: monitoring/1_prometheus_operator.md
   - Community: community/community.md
   #   - About: community/community.md
   #   - Contributing:
