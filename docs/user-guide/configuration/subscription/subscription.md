@@ -3,9 +3,11 @@
 Subscription defines the subscription to collect metrics from the devices and export them using prometheus.
 
 Future:
+
 - other export mechanims (Influx, Kafka, NATS, etc)
 - abstractions/vendor agnostic subcriptions
 - output transformers/event handlers
+
 
 ## Attributes
 
@@ -30,6 +32,6 @@ config-server-repo/example/subscription/subscription.yaml
 --8<--
 ```
 
-## Premtheus usage
+## Promtheus usage
 
 [prometheus usage](./prometheus.md)
