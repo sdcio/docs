@@ -51,11 +51,11 @@ Navigate to http://localhost:9090 to access the Prometheus interface:
 
 Click on Status, then Targets to see any configured scrape targets.
 
-![Targets](prometheus_targets.png "Prometheus Targets")
+![Targets](../../../monitoring/prometheus_targets.png "Prometheus Targets")
 
 Navigate to Graph to test metrics collection:
 
-![Graph](prometheus_graph.png "Prometheus Graph")
+![Graph](../../../monitoring/prometheus_graph.png "Prometheus Graph")
 
 In the Expression box, type `controller_runtime_reconcile_total`, and press ENTER.
 
