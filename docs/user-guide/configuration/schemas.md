@@ -196,6 +196,6 @@ config-server-repo/example/schemas/schema-juniper-nfx-23.2R1.yaml
 
 ```yaml
 --8<--
-config-server-repo/example/schemas/schema-arista-4.31.1.f.yaml
+config-server-repo/example/schemas/schema-arista-4.31.1f.yaml
 --8<--
 ```
