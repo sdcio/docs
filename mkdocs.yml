@@ -27,6 +27,9 @@ nav:
       - Configuration:
         - Config: user-guide/configuration/config/config.md
         - ConfigSet: user-guide/configuration/config/configset.md
+      - Subscription:
+        - subscription: user-guide/configuration/subscription/subscription.md
+        - example local prometheus: user-guide/configuration/subscription/prometheus.md
     - Troubeshooting: user-guide/troubleshooting.md
   - System architecture:
       - Design: system-architecture/architecture.md
