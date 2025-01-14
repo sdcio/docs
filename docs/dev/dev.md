@@ -2,6 +2,7 @@
 ## Environment
 The following provides details on how to run any of the SDC components locally on the developers machine, allowing to use e.g. the debugging mode.
 
+
 ### Setup
 Telepresence is used to "highjack" the tcp connection endpoints and redirect it to the development machine.
 Hence [install Telepresence](https://www.telepresence.io/docs/latest/quick-start/) on the development machine.
@@ -10,7 +11,7 @@ Hence [install Telepresence](https://www.telepresence.io/docs/latest/quick-start
 #### Install Telepresence on Dev machine
 
 ```
-sudo curl -fL https://app.getambassador.io/download/tel2oss/releases/download/v2.18.0/telepresence-linux-amd64 -o /usr/local/bin/telepresence
+sudo curl -fL https://app.getambassador.io/download/tel2oss/releases/download/v2.20.2/telepresence-linux-amd64 -o /usr/local/bin/telepresence
 
 sudo chmod a+x /usr/local/bin/telepresence
 sudo bash -c "/usr/local/bin/telepresence completion bash > /etc/bash_completion.d/telepresence"
@@ -20,6 +21,7 @@ sudo bash -c "/usr/local/bin/telepresence completion bash > /etc/bash_completion
 
 ```
 telepresence helm install
+telepresence helm upgrade --set client.routing.allowConflictingSubnets="{10.0.0.0/8}"
 ```
 
 ### Connect 
@@ -46,6 +48,11 @@ It might be necessary to set the `user_allow_other` in the fuse config file `/et
 telepresence intercept data-server --workload config-server --service data-server --port 56000:grpc
 ```
 
+/// details | iptables error
+Telepresence allows also to intercept only traffic, without adding an init-container.
+[To do that](https://www.telepresence.io/docs/troubleshooting/#injected-init-container-doesnt-function-properly&gsc.tab=0), it is necessary to have named ports, not only numbered ones. Therefore, adding a name to the data-server ports and adding the same name to the data-service will resolve the problem.
+///
+
 ### Retrieve Config-Server Api-Service Certificate
 
 ```
@@ -70,6 +77,7 @@ kubectl config --kubeconfig ./kubeconfig set-credentials kind-kind --token=$(kub
 
 ### Run config-server locally
 The VSCode configuration is as follows. 
+The Data-Server has to be started first, then the Config-Server can be started.
 ```
         {
             "name": "Launch Package",
@@ -96,3 +104,4 @@ The VSCode configuration is as follows.
             "console": "integratedTerminal",
         }
 ```
+
