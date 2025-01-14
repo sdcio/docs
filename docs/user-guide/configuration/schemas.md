@@ -72,21 +72,21 @@ By carefully setting these parameters, users can seamlessly onboard devices into
 
 ### SR Linux v23.10.1
 
-The below CR defines an SR Linux `Schema` version 23.10.1.
+The below CR defines an SR Linux `Schema` version 24.10.1.
 
-The YANG files will be retrieved from the github repo `https://github.com/nokia/srlinux-yang-models` tag `v23.10.1`.
+The YANG files will be retrieved from the github repo `https://github.com/nokia/srlinux-yang-models` tag `v24.10.1`.
 The remote directory `srlinux-yang-models` at the roo level of the git repository will be mapped to `$pwd` (`dst: .`) in the local file system
 
 ```yaml
 --8<--
-config-server-repo/example/schemas/schema-nokia-srl-23.10.1.yaml
+config-server-repo/example/schemas/schema-nokia-srl-24.10.1.yaml
 --8<--
 ```
 
-To apply the CR, store the above content in a file (e.g: `srlinux_23.10.1_schema.yaml`) and run the command:
+To apply the CR, store the above content in a file (e.g: `srlinux_24.10.1_schema.yaml`) and run the command:
 
 ```shell
-kubectl apply -f srlinux23.10.1_schema.yaml
+kubectl apply -f srlinux_24.10.1_schema.yaml
 ```
 
 After applying the previous CR to a kubernetes cluster, the `Schema` can be viewed with the commands:
@@ -96,7 +96,7 @@ kubectl get schemas.inv.sdcio.dev
 ```
 
 ```shell
-kubectl get schemas srl.nokia.sdcio.dev-23.10.1 -o yaml
+kubectl get schemas srl.nokia.sdcio.dev-24.10.1 -o yaml
 ```
 
 Sample outputs:
@@ -104,25 +104,25 @@ Sample outputs:
 ```shell
 $ kubectl get schemas.inv.sdcio.dev
 NAME                          READY   PROVIDER              VERSION   URL                                            REF
-srl.nokia.sdcio.dev-23.10.1   True    srl.nokia.sdcio.dev   23.10.1   https://github.com/nokia/srlinux-yang-models   v23.10.1
+srl.nokia.sdcio.dev-24.10.1   True    srl.nokia.sdcio.dev   24.10.1   https://github.com/nokia/srlinux-yang-models   v24.10.1
 ```
 
 ```shell
-$ kubectl get schemas srl.nokia.sdcio.dev-23.10.1 -o yaml
+$ kubectl get schemas srl.nokia.sdcio.dev-24.10.1 -o yaml
 apiVersion: inv.sdcio.dev/v1alpha1
 kind: Schema
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"inv.sdcio.dev/v1alpha1","kind":"Schema","metadata":{"annotations":{},"name":"srl.nokia.sdcio.dev-23.10.1","namespace":"default"},"spec":{"provider":"srl.nokia.sdcio.dev","repositories":[{"dirs":[{"dst":".","src":"srlinux-yang-models"}],"kind":"tag","ref":"v23.10.1","repoURL":"https://github.com/nokia/srlinux-yang-models","schema":{"excludes":[".*tools.*"],"includes":["ietf","openconfig/extensions","openconfig/openconfig-extensions.yang"],"models":["srl_nokia/models"]}}],"version":"23.10.1"}}
-  creationTimestamp: "2024-10-31T17:04:34Z"
+      {"apiVersion":"inv.sdcio.dev/v1alpha1","kind":"Schema","metadata":{"annotations":{},"name":"srl.nokia.sdcio.dev-24.10.1","namespace":"default"},"spec":{"provider":"srl.nokia.sdcio.dev","repositories":[{"dirs":[{"dst":".","src":"srlinux-yang-models"}],"kind":"tag","ref":"v24.10.1","repoURL":"https://github.com/nokia/srlinux-yang-models","schema":{"excludes":[".*tools.*"],"includes":["ietf","openconfig/extensions","openconfig/openconfig-extensions.yang"],"models":["srl_nokia/models"]}},{"dirs":[{"dst":"deviations","src":"."}],"kind":"branch","ref":"v24.10","repoURL":"https://github.com/sdcio/srlinux-yang-patch","schema":{"models":["deviations"]}}],"version":"24.10.1"}}
+  creationTimestamp: "2025-01-14T13:44:35Z"
   finalizers:
   - schema.inv.sdcio.dev/finalizer
-  generation: 2
-  name: srl.nokia.sdcio.dev-23.10.1
+  generation: 1
+  name: srl.nokia.sdcio.dev-24.10.1
   namespace: default
-  resourceVersion: "250684"
-  uid: beb741df-9273-43a5-bd92-dcd0293905b4
+  resourceVersion: "1357"
+  uid: 17eaf452-1cae-4286-afc6-a0c0e051e0c4
 spec:
   provider: srl.nokia.sdcio.dev
   repositories:
@@ -130,8 +130,7 @@ spec:
     - dst: .
       src: srlinux-yang-models
     kind: tag
-    proxy: {}
-    ref: v23.10.1
+    ref: v24.10.1
     repoURL: https://github.com/nokia/srlinux-yang-models
     schema:
       excludes:
@@ -142,21 +141,30 @@ spec:
       - openconfig/openconfig-extensions.yang
       models:
       - srl_nokia/models
-  version: 23.10.1
+  - dirs:
+    - dst: deviations
+      src: .
+    kind: branch
+    ref: v24.10
+    repoURL: https://github.com/sdcio/srlinux-yang-patch
+    schema:
+      models:
+      - deviations
+  version: 24.10.1
 status:
   conditions:
-  - lastTransitionTime: "2024-10-31T17:04:36Z"
+  - lastTransitionTime: "2025-01-14T13:44:42Z"
     message: ""
     reason: Ready
     status: "True"
     type: Ready
 ```
 
-### SROS 23.10.2
+### SROS 24.10.1
 
 ```yaml
 --8<--
-config-server-repo/example/schemas/schema-nokia-sros-23.10.yaml
+config-server-repo/example/schemas/schema-nokia-sros-24.10.yaml
 --8<--
 ```
 
@@ -192,10 +200,18 @@ config-server-repo/example/schemas/schema-juniper-nfx-23.2R1.yaml
 --8<--
 ```
 
-### Arista EOS 4.31.2.F
+### Arista EOS 4.31.1F
 
 ```yaml
 --8<--
 config-server-repo/example/schemas/schema-arista-4.31.1f.yaml
+--8<--
+```
+
+### Arista EOS 4.33.0F
+
+```yaml
+--8<--
+config-server-repo/example/schemas/schema-arista-4.33.0f.yaml
 --8<--
 ```
