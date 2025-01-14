@@ -26,7 +26,7 @@ def on_post_build(config, **kwargs):
     shutil.copy('config-server-repo/example/sync-profiles/target-sync-profile-gnmi.yaml', os.path.join(basic_usage_dir, 'target-sync-profile-gnmi.yaml'))
 
     # schema
-    shutil.copy('config-server-repo/example/schemas/schema-nokia-srl-23.10.1.yaml', os.path.join(basic_usage_dir, 'schema-nokia-srl-23.10.1.yaml'))
+    shutil.copy('config-server-repo/example/schemas/schema-nokia-srl-24.10.1.yaml', os.path.join(basic_usage_dir, 'schema-nokia-srl-24.10.1.yaml'))
 
     # discovery rule
     shutil.copy('docs/getting-started/artifacts/discovery_address.yaml', os.path.join(basic_usage_dir, 'discovery_address.yaml'))
