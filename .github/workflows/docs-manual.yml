@@ -1,0 +1,55 @@
+name: docs-manual-main
+on:
+  workflow_dispatch:
+
+env:
+  MKDOCS_MATERIAL_VER: 9.1.4
+
+jobs:
+  publish:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - shell: bash
+        run: |
+          cat versions.env >> $GITHUB_ENV
+      - uses: actions/checkout@v4
+        with:
+          repository: 'sdcio/config-server'
+          path: 'config-server-repo'
+          token: ${{ secrets.IPTECHARCH_GITHUB_PAT }} # `GH_PAT` is a secret that contains your PAT
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: 'config-server-repo/go.mod'
+          cache-dependency-path: |
+            config-server-repo/go.sum
+      - shell: bash
+        run: |
+          cat versions.env >> $GITHUB_ENV
+          cat configmap-input-vars.yaml.tmpl | envsubst > config-server-repo/artifacts/in/configmap-input-vars.yaml
+          cd config-server-repo
+          make artifacts
+          cd ..
+          # remove the HEADER from artifacts
+          find ./ -name *yaml -exec grep -l "####### HEADER END #######" {} ';' | xargs -I{} gawk -i inplace '/####### HEADER END #######/ {p=1;next}p' {}
+          # Replace version numbers in troubleshooting guide with env.
+          cat docs/user-guide/troubleshooting.tmpl.md | envsubst > docs/user-guide/troubleshooting.md
+      - run: docker run -v $(pwd):/docs --entrypoint ash squidfunk/mkdocs-material:${MKDOCS_MATERIAL_VER} -c 'git config --global --add safe.directory /docs; mkdocs gh-deploy --force --strict'
+      - uses: actions/checkout@v4
+        with:
+          repository: 'sdcio/.github'
+          path: 'dot-github-repo'
+          token: ${{ secrets.IPTECHARCH_GITHUB_PAT }} # `GH_PAT` is a secret that contains your PAT
+      - shell: bash
+        run: |
+          mkdir -p dot-github-repo/profile/docs/diagrams/
+          cp docs/diagrams/sdc-architecture.drawio.png dot-github-repo/profile/docs/diagrams/sdc-architecture.drawio.png
+          cp README.md dot-github-repo/profile
+      - uses: EndBug/add-and-commit@v9
+        with:
+          message: Update README.md
+          committer_name: GitHub Actions
+          committer_email: 41898282+github-actions[bot]@users.noreply.github.com
+          add: '["profile"]'
+          cwd: './dot-github-repo/'
