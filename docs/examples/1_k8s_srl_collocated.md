@@ -32,7 +32,7 @@ topology:
   kinds:
     srl:
       type: ixrd3
-      image: ghcr.io/nokia/srlinux:23.10.1-218
+      image: ghcr.io/nokia/srlinux:24.10.1-492
   nodes:
     dev1:
       kind: srl
@@ -45,22 +45,22 @@ Record the ip addresses containerlab provided to both containers. You will need 
 
 ## Schema's
 
-Once the devices/targets are up and running you need to install the corresponding device schema's. In this example we use Nokia SRLinux version 23.10.1
+Once the devices/targets are up and running you need to install the corresponding device schema's. In this example we use Nokia SRLinux version 24.10.1
 
 ```yaml
 kubectl apply -f - <<EOF
 apiVersion: inv.sdcio.dev/v1alpha1
 kind: Schema
 metadata:
-  name: srl.nokia.sdcio.dev-23.10.1
+  name: srl.nokia.sdcio.dev-24.10.1
   namespace: default
 spec:
   provider: srl.nokia.sdcio.dev
-  version: 23.10.1
+  version: 24.10.1
   repositories:
   - repoURL: https://github.com/nokia/srlinux-yang-models
     kind: tag
-    ref: v23.10.1
+    ref: v24.10.1
     dirs:
     - src: srlinux-yang-models
       dst: .
@@ -73,21 +73,30 @@ spec:
       - openconfig/openconfig-extensions.yang
       excludes:
       - .*tools.*
+  - repoURL: https://github.com/sdcio/srlinux-yang-patch
+    kind: branch
+    ref: v24.10
+    dirs:
+    - src: srl_nokia
+      dst: deviations
+    schema:
+      models:
+      - deviations
 EOF
 ```
 
 you can valdate the schema loading using the following command.
 
 ```shell
-kubectl get schema srl.nokia.sdcio.dev-23.10.1
+kubectl get schema srl.nokia.sdcio.dev-24.10.1
 
 ```
 
 If successfull you should see the `READY` state being `True`
 
 ```
-NAME                           READY   PROVIDER               VERSION    URL                                            REF
-srl.nokia.sdcio.dev-23.10.1    True    srl.nokia.sdcio.dev    23.10.1    https://github.com/nokia/srlinux-yang-models   v23.10.1
+NAME                          READY   PROVIDER              VERSION   URL                                            REF
+srl.nokia.sdcio.dev-24.10.1   True    srl.nokia.sdcio.dev   24.10.1   https://github.com/nokia/srlinux-yang-models   v24.10.1
 ```
 
 ## Discovering targets
@@ -174,7 +183,7 @@ spec:
   concurrentScans: 2
   defaultSchema:
     provider: srl.nokia.sdcio.dev  
-    version: 23.10.1
+    version: 24.10.1
   addresses:
   - address: 172.20.20.3
     hostName: dev1
@@ -183,7 +192,7 @@ spec:
   targetConnectionProfiles:
   - credentials: srl.nokia.sdcio.dev 
     connectionProfile: gnmi-skipverify
-    syncProfile: gnmi-onchange
+    syncProfile: gnmi-get
   targetTemplate:
     labels:
       sdcio.dev/region: us-east

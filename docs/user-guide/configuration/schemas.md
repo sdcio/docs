@@ -70,7 +70,7 @@ By carefully setting these parameters, users can seamlessly onboard devices into
 
 ## Examples
 
-### SR Linux v23.10.1
+### SR Linux v24.10.1
 
 The below CR defines an SR Linux `Schema` version 24.10.1.
 
