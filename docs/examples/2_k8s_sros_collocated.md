@@ -31,24 +31,24 @@ mgmt:
 topology:
   kinds:
     vr-sros:
-      image: registry.srlinux.dev/pub/vr-sros:23.10.R1
-      license: license-sros23.txt
+      image: registry.srlinux.dev/pub/vr-sros:24.10.R1
+      license: license-sros24.txt
   nodes:
     dev1:
       kind: vr-sros
       mgmt-ipv4: 172.20.20.11
-      mgmt-ipv6: 2001:172:20:20::11
+      mgmt-ipv6: 3fff:172:20:20::11
     dev2:
       kind: vr-sros
       mgmt-ipv4: 172.20.20.12
-      mgmt-ipv6: 2001:172:20:20::12
+      mgmt-ipv6: 3fff:172:20:20::12
 ```
 
 Record the ip addresses containerlab provided to both containers. You will need them in the target discovery step.
 
 ## Schema's
 
-Once the devices/targets are up and running you need to install the corresponding device schema's. In this example we use Nokia SRLinux version 23.10.1
+Once the devices/targets are up and running you need to install the corresponding device schema's. In this example we use Nokia SR OS version 24.10.R1
 
 
 ```yaml
@@ -56,15 +56,15 @@ kubectl apply -f - <<EOF
 apiVersion: inv.sdcio.dev/v1alpha1
 kind: Schema
 metadata:
-  name: sros.nokia.sdcio.dev-23.10.1
+  name: sros.nokia.sdcio.dev-24.10.1
   namespace: default
 spec:
   provider: sros.nokia.sdcio.dev
-  version: 23.10.2
+  version: B-24.10.R1
   repositories:
   - repoURL: https://github.com/nokia/7x50_YangModels
     kind: tag
-    ref: sros_23.10.r2
+    ref: sros_24.10.r1
     dirs:
     - src: YANG
       dst: .
@@ -81,15 +81,15 @@ EOF
 you can valdate the schema loading using the following command.
 
 ```shell
-kubectl get schema sros.nokia.sdcio.dev-23.10.1
+kubectl get schema sros.nokia.sdcio.dev-24.10.1
 
 ```
 
 If successfull you should see the `READY` state being `True`
 
 ```
-NAME                           READY   PROVIDER               VERSION    URL                                            REF
-sros.nokia.sdcio.dev-23.10.1   True    sros.nokia.sdcio.dev   23.10.2    https://github.com/nokia/7x50_YangModels       sros_23.10.r2
+NAME                           READY   PROVIDER               VERSION      URL                                        REF
+sros.nokia.sdcio.dev-24.10.1   True    sros.nokia.sdcio.dev   B-24.10.R1   https://github.com/nokia/7x50_YangModels   sros_24.10.r1
 ```
 
 ## Discovering targets
@@ -130,7 +130,7 @@ metadata:
 spec:
   port: 830
   protocol: netconf
-  encoding: JSON_IETF
+  encoding: UNKNOWN
   skipVerify: true
   includeNS: true
   operationWithNS: true
@@ -155,10 +155,12 @@ spec:
   sync:
   - name: config
     protocol: netconf
+    port: 830
     paths:
     - /
-    mode: sample
-    interval: 10s
+    mode: get
+    encoding: CONFIG
+    interval: 30s
 EOF
 ```
 Once profiles are up installed, you can now deploy a `DiscoveryRule`. In this example we use static ip discovery (or better no discovery). It means the `ip address/prefix`  containerlab returned should be used as the ip prefix in the following CRD.
@@ -177,7 +179,7 @@ spec:
   concurrentScans: 2
   defaultSchema:
     provider: sros.nokia.sdcio.dev  
-    version: 23.10.1
+    version: B-24.10.R1
   addresses:
   - address: 172.20.20.11
     hostName: dev1

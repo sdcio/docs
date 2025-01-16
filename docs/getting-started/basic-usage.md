@@ -213,8 +213,8 @@ On the Target, all three Fields (`Ready`, `Datastore` and `Config`) have to be `
 NAME                                       READY
 discoveryrule.inv.sdcio.dev/dev1-address   True
 
-NAME                                               READY   URL                                            REF        PROVIDER              VERSION
-schema.inv.sdcio.dev/srl.nokia.sdcio.dev-23.10.1   True    https://github.com/nokia/srlinux-yang-models   v23.10.1   srl.nokia.sdcio.dev   23.10.1
+NAME                                                READY   PROVIDER               VERSION      URL                                            REF
+schema.inv.sdcio.dev/srl.nokia.sdcio.dev-24.10.1    True    srl.nokia.sdcio.dev    24.10.1      https://github.com/nokia/srlinux-yang-models   v24.10.1
 
 NAME                                                    AGE
 targetconnectionprofile.inv.sdcio.dev/gnmi-skipverify   21m
