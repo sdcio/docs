@@ -23,6 +23,7 @@ nav:
         - Prefixes: user-guide/configuration/discovery/prefixes.md
         - Service Selector: user-guide/configuration/discovery/service.md
         - POD Selector: user-guide/configuration/discovery/pod.md
+        - Discovery Vendor profile: user-guide/configuration/discovery/discovery_vendor_profile.md
       - Target: user-guide/configuration/target/target.md
       - Configuration:
         - Config: user-guide/configuration/config/config.md

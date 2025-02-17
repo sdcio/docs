@@ -197,6 +197,16 @@ docs/getting-started/artifacts/secret-srl.yaml
 
 ///
 
+/// details | Nokia SR Linux DiscoveryVendorProfile content
+
+```yaml
+--8<--
+config-server-repo/example/discoveryvendor-profile/discoveryvendor-profile-nokia-srlinux.yaml
+--8<--
+```
+
+///
+
 ### Verification
 
 When running the below command you are provides with an overview of all the SDCIO originating CRs in the system
