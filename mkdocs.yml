@@ -52,7 +52,10 @@ nav:
   # - Release Notes:
   #   - "0.0.1": rn/0.0.1.md
   # - FAQ: faq/faq.md
-  - Development: dev/dev.md
+  - Development:
+    - About: dev/1_about.md
+    - Local environment: dev/2_local.md
+    - profiling: dev/3_pprof.md
   - Monitoring: 
     - About: monitoring/0_about.md
     - Prometheus Operator: monitoring/1_prometheus_operator.md
@@ -145,6 +148,8 @@ extra:
       link: https://github.com/sdcio
     # - icon: fontawesome/brands/discord
     #   link: https://discord.gg/fHCNahWR2T
+  version:
+    provider: mike
     
 extra_css:
   - stylesheets/extra.css
