@@ -11,7 +11,7 @@ Hence [install Telepresence](https://www.telepresence.io/docs/latest/quick-start
 #### Install Telepresence on Dev machine
 
 ```
-sudo curl -fL https://app.getambassador.io/download/tel2oss/releases/download/v2.20.2/telepresence-linux-amd64 -o /usr/local/bin/telepresence
+sudo curl -fL https://github.com/telepresenceio/telepresence/releases/download/v2.22.3/telepresence-linux-amd64 -o /usr/local/bin/telepresence
 
 sudo chmod a+x /usr/local/bin/telepresence
 sudo bash -c "/usr/local/bin/telepresence completion bash > /etc/bash_completion.d/telepresence"
@@ -99,7 +99,19 @@ The Data-Server has to be started first, then the Config-Server can be started.
             ],
             "env": {
                 "SDC_SCHEMA_SERVER_BASE_DIR": "/tmp/SDC/SchemaBase",
-                "SDC_CONFIG_DIR": "/tmp/SDC/Config"
+                "SDC_CONFIG_DIR": "/tmp/SDC/Config",
+                "SDC_WORKSPACE_DIR": "/tmp/SDC/Workspace",
+                "PPROF_PORT": "8081",
+                "ENABLE_SUBSCRIPTION": "true",
+                "ENABLE_TARGET": "true",
+                "ENABLE_TARGETDATASTORE": "true",
+                "ENABLE_TARGETCONFIGSERVER": "true",
+                "ENABLE_DISCOVERYRULE": "true",
+                "ENABLE_SCHEMA": "true",
+                "ENABLE_CONFIG": "true",
+                "ENABLE_CONFIGSET": "true",
+                "ENABLE_WORKSPACE": "true",
+                "ENABLE_ROLLOUT": "true"
             },
             "console": "integratedTerminal",
         }
