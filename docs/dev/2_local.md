@@ -11,7 +11,7 @@ Hence [install Telepresence](https://www.telepresence.io/docs/latest/quick-start
 #### Install Telepresence on Dev machine
 
 ```
-sudo curl -fL https://github.com/telepresenceio/telepresence/releases/download/v2.22.3/telepresence-linux-amd64 -o /usr/local/bin/telepresence
+sudo curl -fL https://github.com/telepresenceio/telepresence/releases/download/v2.22.4/telepresence-linux-amd64 -o /usr/local/bin/telepresence
 
 sudo chmod a+x /usr/local/bin/telepresence
 sudo bash -c "/usr/local/bin/telepresence completion bash > /etc/bash_completion.d/telepresence"
@@ -34,7 +34,7 @@ telepresence connect -n network-system
 
 #### Config Server
 ```
-telepresence intercept config-server-api --workload config-server --service config-server --port 6443:api-service
+telepresence replace config-server --container config-server
 ```
 
 /// details | mounts
@@ -45,7 +45,7 @@ It might be necessary to set the `user_allow_other` in the fuse config file `/et
 
 #### Data Server
 ```
-telepresence intercept data-server --workload config-server --service data-server --port 56000:grpc
+telepresence replace config-server --container data-server
 ```
 
 /// details | iptables error
