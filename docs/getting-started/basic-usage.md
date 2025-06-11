@@ -143,6 +143,8 @@ kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/target-conn-profil
 kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/target-sync-profile-gnmi.yaml
 # SRL Secret
 kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/secret-srl.yaml
+# Discovery Vendor Profile
+kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/discoveryvendor-profile-nokia-srlinux.yaml
 # Discovery Rule
 kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/discovery_address.yaml
 ```

@@ -5,6 +5,7 @@ metadata:
   namespace: default
 spec:
   period: 1m
+  concurrentScans: 1
   addresses:
   - address: 172.21.0.200
     hostName: dev1
