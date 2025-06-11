@@ -22,7 +22,7 @@ validation-defaults:
     leafref: false
     leafref-min-max-attributes: false
     pattern: false
-    must-statements: false
+    must-statement: false
     length: false
     range: false
     max-elements: false
@@ -37,7 +37,7 @@ validation-defaults:
     leafref: true
     leafref-min-max-attributes: true
     pattern: true
-    must-statements: true
+    must-statement: true
     length: true
     range: true
     max-elements: true
@@ -93,7 +93,7 @@ data:
         leafref: true
         leafref-min-max-attributes: true
         pattern: true
-        must-statements: true
+        must-statement: true
         length: true
         range: true
         max-elements: true
