@@ -31,6 +31,7 @@ nav:
       - Subscription:
         - subscription: user-guide/configuration/subscription/subscription.md
         - example local prometheus: user-guide/configuration/subscription/prometheus.md
+    - Deviation: user-guide/deviation.md
     - Disable Validation: user-guide/disablevalidation.md
     - Troubeshooting: user-guide/troubleshooting.md
   - System architecture:

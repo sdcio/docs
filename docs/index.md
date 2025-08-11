@@ -53,6 +53,8 @@ The config-server is a Kubernetes-based Operator and comprises of several contro
 - Target Protocols: [gNMI][gnmi], [Netconf][netconf]
 - Full Config or Config Snippets
 - Declarative Operation
+- Deviations (revertive/non revertive)
+- Config Blame
 
 ## Presentations
 
