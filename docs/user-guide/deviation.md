@@ -30,13 +30,13 @@ SDCIO will automatically reapply the Config CR when a NOT-APPLIED deviation is d
 
 - Non-revertive mode
 
-SDCIO will treat the deviation as part of the active configuration. When a user want to deny a deviation in non revertive mode, he/she can:
+SDCIO will treat the deviation as part of the active configuration. When a user wants to remove a deviation in non revertive mode, they can:
 
 - Deny a full deviation – Delete the deviation CR. SDCIO will reapply the original Config CR without the deviation.
 - Deny partial deviation – Delete only the relevant paths from the deviation CR. SDCIO will reapply the Config CR while preserving the accepted parts of the deviation.
 
 To change revertive or non revetive behavior can be done:
-- globally: as part of the deployment environment variabled of the config-server
+- globally: as part of the deployment environment variables of the config-server
 
 ```yaml
         - name: REVERTIVE
