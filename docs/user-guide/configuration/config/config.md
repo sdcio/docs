@@ -12,6 +12,7 @@ Configs are partial or complete pieces of configuration that are intended to be 
     * `deletionPolicy`: DeletionPolicy defines the deletion policy of the resource.  
         * `delete`: (default) deletes the config from the target
         * `orphan`: does NOT delete the config from the target
+* `revertive`: defines the revertive or non revertive behavior. if not defined the global configuration applies.
 
 ## Example
 
