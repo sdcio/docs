@@ -39,3 +39,9 @@ def on_post_build(config, **kwargs):
 
     # config set
     shutil.copy('config-server-repo/example/config/configset.yaml', os.path.join(basic_usage_dir, 'configset.yaml'))
+
+    # config set
+    shutil.copy('config-server-repo/example/config/discoveryvendor-profile-arista.yaml', os.path.join(basic_usage_dir, 'discoveryvendor-profile-arista.yaml'))
+    shutil.copy('config-server-repo/example/config/discoveryvendor-profile-cisco-iosxr.yaml', os.path.join(basic_usage_dir, 'discoveryvendor-profile-cisco-iosxr.yaml'))
+    shutil.copy('config-server-repo/example/config/discoveryvendor-profile-nokia-srlinux.yaml', os.path.join(basic_usage_dir, 'discoveryvendor-profile-nokia-srlinux.yaml'))
+    shutil.copy('config-server-repo/example/config/discoveryvendor-profile-nokia-sros.yaml', os.path.join(basic_usage_dir, 'discoveryvendor-profile-nokia-sros.yaml'))
