@@ -13,8 +13,8 @@ Everybody is welcome to join and chat with our community members about all thing
 
 Logos of SDCIO in different formats:
 
-* [Without name 100x100 png](../assets/logos/SDC-transparent-noname-100x100.png)
-* [Without name 511x511 png](../assets/logos/SDC-transparent-noname-511x511.png)
-* [With name 100x133 png](../assets/logos/SDC-transparent-withname-100x133.png)
-* [With name 511x680 png](../assets/logos/SDC-transparent-withname-511x680.png)
-* [Without name svg](../assets/logos/SDC-logo.svg)
+* [SDC_transparent 100x100.png](../assets/logos/SDC-transparent-noname-100x100.png)
+* [SDC_transparent 511x511.png](../assets/logos/SDC-transparent-noname-511x511.png)
+* [SDC_transparent.png](../assets/logos/SDC-transparent-withname-100x133.png)
+* [SDC_transparent 511x680.png](../assets/logos/SDC-transparent-withname-511x680.png)
+* [SDC_logo.svg](../assets/logos/SDC-logo.svg)
