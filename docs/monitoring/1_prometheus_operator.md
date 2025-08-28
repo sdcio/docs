@@ -1,14 +1,14 @@
 # Monitoring using Prometheus Operator
 
-You can install the [Prometheus Operator][prometheus-operator] in the Kubernetes Cluster, configure it to scrape an endpoint. In this guide we walk through the steps to configure the [prometheus Operator][prometheus-operator] for scraping metrics from the config-server.
+You can install the [Prometheus Operator][prometheus-operator] in the Kubernetes Cluster, configure it to scrape an endpoint. In this guide we walk through the steps to configure the [Prometheus Operator][prometheus-operator] for scraping metrics from the config-server.
 
-!!! Note "this guide is not a production deployment guide but rather a guide to help you getting started in the lab"
+!!! Note "this guide is not a production deployment guide but rather a guide to help you to get started in the lab"
 
-## Install the prometheus operator
+## Install the Prometheus Operator
 
 Install Prometheus Operator into the Kubernetes Cluster. This includes all of Prometheus Operator’s Kubernetes custom resource definitions (CRDs) that define the Prometheus, and ServiceMonitor abstractions used to configure the monitoring stack.
 
-!!! Note "this instruction deploys the prometheus operator in the default namespace. To install in another namespace refer to [prometheus Operator][prometheus-operator]"
+!!! Note "this instruction deploys the Prometheus Operator in the default namespace. To install in another namespace refer to [Prometheus Operator][prometheus-operator]"
 
 Install the Operator using the `bundle.yaml` file in the Prometheus Operator GitHub repository:
 
@@ -34,7 +34,7 @@ serviceaccount/prometheus-operator created
 service/prometheus-operator created
 ```
 
-Verify that the installation succeeded
+Verify that the installation succeeded:
 
 ```shell
 kubectl get deploy
@@ -47,13 +47,13 @@ prometheus-operator   1/1     1            1           31m
 
 ## Configure the Prometheus Operator
 
-Create a monitoring namespace
+Create a monitoring namespace:
 
 ```shell
 kubectl create ns monitoring
 ```
 
-Create RBAC permissions
+Create RBAC permissions:
 
 ```shell
 kubectl apply -f - <<EOF
@@ -111,7 +111,7 @@ subjects:
 EOF
 ```
 
-Deploy Prometheus
+Deploy Prometheus:
 
 ```shell
 kubectl apply -f - <<EOF
@@ -141,7 +141,7 @@ spec:
 EOF
 ```
 
-Verify prometheus is running
+Verify Prometheus is running:
 
 ```shell
 kubectl get statefulsets.apps -n monitoring 
@@ -154,7 +154,7 @@ prometheus-prometheus   2/2     30m
 
 ## Deploy the config-server service monitor
 
-Configure the service monitor that enables prometheus to scrape metrics from the config-server
+Configure the service monitor that enables Prometheus to scrape metrics from the config-server:
 
 ```shell
 kubectl apply -f - <<EOF
@@ -171,7 +171,7 @@ spec:
       path: /metrics
       port: metrics # Ensure this is the name of the port that exposes HTTPS metrics
       scheme: https
-      bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+      # bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
       tlsConfig:
         # TODO(user): The option insecureSkipVerify: true is not recommended for production since it disables
         # certificate verification. This poses a significant security risk by making the system vulnerable to
@@ -186,10 +186,11 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: config-server
+      app: prometheus
 EOF
 ```
 
-To verify the scraping works, login to the prometheus web service. We expose the prometheus server using port forwarding.
+To verify the scraping works, login to the Prometheus web service. We expose the Prometheus server using port forwarding.
 
 ```shell
 kubectl --namespace monitoring port-forward svc/prometheus-operated 9090
@@ -207,9 +208,9 @@ Navigate to Graph to test metrics collection:
 
 In the Expression box, type `controller_runtime_reconcile_total`, and press ENTER.
 
-## Troublesheeting
+## Troubleshooting
 
 In case of trouble here is a link to the [troubleshooting-guide][troubleshooting-guide]
 
 [prometheus-operator]: https://github.com/prometheus-operator/prometheus-operator
-[troubleshooting-guide]: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/troubleshooting.md
+[troubleshooting-guide]: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/platform/troubleshooting.md 

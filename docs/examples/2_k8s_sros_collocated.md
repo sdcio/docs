@@ -10,8 +10,7 @@ SDC will need to interact with a device that talks `YANG`. You can use physical,
 
 [containerlab]: (https://containerlab.dev/install/)
 
-## SDC on kubernetes
-f
+## SDC on Kubernetes
 Install the [k8s-collocated](../install/3_k8s_collocated.md) environment using a [kind][kind] cluster 
 
 ## Devices
@@ -44,7 +43,7 @@ topology:
       mgmt-ipv6: 3fff:172:20:20::12
 ```
 
-Record the ip addresses containerlab provided to both containers. You will need them in the target discovery step.
+Record the IP addresses containerlab provided to both containers. You will need them in the target discovery step.
 
 ## Schema's
 
@@ -78,14 +77,14 @@ spec:
 EOF
 ```
 
-you can valdate the schema loading using the following command.
+You can validate the schema loading using the following command.
 
 ```shell
 kubectl get schema sros.nokia.sdcio.dev-24.10.1
 
 ```
 
-If successfull you should see the `READY` state being `True`
+If successful you should see the `READY` state being `True`
 
 ```
 NAME                           READY   PROVIDER               VERSION      URL                                        REF
@@ -163,7 +162,7 @@ spec:
     interval: 30s
 EOF
 ```
-Once profiles are up installed, you can now deploy a `DiscoveryRule`. In this example we use static ip discovery (or better no discovery). It means the `ip address/prefix`  containerlab returned should be used as the ip prefix in the following CRD.
+Once profiles are up installed, you can now deploy a `DiscoveryRule`. In this example we use static IP discovery (or better no discovery). It means the `ip address/prefix` containerlab returned should be used as the IP prefix in the following CRD.
 
 The default schema should match the schema you loaded in the schema section.
 
@@ -195,7 +194,7 @@ spec:
 EOF
 ```
 
-The discovery of the target can be observed using the following comamnd
+The discovery of the target can be observed using the following command
 
 ```
 kubectl get targets.inv.sdcio.dev
@@ -211,7 +210,7 @@ dev2   True             sros.nokia.sdcio.dev   172.20.20.12
 
 ## Configure Intents
 
-Now that targets are ready to be comsumed we can provision the targets with configuration data in a declarative way.
+Now that targets are ready to be consumed we can provision the targets with configuration data in a declarative way.
 
 The following parameters are important
 - metadata.name: name of the intent

@@ -41,11 +41,11 @@ topology:
   links:
 ```
 
-Record the ip addresses containerlab provided to both containers. You will need them in the target discovery step.
+Record the IP addresses containerlab provided to both containers. You will need them in the target discovery step.
 
 ## Schema's
 
-Once the devices/targets are up and running you need to install the corresponding device schema's. In this example we use Nokia SRLinux version 24.10.1
+Once the devices/targets are up and running you need to install the corresponding device schema's. In this example we use Nokia SR Linux version 24.10.1
 
 ```yaml
 kubectl apply -f - <<EOF
@@ -85,14 +85,14 @@ spec:
 EOF
 ```
 
-you can valdate the schema loading using the following command.
+You can validate the schema loading using the following command.
 
 ```shell
 kubectl get schema srl.nokia.sdcio.dev-24.10.1
 
 ```
 
-If successfull you should see the `READY` state being `True`
+If successful you should see the `READY` state being `True`
 
 ```
 NAME                          READY   PROVIDER              VERSION   URL                                            REF
@@ -167,7 +167,7 @@ spec:
     interval: 10s
 EOF
 ```
-Once profiles are up installed, you can now deploy a `DiscoveryRule`. In this example we use static ip discovery (or better no discovery). It means the `ip address/prefix`  containerlab returned should be used as the ip prefix in the following CRD.
+Once profiles are up installed, you can now deploy a `DiscoveryRule`. In this example we use static IP discovery (or better no discovery). It means the `ip address/prefix` containerlab returned should be used as the IP prefix in the following CRD.
 
 The default schema should match the schema you loaded in the schema section.
 
@@ -199,7 +199,7 @@ spec:
 EOF
 ```
 
-The discovery of the target can be observed using the following comamnd
+The discovery of the target can be observed using the following command
 
 ```
 kubectl get targets.inv.sdcio.dev
@@ -215,7 +215,7 @@ dev2   True             srl.nokia.sdcio.dev   172.20.20.2
 
 ## Configure Intents
 
-Now that targets are ready to be comsumed we can provision the targets with configuration data in a declarative way.
+Now that targets are ready to be consumed we can provision the targets with configuration data in a declarative way.
 
 The following parameters are important
 - metadata.name: name of the intent

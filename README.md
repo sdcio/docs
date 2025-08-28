@@ -10,8 +10,8 @@ The project consists of 4 components:
 
 ### Schema-server
 
-The schema server component is a versatile repository for schemas from diverse vendors and versions. It features a GRPC API for seamless schema querying and dynamic management, allowing users to load and unload schemas in real time. The integration of a CLI enhances user interaction, providing a familiar command-line interface. Operating in a stateless architecture, it offers scalability, while optional schema persistence caters to users requiring persistent storage. In essence, the schema server combines flexibility, efficiency, and user-friendliness for effective schema management in dynamic API environments.
-Schema-server is developer in the [schema-server](https://github.com/sdcio/schema-server) repository.
+The schema server component is a versatile repository for schemas from diverse vendors and versions. It features a gRPC API for seamless schema querying and dynamic management, allowing users to load and unload schemas in real time. The integration of a CLI enhances user interaction, providing a familiar command-line interface. Operating in a stateless architecture, it offers scalability, while optional schema persistence caters to users requiring persistent storage. In essence, the schema server combines flexibility, efficiency, and user-friendliness for effective schema management in dynamic API environments.
+Schema-server is developed in the [schema-server](https://github.com/sdcio/schema-server) repository.
 
 ### Data-server
 
@@ -20,12 +20,12 @@ The Data-server is developed in the [data-server](https://github.com/sdcio/data-
 
 ### Cache
 
-The cache component manages multiple datastores, including Config, State, and Intended, along with Intent metadata. It offers the option for persistent data storage, complemented by a GRPC API for seamless interaction. Additionally, the cache component provides a derived Command Line Interface (CLI) for user-friendly access and configuration.
+The cache component manages multiple datastores, including Config, State, and Intended, along with Intent metadata. It offers the option for persistent data storage, complemented by a gRPC API for seamless interaction. Additionally, the cache component provides a derived Command Line Interface (CLI) for user-friendly access and configuration.
 The Cache is developed in the [cache](https://github.com/sdcio/cache) repository. 
 
 ### Config-server
 
-The config-server is a Kubernetes-based Operator and comprises of several controllers:
+The config-server is a Kubernetes-based Operator and comprises several controllers:
 
 - Schema Controller: Manages the lifecycle of schemas using Schema Custom Resources (CR).
 - Discovery Controller: Manages the lifecycle of targets through DiscoveryRule CR, discovering devices/NF(s)
@@ -56,16 +56,16 @@ Home of the code of the project homepage.
 - Schema's: [YANG][yang], others TBD
 - Targets: Physical devices (`PNF`), Containers (`CNF`), Virtual Machines (`VNF`) and Dummy test target (`NOOP`)
 - Vendor agnostic
-- Flexible deployments: Small, medium or large scale scaled out deployments
+- Flexible deployments: Small, medium or large-scale scaled-out deployments
 - Target Protocols: [gNMI][gnmi], [Netconf][netconf]
 - Full Config or Config Snippets
 - Declarative Operation
 
 ## License and governance
 
-Code in the SDCIO public repositories licensed with Apache License 2.0.
-At the moment the project is governed by the benevolent dictatorship of @henderiw @steiler @karimra and @hansthienpondt 
-On the long run we plan to move to a meritocracy based governance model.
+Code in the SDCIO public repositories is licensed under the Apache License 2.0.
+At the moment, the project is governed by the benevolent dictatorship of @henderiw @steiler @karimra and @hansthienpondt 
+In the long run, we plan to move to a meritocracy-based governance model.
 
 ## Presentations
 
@@ -75,7 +75,7 @@ Presentations about SDCIO:
 
 ## Join us
 
-Have questions, ideas, bug reports or just want to chat? Come join [our discord server](https://discord.gg/fHCNahWR2T).
+Have questions, ideas, bug reports or just want to chat? Come join [our discord server](https://discord.com/channels/1240272304294985800/1311031796372344894).
 
 [yang]: https://en.wikipedia.org/wiki/YANG
 [gnmi]: https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md

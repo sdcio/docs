@@ -7,7 +7,7 @@ Find out everything about the SDCIO community.
 ## Discord
 
 Everybody is welcome to join and chat with our community members about all things SDCIO!
-[![Discord](https://img.shields.io/discord/1186696252256165898?style=flat-square&label=discord&logo=discord&color=00c9ff&labelColor=bec8d2)](https://discord.gg/fHCNahWR2T)
+[![Discord](https://img.shields.io/discord/1240272304294985800?style=flat-square&label=discord&logo=discord&color=00c9ff&labelColor=bec8d2)](https://discord.com/channels/1240272304294985800/1311031796372344894)
 
 ## Logos
 
