@@ -9,6 +9,11 @@ Find out everything about the SDCIO community.
 Everybody is welcome to join and chat with our community members about all things SDCIO!
 [![Discord](https://img.shields.io/discord/1186696252256165898?style=flat-square&label=discord&logo=discord&color=00c9ff&labelColor=bec8d2)](https://discord.gg/fHCNahWR2T)
 
+## Community Meetings
+
+We have a community meeting every Monday from 14h CET on Google Meet. Ask for the meeting link on the
+[Discord](https://discord.gg/fHCNahWR2T) channel.
+
 ## Logos
 
 Logos of SDCIO in different formats:
