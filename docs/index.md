@@ -64,7 +64,7 @@ Presentations about SDCIO:
 
 ## Join us
 
-Have questions, ideas, bug reports or just want to chat? Come join [our discord server](https://discord.gg/fHCNahWR2T).
+Have questions, ideas, bug reports or just want to chat? Come join [our discord server](https://discord.com/channels/1240272304294985800/1311031796372344894).
 
 <script type="text/javascript" src="https://viewer.diagrams.net/js/viewer-static.min.js" async></script>
 

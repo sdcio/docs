@@ -25,8 +25,8 @@ complete -F _start_kubectl k
 
 ## Install Kubernetes (optional)
 
-To install `sdc` on a kubernetes cluster we first need to install a `kubernetes` cluster. 
-Other than the minimum version being `v1.29`[^1], `Sdc` has no special requirements on the `k8s` cluster, so any `k8s` flavor should work, bearing in mind the minimum version[^1] 
+To install `sdc` on a Kubernetes cluster we first need to install a Kubernetes cluster. 
+Other than the minimum version being `v1.29`[^1], `sdc` has no special requirements on the `k8s` cluster, so any `k8s` flavor should work, bearing in mind the minimum version[^1] 
 
 /// tab | kind
 
@@ -56,4 +56,4 @@ kubectl wait -n cert-manager --for=condition=Available=True --timeout=300s deplo
 [kind]: https://kind.sigs.k8s.io/
 [kubectl]: https://kubernetes.io/docs/tasks/tools/
 
-[^1]: A minimum kubernetes version of v1.29 is required to support [API Priority and Fairness](https://kubernetes.io/docs/concepts/cluster-administration/flow-control/)
+[^1]: A minimum Kubernetes version of v1.29 is required to support [API Priority and Fairness](https://kubernetes.io/docs/concepts/cluster-administration/flow-control/)

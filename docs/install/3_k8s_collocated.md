@@ -4,7 +4,7 @@ First ensure the [pre-requisites](2_prereq.md) are met
 
 ## Install SDC Components
 
-Once the cluster is deployed we install the `sdc` components. These manifests deploy sdc as a deployment where the pod contains 2 containers:
+Once the cluster is deployed we install the `sdc` components. These manifests deploy `sdc` as a deployment where the pod contains 2 containers:
 
 1. the config-server container with the various controllers
 2. the data-server/schema-server/cache collocated in a single container
@@ -24,7 +24,7 @@ config-server-repo/artifacts/out/artifacts.yaml
 
 ///
 
-if successfull you should see a running container similar to this
+if successful you should see a running container similar to this
 
 ```
 kubectl get pods -n network-system

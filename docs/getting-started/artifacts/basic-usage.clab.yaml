@@ -7,7 +7,7 @@ mgmt:
 topology:
   kinds:
     nokia_srlinux:
-      type: ixrd3
+      type: ixr-d3
       image: ghcr.io/nokia/srlinux:24.10.1
   nodes:
     dev1:

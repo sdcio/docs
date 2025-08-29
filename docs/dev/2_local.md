@@ -4,17 +4,18 @@ The following provides details on how to run any of the SDC components locally o
 
 
 ### Setup
-Telepresence is used to "highjack" the tcp connection endpoints and redirect it to the development machine.
-Hence [install Telepresence](https://www.telepresence.io/docs/latest/quick-start/) on the development machine.
+Telepresence is used to "hijack" the TCP connection endpoints and redirect it to the development machine.
+Hence, [install Telepresence](https://www.telepresence.io/docs/latest/quick-start/) on the development machine.
 
 
 #### Install Telepresence on Dev machine
 
 ```
-sudo curl -fL https://github.com/telepresenceio/telepresence/releases/download/v2.22.4/telepresence-linux-amd64 -o /usr/local/bin/telepresence
+sudo curl -fL https://github.com/telepresenceio/telepresence/releases/latest/download/telepresence-linux-amd64 -o /usr/local/bin/telepresence
 
 sudo chmod a+x /usr/local/bin/telepresence
 sudo bash -c "/usr/local/bin/telepresence completion bash > /etc/bash_completion.d/telepresence"
+. /etc/bash_completion.d/telepresence
 ```
 
 #### Install Telepresence in K8s cluster
@@ -70,13 +71,13 @@ yq -i 'del(.users)' kubeconfig
 ```
 
 ### Retrieve ServiceAccount Token
-Retrieve a 30 day valid ServiceAccount token and put it into the kubeconfig.
+Retrieve a 30-day valid ServiceAccount token and put it into the kubeconfig.
 ```
 kubectl config --kubeconfig ./kubeconfig set-credentials kind-kind --token=$(kubectl create token -n network-system --duration 720h config-server)
 ```
 
 ### Run config-server locally
-The VSCode configuration is as follows. 
+The VS Code configuration is as follows. 
 The Data-Server has to be started first, then the Config-Server can be started.
 ```
         {

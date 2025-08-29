@@ -8,5 +8,5 @@ The schema driven configuration system (`sdc`) consists of 4 components:
 - cache
 - config-server
 
-The `config-server` depends on `kubernetes`, but the other 3 components (`schema-server`, `data-server` and `cache`) can be deployed independent from kubernetes.
+The `config-server` depends on Kubernetes, but the other 3 components (`schema-server`, `data-server` and `cache`) can be deployed independent of Kubernetes.
 
