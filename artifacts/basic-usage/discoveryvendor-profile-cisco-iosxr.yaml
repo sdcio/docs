@@ -1,0 +1,21 @@
+apiVersion: inv.sdcio.dev/v1alpha1
+kind: DiscoveryVendorProfile
+metadata:
+  name: iosxr.cisco.sdcio.dev
+  namespace: default
+spec:
+  gnmi:
+    organization: "Cisco Systems, Inc."
+    preserveNamespace: false
+    paths:
+    - key: version
+      path: system/state/software-version
+      regex: ^(\d+\.\d+\.\d+(?:\.\d+[\.\w]*)?)$
+    - key: platform
+      path: components/component[name=Rack 0]/state/part-no
+    - key: hostname
+      path: system/state/hostname
+    - key: serialNumber
+      path: components/component[name=Rack 0]/state/serial-no
+    - key: macAddress
+      path: interfaces/interface[name=MgmtEth0/RP0/CPU0/0]/openconfig-if-ethernet:ethernet/state/mac-address
