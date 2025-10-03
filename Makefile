@@ -9,7 +9,7 @@ else
 endif
 
 docker-run: pull-config-server generate-template
-	$(RUNTIME) run --rm --name sdcio-docs -v "$$(pwd)":/docs -p ${PORT}:${PORT} --entrypoint ash squidfunk/mkdocs-material:${MKDOCS_MATERIAL_VERSION} -c 'mkdocs serve -a 0.0.0.0:${PORT}'
+	$(RUNTIME) run --rm --name sdc-docs -v "$$(pwd)":/docs -p ${PORT}:${PORT} --entrypoint ash squidfunk/mkdocs-material:${MKDOCS_MATERIAL_VERSION} -c 'mkdocs serve -a 0.0.0.0:${PORT}'
 
 pull-config-server:
 	if [ ! -d "config-server-repo" ]; then git clone https://github.com/sdcio/config-server.git config-server-repo ; fi

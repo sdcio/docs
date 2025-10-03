@@ -9,7 +9,7 @@ Once the cluster is deployed we install the `sdc` components. These manifests de
 1. the config-server container with the various controllers
 2. the data-server/schema-server/cache collocated in a single container
 
-To install SDCIO, copy the following snippet into a shell and execute it.
+To install SDC, copy the following snippet into a shell and execute it.
 ```yaml
 kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/colocated.yaml
 ```
