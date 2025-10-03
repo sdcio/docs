@@ -1,5 +1,5 @@
 # Basic Usage
-The following examples demonstrate the basic usage of SDCIO in a scenario where a Nokia SR Linux node is being configured via SDCIO installed in a Kind based Kubernetes cluster.
+The following examples demonstrate the basic usage of SDC in a scenario where a Nokia SR Linux node is being configured via SDC installed in a Kind based Kubernetes cluster.
 
 ## Prerequisites
  Please ensure that [Docker](https://docs.docker.com) is installed and running on your system. An installation guide can be found in the [Install Docker Engine](https://docs.docker.com/engine/install/) page. Also ensure [post-installation steps](https://docs.docker.com/engine/install/linux-postinstall/) are followed, so that the current user can run docker commands without sudo.
@@ -89,7 +89,7 @@ sudo bash -c "containerlab completion bash > /etc/bash_completion.d/containerlab
 ```
 
 ## Infrastructure
-The following contains information on how to deploy a Nokia SR Linux NOS container, which will consecutively be managed via SDCIO.
+The following contains information on how to deploy a Nokia SR Linux NOS container, which will consecutively be managed via SDC.
 
 ### Installation
 Deploy a [Nokia SR Linux](https://learn.srlinux.dev/) device called `dev1` via [Containerlab](https://containerlab.dev).
@@ -126,15 +126,15 @@ The config-server (extension api-server) requires a certificate, which is create
 ### Installation
 ```bash
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.18.2/cert-manager.yaml
- # If the SDCIO resources (see below) are being applied to fast, the webhook of the cert-manager is not already there.
+ # If the SDC resources (see below) are being applied to fast, the webhook of the cert-manager is not already there.
  # Hence we need to wait for the resource be become available
 kubectl wait -n cert-manager --for=condition=Available=True --timeout=300s deployments.apps cert-manager-webhook
 ```
 
-## SDCIO
+## SDC
 
 ### Installation
-To install SDCIO, copy the following snippet into a shell and execute it.
+To install SDC, copy the following snippet into a shell and execute it.
 ```yaml
 kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/colocated.yaml
 ```
@@ -247,7 +247,7 @@ config-server-repo/example/discoveryvendor-profile/discoveryvendor-profile-nokia
 
 ### Verification
 
-When running the below command, you are provided with an overview of all the SDCIO originating CRs in the system.
+When running the below command, you are provided with an overview of all the SDC originating CRs in the system.
 
 
 ```bash

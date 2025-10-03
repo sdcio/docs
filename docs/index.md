@@ -10,7 +10,7 @@ hide:
 ---
 -->
 
-![SDCIO logo](assets/logos/SDC-transparent-withname-100x133.png)
+![SDC logo](assets/logos/SDC-transparent-withname-100x133.png)
 
 The paradigm of schema-driven API approaches is gaining increasing popularity as it facilitates programmatic interaction with systems by both machines and humans. While OpenAPI schema stands out as a widely embraced system, there are other notable schema approaches like YANG, among others. This project endeavors to empower users with a declarative and idempotent method for seamless interaction with API systems, providing a robust foundation for effective system configuration."
 
@@ -58,13 +58,13 @@ The config-server is a Kubernetes-based Operator and comprises of several contro
 
 ## Presentations
 
-Presentations about SDCIO:
+Presentations about SDC:
 
 - ONE Summit 2024: [Cloud Native YANG Mgmt - Wim Henderickx, Nokia](https://sched.co/1YUs3), [video](https://www.youtube.com/watch?v=dHOeqbqkN1s)
 
 ## Join us
 
-Have questions, ideas, bug reports or just want to chat? Come join [our discord server](https://discord.com/channels/1240272304294985800/1311031796372344894).
+Have questions, ideas, bug reports or just want to chat? Come join [our discord channel](https://discord.com/channels/1240272304294985800/1311031796372344894).
 
 <script type="text/javascript" src="https://viewer.diagrams.net/js/viewer-static.min.js" async></script>
 

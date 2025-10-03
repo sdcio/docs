@@ -1,5 +1,5 @@
 # Troubleshooting
-This section contains information on how to troubleshoot an SDCIO instance that is causing some trouble.
+This section contains information on how to troubleshoot an SDC instance that is causing some trouble.
 
 ## Config-Server
 The Config-Server provides the extension kubernetes apiserver and can therefor be mainly throubleshooted via `kubectl`.

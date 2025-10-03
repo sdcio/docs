@@ -1,6 +1,6 @@
 # Deviation
 
-A deviation is a report indicating differences between the actual device or system configuration and the configuration specified in one or more Config CRs managed by SDCIO.
+A deviation is a report indicating differences between the actual device or system configuration and the configuration specified in one or more Config CRs managed by SDC.
 
 There are three types of deviations:
 
@@ -8,32 +8,32 @@ There are three types of deviations:
 
     - No matching Config CR exists in the system.
 	- Treated as a Target-type deviation.
-	- SDCIO only reports these deviations; no corrective action is taken.
+	- SDC only reports these deviations; no corrective action is taken.
 
 2.	NOT-APPLIED
 
 	- A matching Config CR exists, but the actual configuration differs from what is defined in the Config CR.
-	- SDCIO will act on these deviations based on the configured mode: revertive or non-revertive.
+	- SDC will act on these deviations based on the configured mode: revertive or non-revertive.
 
 3.	OVERRULED
 
 	- A matching Config CR exists, but the actual configuration has been overridden by a higher-priority intent.
-	- SDCIO reports these deviations but does not attempt to change the overriding configuration.
+	- SDC reports these deviations but does not attempt to change the overriding configuration.
 
-SDCIO automatically creates a deviation per target CR and one for each config CR. By default when no config CR exists all brownfield configuration is reported as a UNHANDLED deviation per target.
+SDC automatically creates a deviation per target CR and one for each config CR. By default when no config CR exists all brownfield configuration is reported as a UNHANDLED deviation per target.
 
 ## Revertive vs. Non-Revertive Behavior
 
 - Revertive mode
     
-SDCIO will automatically reapply the Config CR when a NOT-APPLIED deviation is detected, restoring the intended configuration.
+SDC will automatically reapply the Config CR when a NOT-APPLIED deviation is detected, restoring the intended configuration.
 
 - Non-revertive mode
 
-SDCIO will treat the deviation as part of the active configuration. When a user wants to remove a deviation in non revertive mode, they can:
+SDC will treat the deviation as part of the active configuration. When a user wants to remove a deviation in non revertive mode, they can:
 
-- Deny a full deviation – Delete the deviation CR. SDCIO will reapply the original Config CR without the deviation.
-- Deny partial deviation – Delete only the relevant paths from the deviation CR. SDCIO will reapply the Config CR while preserving the accepted parts of the deviation.
+- Deny a full deviation – Delete the deviation CR. SDC will reapply the original Config CR without the deviation.
+- Deny partial deviation – Delete only the relevant paths from the deviation CR. SDC will reapply the Config CR while preserving the accepted parts of the deviation.
 
 To change revertive or non revetive behavior can be done:
 - globally: as part of the deployment environment variables of the config-server
