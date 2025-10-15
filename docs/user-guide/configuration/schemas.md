@@ -75,7 +75,7 @@ By carefully setting these parameters, users can seamlessly onboard devices into
 The below CR defines an SR Linux `Schema` version 24.10.1.
 
 The YANG files will be retrieved from the github repo `https://github.com/nokia/srlinux-yang-models` tag `v24.10.1`.
-The remote directory `srlinux-yang-models` at the roo level of the git repository will be mapped to `$pwd` (`dst: .`) in the local file system
+The remote directory `srlinux-yang-models` at the root level of the git repository will be mapped to `$pwd` (`dst: .`) in the local file system
 
 ```yaml
 --8<--
