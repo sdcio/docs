@@ -61,6 +61,7 @@ The config-server is a Kubernetes-based Operator and comprises of several contro
 Presentations about SDC:
 
 - ONE Summit 2024: [Cloud Native YANG Mgmt - Wim Henderickx, Nokia](https://sched.co/1YUs3), [video](https://www.youtube.com/watch?v=dHOeqbqkN1s)
+- ContainerDays 2025: [The Cloud-Native Advantage: Intent-based Network Automation - Alexander North, Swisscom & Markus Vahlenkamp, Nokia](https://youtu.be/P7cCeGBq3aQ)
 
 ## Join us
 
