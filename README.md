@@ -1,5 +1,7 @@
 # Schema Driven Configuration (SDC)
 
+![sdc logo](https://docs.sdcio.dev/assets/logos/SDC-transparent-withname-100x133.png)
+
 The paradigm of schema-driven API approaches is gaining increasing popularity as it facilitates programmatic interaction with systems by both machines and humans. While OpenAPI schema stands out as a widely embraced system, there are other notable schema approaches like YANG, among others. This project endeavors to empower users with a declarative and idempotent method for seamless interaction with API systems, providing a robust foundation for effective system configuration."
 
 ## Architecture
@@ -61,10 +63,13 @@ Home of the code of the project homepage.
 - Full Config or Config Snippets
 - Declarative Operation
 
-## License and governance
+## License, Code of Conduct and governance
 
-The SDC code in the (sdcio)[https://github.com/sdcio] organisations public repositories is licensed under the
-Apache License 2.0.
+The SDC code in the [sdcio](https://github.com/sdcio) organisations public repositories is licensed under the
+Apache License 2.0 [Apache License 2.0](LICENSE), documentation is licensed under [CC BY 4.0](LICENSE-documentation).
+
+The SDC project is following the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md). More information and links about the CNCF Code of Conduct are [here](code-of-conduct.md).
+
 At the moment, the project is governed by the benevolent dictatorship of @henderiw @steiler @karimra and @hansthienpondt 
 In the long run, we plan to move to a meritocracy-based governance model.
 
@@ -77,6 +82,7 @@ Presentations about SDC:
 ## Join us
 
 Have questions, ideas, bug reports or just want to chat? Come join [our discord channel](https://discord.com/channels/1240272304294985800/1311031796372344894).
+
 
 [yang]: https://en.wikipedia.org/wiki/YANG
 [gnmi]: https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md

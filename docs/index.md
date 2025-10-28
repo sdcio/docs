@@ -67,6 +67,19 @@ Presentations about SDC:
 
 Have questions, ideas, bug reports or just want to chat? Come join [our discord channel](https://discord.com/channels/1240272304294985800/1311031796372344894).
 
+## License, Code of Conduct and governance
+
+The SDC code in the [sdcio](https://github.com/sdcio) organisations public repositories is licensed under the
+ [Apache License 2.0](https://github.com/docs/data-server/blob/main/LICENSE), documentation is licensed under
+ [CC BY 4.0](https://github.com/sdcio/docs/blob/main/LICENSE-documentation).
+
+The SDC project is following the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).
+More information and links about the CNCF Code of Conduct are [here](https://github.com/sdcio/docs/blob/main/code-of-conduct.md).
+
+At the moment, the project is governed by the benevolent dictatorship of @henderiw @steiler @karimra and @hansthienpondt 
+In the long run, we plan to move to a meritocracy-based governance model.
+
+
 <script type="text/javascript" src="https://viewer.diagrams.net/js/viewer-static.min.js" async></script>
 
 
