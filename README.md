@@ -52,7 +52,6 @@ Home of the code of the project homepage.
 
 ### [sdc-protos](https://github.com/sdcio/sdc-protos)
 
-
 ## Features
 
 - Schema's: [YANG][yang], others TBD
@@ -62,6 +61,10 @@ Home of the code of the project homepage.
 - Target Protocols: [gNMI][gnmi], [Netconf][netconf]
 - Full Config or Config Snippets
 - Declarative Operation
+
+## Adopeters
+
+Adopters of the porject are collected in the [ADOPTERS](ADOPTERS.md) file. 
 
 ## License, Code of Conduct and governance
 
