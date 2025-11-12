@@ -17,4 +17,4 @@
 | Level | Company | Use case |
 |:-|:-|:-|
 | Experimentation | [Nokia](https://www.nokia.com/) |  |
-| Production | [Swisscom](https://www.swisscom.ch/) | Management of 5G core network of the companys mobile offering |
+| Pre-production | [Swisscom](https://www.swisscom.ch/) | Management of 5G core network of the companys mobile offering |
