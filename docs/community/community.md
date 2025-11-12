@@ -14,6 +14,10 @@ Everybody is welcome to join and chat with our community members about all thing
 We have a community meeting every Monday from 14h CET on Google Meet. Ask for the meeting link on the
 [Discord](https://discord.gg/fHCNahWR2T) channel.
 
+## Talks about SDC
+
+* [Conference recordings](https://learn.kubenet.dev/03-videos/01_videos/#sdc)
+
 ## Logos
 
 Logos of SDC in different formats:
