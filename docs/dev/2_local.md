@@ -22,20 +22,20 @@ sudo bash -c "/usr/local/bin/telepresence completion bash > /etc/bash_completion
 
 ```
 telepresence helm install
-telepresence helm upgrade --set client.routing.allowConflictingSubnets="{10.0.0.0/8}"
 ```
 
 ### Connect 
-Connect to the telepresence service in the cluster, using the namespace network-system.
+Connect to the telepresence service in the cluster, using the namespace sdc-system.
 ```
-telepresence connect -n network-system
+telepresence connect -n sdc-system
 ```
 
 ### Intercept Service Traffic
 
 #### Config Server
 ```
-telepresence replace config-server --container config-server
+telepresence replace api-server
+telepresence replace controller
 ```
 
 /// details | mounts
@@ -46,7 +46,7 @@ It might be necessary to set the `user_allow_other` in the fuse config file `/et
 
 #### Data Server
 ```
-telepresence replace config-server --container data-server
+telepresence replace data-server-controller --container data-server
 ```
 
 /// details | iptables error
@@ -57,8 +57,8 @@ Telepresence allows also to intercept only traffic, without adding an init-conta
 ### Retrieve Config-Server Api-Service Certificate
 
 ```
-kubectl get secrets -n network-system config-server-cert -o jsonpath="{.data['tls\.crt']}" | base64 -d | tee tls.crt
-kubectl get secrets -n network-system config-server-cert -o jsonpath="{.data['tls\.key']}" | base64 -d | tee tls.key
+kubectl get secrets -n sdc-system api-server-cert -o jsonpath="{.data['tls\.crt']}" | base64 -d | tee tls.crt
+kubectl get secrets -n sdc-system api-server-cert -o jsonpath="{.data['tls\.key']}" | base64 -d | tee tls.key
 ```
 
 ### Prepare kubeconfig
@@ -73,7 +73,7 @@ yq -i 'del(.users)' kubeconfig
 ### Retrieve ServiceAccount Token
 Retrieve a 30-day valid ServiceAccount token and put it into the kubeconfig.
 ```
-kubectl config --kubeconfig ./kubeconfig set-credentials kind-kind --token=$(kubectl create token -n network-system --duration 720h config-server)
+kubectl config --kubeconfig ./kubeconfig set-credentials kind-kind --token=$(kubectl create token -n sdc-system --duration 720h api-server)
 ```
 
 ### Run config-server locally
