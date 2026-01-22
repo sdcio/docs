@@ -47,6 +47,7 @@ It might be necessary to set the `user_allow_other` in the fuse config file `/et
 #### Data Server
 ```
 telepresence replace data-server-controller --container data-server
+telepresence replace data-server-controller --container controller
 ```
 
 /// details | iptables error
