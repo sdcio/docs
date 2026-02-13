@@ -17,4 +17,5 @@
 | Level | Company | Use case |
 |:-|:-|:-|
 | Experimentation | [Nokia](https://www.nokia.com/) |  |
+| Experimentation | [Telstra](https://www.telstra.com.au/) |  |
 | Pre-production | [Swisscom](https://www.swisscom.ch/) | Management of 5G core network of the companys mobile offering |
