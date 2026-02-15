@@ -20,7 +20,7 @@
 To access the pprof endpoint of a running pod in a Kubernetes cluster, use the following command to set up port forwarding:
 
 ```sh
-kubectl port-forward pod/<pod> -n network-system 8081:8081
+kubectl port-forward pod/<pod> -n sdc-system 8081:8081
 ```
 
 Replace `<pod>` with the actual pod name running your Go application.
