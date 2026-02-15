@@ -30,10 +30,9 @@ SDC will automatically reapply the Config CR when a NOT-APPLIED deviation is det
 
 - Non-revertive mode
 
-SDC will treat the deviation as part of the active configuration. When a user wants to remove a deviation in non revertive mode, they can:
+SDC will treat the deviation as part of the active configuration. 
 
-- Deny a full deviation – Delete the deviation CR. SDC will reapply the original Config CR without the deviation.
-- Deny partial deviation – Delete only the relevant paths from the deviation CR. SDC will reapply the Config CR while preserving the accepted parts of the deviation.
+!!!note "we are working on a capability to allow to clear deviations. If this is something you need you need to wait for the release the accomodates this"
 
 To change revertive or non revetive behavior can be done:
 - globally: as part of the deployment environment variables of the config-server

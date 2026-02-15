@@ -136,7 +136,7 @@ kubectl wait -n cert-manager --for=condition=Available=True --timeout=300s deplo
 ### Installation
 To install SDC, copy the following snippet into a shell and execute it.
 ```yaml
-kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/colocated.yaml
+kubectl apply -f https://docs.sdcio.dev/artifacts/basic-usage/installation.yaml
 ```
 
 /// details | Artifact Content
@@ -161,7 +161,7 @@ kubectl get apiservices.apiregistration.k8s.io | grep "sdcio.dev\|NAME"
 The two services should be available.
 ```
 NAME                                   SERVICE                        AVAILABLE   AGE
-v1alpha1.config.sdcio.dev              network-system/config-server   True        6d
+v1alpha1.config.sdcio.dev              sdc-system/api-server.         True        6d
 v1alpha1.inv.sdcio.dev                 Local                          True        6d
 ```
 If the apiservices do not appear or do not show up as available, follow the [Troubleshooting](../user-guide/troubleshooting.md#config-server) section.

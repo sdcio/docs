@@ -8,8 +8,7 @@ nav:
   - Installation:
     - Overview: install/1_overview.md
     - Pre-Requisites: install/2_prereq.md
-    - Kubernetes-collocated: install/3_k8s_collocated.md
-    - Kubernetes-distributed: install/4_k8s_distributed.md
+    - Installation: install/3_k8s_installation.md
   - User Guide:
     - Introduction: user-guide/introduction.md
     - Configuration:
@@ -49,8 +48,8 @@ nav:
   #   - K8s Distributed deployment: placeholder.md
   - Lab Examples:
     - About: examples/0_about.md
-    - K8s with gNMI devices (SR Linux): examples/1_k8s_srl_collocated.md
-    - K8s with NETCONF devices (SROS): examples/2_k8s_sros_collocated.md
+    - K8s with gNMI devices (SR Linux): examples/1_k8s_srl.md
+    - K8s with NETCONF devices (SROS): examples/2_k8s_sros.md
   # - Release Notes:
   #   - "0.0.1": rn/0.0.1.md
   # - FAQ: faq/faq.md

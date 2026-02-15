@@ -15,7 +15,7 @@ metadata:
   labels:
     app.kubernetes.io/name: config-server
   name: target-metrics-monitor
-  namespace: network-system
+  namespace: sdc-system
 spec:
   endpoints:
     - interval: 30s

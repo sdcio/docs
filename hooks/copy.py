@@ -17,7 +17,7 @@ def on_post_build(config, **kwargs):
     shutil.copy('docs/getting-started/artifacts/basic-usage.clab.yaml', os.path.join(basic_usage_dir, 'basic-usage.clab.yaml'))
         
     # copy the kform generated artifacts.yaml
-    shutil.copy('config-server-repo/artifacts/out/artifacts.yaml', os.path.join(basic_usage_dir, 'colocated.yaml'))
+    shutil.copy('config-server-repo/artifacts/out/artifacts.yaml', os.path.join(basic_usage_dir, 'installation.yaml'))
 
     # connection profile
     shutil.copy('config-server-repo/example/connection-profiles/target-conn-profile-gnmi.yaml', os.path.join(basic_usage_dir, 'target-conn-profile-gnmi.yaml'))

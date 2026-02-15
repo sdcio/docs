@@ -59,7 +59,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: data-server
-  namespace: network-system
+  namespace: sdc-system
 data: 
   data-server.yaml: |
     grpc-server:
@@ -103,5 +103,5 @@ data:
 Subsequently, delete the existing POD to force restart config-server/data-server with the updated configuration.
 
 ```bash
-kubectl delete pod $(kubectl get pod -n network-system --no-headers -o custom-columns=":metadata.name") -n network-system
+kubectl delete pod $(kubectl get pod -n sdc-system --no-headers -o custom-columns=":metadata.name") -n sdc-system
 ```
