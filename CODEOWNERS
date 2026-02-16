@@ -6,4 +6,6 @@
 # @global-owner1 and @global-owner2 will be requested for
 # review when someone opens a pull request.
 
-*   @henderiw @steiler @hansthienpondt @alexandernorth @severindellsperger
+# We maintain the codeowners in the GitHub org level `codeowners` team.
+
+*   @sdcio/codeowners
