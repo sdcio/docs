@@ -41,7 +41,7 @@ For gNMI protocol connections, set protocol to gnmi. Key attributes for gNMI are
 * `encoding`: Specifies the encoding format for gNMI (`JSON`, `JSON_IETF`, `PROTO`).
 * `skipVerify`: If enabled, SDC secures the connection without validating device certificates.
 * `insecure`: Establishes an insecure gNMI connection when set to true.
-* `targetName`: Allows to configure the targetName to the device.
+* `targetName`: Allows to configure the targetName of the device.
 
 Example gNMI Configuration with Skip-Verify:
 
