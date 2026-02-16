@@ -4,7 +4,7 @@ First, ensure the [pre-requisites](2_prereq.md) are met.
 
 ## Install SDC Components
 
-Once the cluster is deployed we install the `sdc` components. These manifests deploy 3 components
+Once the cluster is deployed, we install the `sdc` components. These manifests deploy 3 components:
 1. api-server deployment
 2. controller deployment
 3. data-server-controller statefulset
