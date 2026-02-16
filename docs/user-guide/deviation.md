@@ -32,7 +32,7 @@ SDC will automatically reapply the Config CR when a NOT-APPLIED deviation is det
 
 SDC will treat the deviation as part of the active configuration. 
 
-!!!note "we are working on a capability to allow to clear deviations. If this is something you need you need to wait for the release the accomodates this"
+!!!note "we are working on a capability to allow for the clearing of deviations. If this is something you need, you need to wait for the release the accomodates this."
 
 To change revertive or non revetive behavior can be done:
 - globally: as part of the deployment environment variables of the config-server
