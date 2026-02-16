@@ -13,7 +13,7 @@ kubectl get apiservices.apiregistration.k8s.io | grep "sdcio.dev\|NAME"
 The two services should be available.
 ```
 NAME                                   SERVICE                        AVAILABLE   AGE
-v1alpha1.config.sdcio.dev              sdc-system/config-server       True        6d
+v1alpha1.config.sdcio.dev              sdc-system/spi-server          True        6d
 v1alpha1.inv.sdcio.dev                 Local                          True        6d
 ```
 
@@ -45,25 +45,27 @@ apiVersion: v1
 kind: Endpoints
 metadata:
   annotations:
-    endpoints.kubernetes.io/last-change-trigger-time: "2024-02-09T13:13:34Z"
-  creationTimestamp: "2024-02-09T13:13:34Z"
+    endpoints.kubernetes.io/last-change-trigger-time: "2026-02-14T05:57:20Z"
+  creationTimestamp: "2026-02-14T05:57:08Z"
   labels:
-    sdcio.dev/config-server: "true"
-  name: config-server
+    app.kubernetes.io/name: sdc-api-server
+    endpoints.kubernetes.io/managed-by: endpoint-controller
+  name: api-server
   namespace: sdc-system
-  resourceVersion: "439928"
-  uid: 8f849512-6021-4c7e-a08b-c3cff25ed68b
+  resourceVersion: "721"
+  uid: 97db9945-73a8-401a-ae5d-25f4851c6f7a
 subsets:
 - addresses:
-  - ip: 10.244.0.8
-    nodeName: api-server-control-plane
+  - ip: 10.244.0.9
+    nodeName: kubenet-control-plane
     targetRef:
       kind: Pod
-      name: config-server-84465fd854-bm258
+      name: api-server-6d7db47894-xj8wg
       namespace: sdc-system
-      uid: b6986782-4055-431a-9742-f074d88febb5
+      uid: d72741ae-8906-4dc1-9d08-967a4f98a2c6
   ports:
-  - port: 6443
+  - name: api-service
+    port: 6443
     protocol: TCP
 ```
 
