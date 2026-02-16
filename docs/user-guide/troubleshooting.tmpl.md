@@ -18,7 +18,7 @@ v1alpha1.inv.sdcio.dev                 Local                          True      
 ```
 
 ### Deployment
-The sdc components are deployed in the sdc-system namespace. 
+The sdc components are deployed in the `sdc-system` namespace. 
 Check if they are running.
 
 ```bash
