@@ -24,7 +24,7 @@ config-server-repo/artifacts/out/artifacts.yaml
 
 ///
 
-if successful you should see 3 running container similar to this
+If successful, you should see 3 running containers similar to this
 
 ```
 kubectl get pods -n sdc-system
