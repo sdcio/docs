@@ -18,7 +18,7 @@ v1alpha1.inv.sdcio.dev                 Local                          True      
 ```
 
 ### Deployment
-SDC is deployed in the sdc-system namespace. If successful you should see 3 running container similar to this
+SDC is deployed in the `sdc-system` namespace. If successful, you should see 3 running containers similar to this:
 
 ```bash
 kubectl get pods -n sdc-system
