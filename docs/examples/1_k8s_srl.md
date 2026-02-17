@@ -12,7 +12,7 @@ SDC will need to interact with a device that talks `YANG`. You can use physical,
 
 ## SDC on kubernetes
 
-Install the [k8s-collocated](../install/3_k8s_collocated.md) environment using a [kind][kind] cluster 
+Install the [k8s-collocated](../install/3_k8s_installation.md) environment using a [kind][kind] cluster 
 
 ## Devices
 
