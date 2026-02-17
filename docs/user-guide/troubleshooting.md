@@ -13,56 +13,58 @@ kubectl get apiservices.apiregistration.k8s.io | grep "sdcio.dev\|NAME"
 The two services should be available.
 ```
 NAME                                   SERVICE                        AVAILABLE   AGE
-v1alpha1.config.sdcio.dev              network-system/config-server   True        6d
+v1alpha1.config.sdcio.dev              sdc-system/spi-server          True        6d
 v1alpha1.inv.sdcio.dev                 Local                          True        6d
 ```
 
 ### Deployment
-The Config-Server is deployed in the network-system namespace via a Deployment. 
-Check for it to be READY.
-If it is not ready follow the basic troubleshooting for Deployments.
+SDC is deployed in the `sdc-system` namespace. If successful, you should see 3 running containers similar to this:
 
 ```bash
-kubectl get -n network-system deployments.apps config-server
+kubectl get pods -n sdc-system
 ```
 There should be a config-server in the Ready state.
 ```
-NAME            READY   UP-TO-DATE   AVAILABLE   AGE
-config-server   1/1     1            1           6d
+NAME                          READY   STATUS    RESTARTS   AGE
+api-server-6d7db47894-xj8wg   1/1     Running   0          38h
+controller-59c99fff54-j62bh   1/1     Running   0          38h
+data-server-controller-0      2/2     Running   0          38h
 ```
 
 ### Service
 For the APIServer a Service is referenced, this reference must resolve to the config-server.
 Via the Endpoints the association to the pod can be verified.
 ```bash
-kubectl get -n network-system endpoints config-server -o yaml
+kubectl get -n sdc-system endpoints api-server -o yaml
 ```
 
-The Subsets addresses must list the config-server pod.
+The Subsets addresses must list the api-server pod.
 ```yaml
 apiVersion: v1
 kind: Endpoints
 metadata:
   annotations:
-    endpoints.kubernetes.io/last-change-trigger-time: "2024-02-09T13:13:34Z"
-  creationTimestamp: "2024-02-09T13:13:34Z"
+    endpoints.kubernetes.io/last-change-trigger-time: "2026-02-14T05:57:20Z"
+  creationTimestamp: "2026-02-14T05:57:08Z"
   labels:
-    sdcio.dev/config-server: "true"
-  name: config-server
-  namespace: network-system
-  resourceVersion: "439928"
-  uid: 8f849512-6021-4c7e-a08b-c3cff25ed68b
+    app.kubernetes.io/name: sdc-api-server
+    endpoints.kubernetes.io/managed-by: endpoint-controller
+  name: api-server
+  namespace: sdc-system
+  resourceVersion: "721"
+  uid: 97db9945-73a8-401a-ae5d-25f4851c6f7a
 subsets:
 - addresses:
-  - ip: 10.244.0.8
-    nodeName: api-server-control-plane
+  - ip: 10.244.0.9
+    nodeName: kubenet-control-plane
     targetRef:
       kind: Pod
-      name: config-server-84465fd854-bm258
-      namespace: network-system
-      uid: b6986782-4055-431a-9742-f074d88febb5
+      name: api-server-6d7db47894-xj8wg
+      namespace: sdc-system
+      uid: d72741ae-8906-4dc1-9d08-967a4f98a2c6
   ports:
-  - port: 6443
+  - name: api-service
+    port: 6443
     protocol: TCP
 ```
 
@@ -78,7 +80,7 @@ kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.9 --restart=Never --
 ## Schema-Server
 
 ```bash
-kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.9 --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 schema list
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.9 --restart=Never --command -- /app/sdctl -a data-server.sdc-system.svc.cluster.local:56000 schema list
 ```
 /// details | schema list
 
@@ -97,12 +99,12 @@ pod "sdctl" deleted
 ///
 
 ```bash
-kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.9 --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 schema get --vendor sros.nokia.sdcio.dev --version 23.10.2 --path /configure
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.9 --restart=Never --command -- /app/sdctl -a data-server.sdc-system.svc.cluster.local:56000 schema get --vendor sros.nokia.sdcio.dev --version 23.10.2 --path /configure
 ```
 
 /// details | schema get 
 ```
-sdctl:/app$ /app/sdctl -a data-server.network-system.svc.cluster.local:56000 schema get --vendor sros.nokia.sdcio.dev --version 23.10.2 --path /configure
+sdctl:/app$ /app/sdctl -a data-server.sdc-system.svc.cluster.local:56000 schema get --vendor sros.nokia.sdcio.dev --version 23.10.2 --path /configure
 request:
 path: {
   elem: {
@@ -188,7 +190,7 @@ sdctl:/app$
 ///
 /// details | schema get 2
 ```
-sdctl:/app$ /app/sdctl -a data-server.network-system.svc.cluster.local:56000 schema get --vendor srl.nokia.sdcio.dev --version 23.10.1 --path /srl_nokia-interfaces
+sdctl:/app$ /app/sdctl -a data-server.sdc-system.svc.cluster.local:56000 schema get --vendor srl.nokia.sdcio.dev --version 23.10.1 --path /srl_nokia-interfaces
 request:
 path: {
   elem: {
@@ -218,7 +220,7 @@ schema: {
 
 Listing data-stores
 ```bash
-kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.9 --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 datastore list
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.9 --restart=Never --command -- /app/sdctl -a data-server.sdc-system.svc.cluster.local:56000 datastore list
 ```
 /// details | datastore list
 
@@ -288,7 +290,7 @@ pod "sdctl" deleted
 
 Fetching config from the data-store
 ```bash
-kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.9 --restart=Never --command -- /app/sdctl -a data-server.network-system.svc.cluster.local:56000 data get --ds default.sr1 --path /configure/service
+kubectl run -ti --rm sdctl --image=ghcr.io/sdcio/sdctl:v0.0.9 --restart=Never --command -- /app/sdctl -a data-server.sdc-system.svc.cluster.local:56000 data get --ds default.sr1 --path /configure/service
 ```
 /// details | data get
 
