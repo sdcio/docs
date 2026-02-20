@@ -1,0 +1,3022 @@
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sdc-system
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.0
+  name: discoveryvendorprofiles.inv.sdcio.dev
+spec:
+  group: inv.sdcio.dev
+  names:
+    categories:
+    - sdc
+    - inv
+    kind: DiscoveryVendorProfile
+    listKind: DiscoveryVendorProfileList
+    plural: discoveryvendorprofiles
+    singular: discoveryvendorprofile
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: DiscoveryVendorProfile is the Schema for the DiscoveryVendorProfile
+          API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: DiscoveryProfileSpec defines the desired state of DiscoveryProfile
+            properties:
+              gnmi:
+                properties:
+                  encoding:
+                    default: JSON_IETF
+                    enum:
+                    - UNKNOWN
+                    - JSON
+                    - JSON_IETF
+                    - PROTO
+                    - ASCII
+                    type: string
+                    x-kubernetes-validations:
+                    - message: encoding is immutable
+                      rule: self == oldSelf
+                  modelMatch:
+                    type: string
+                  organization:
+                    type: string
+                  paths:
+                    description: Paths        DiscoveryPaths `json:"paths" protobuf:"bytes,3,opt,name=paths"`
+                    items:
+                      properties:
+                        key:
+                          description: Key defines the key of the path for fast lookup
+                          type: string
+                        path:
+                          description: Path associated with the key
+                          type: string
+                        regex:
+                          description: Regex defines the regex to transform the value
+                          type: string
+                        script:
+                          description: Script defines the starlark script to transform
+                            the value
+                          type: string
+                      required:
+                      - key
+                      - path
+                      type: object
+                    type: array
+                  preserveNamespace:
+                    default: true
+                    type: boolean
+                    x-kubernetes-validations:
+                    - message: preserveNamespace is immutable
+                      rule: self == oldSelf
+                required:
+                - organization
+                - paths
+                type: object
+            required:
+            - gnmi
+            type: object
+        type: object
+    served: true
+    storage: true
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.0
+  name: targetconnectionprofiles.inv.sdcio.dev
+spec:
+  group: inv.sdcio.dev
+  names:
+    categories:
+    - sdc
+    - inv
+    kind: TargetConnectionProfile
+    listKind: TargetConnectionProfileList
+    plural: targetconnectionprofiles
+    singular: targetconnectionprofile
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.protocol
+      name: PROTOCOL
+      type: string
+    - jsonPath: .spec.port
+      name: PORT
+      type: string
+    - jsonPath: .spec.encoding
+      name: ENCODING
+      type: string
+    - jsonPath: .spec.insecure
+      name: INSECURE
+      type: string
+    - jsonPath: .spec.skipVerify
+      name: SKIPVERIFY
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: TargetConnectionProfile is the Schema for the TargetConnectionProfile
+          API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: TargetConnectionProfileSpec defines the desired state of
+              TargetConnectionProfile
+            properties:
+              commitCandidate:
+                default: candidate
+                enum:
+                - candidate
+                - running
+                type: string
+                x-kubernetes-validations:
+                - message: UseOperationRemove is immutable
+                  rule: self == oldSelf
+              connectRetry:
+                default: 10s
+                type: string
+                x-kubernetes-validations:
+                - message: connectRetry is immutable
+                  rule: self == oldSelf
+              encoding:
+                enum:
+                - UNKNOWN
+                - JSON
+                - JSON_IETF
+                - PROTO
+                type: string
+                x-kubernetes-validations:
+                - message: encoding is immutable
+                  rule: self == oldSelf
+              includeNS:
+                default: false
+                type: boolean
+                x-kubernetes-validations:
+                - message: includeNS is immutable
+                  rule: self == oldSelf
+              insecure:
+                default: false
+                type: boolean
+                x-kubernetes-validations:
+                - message: insecure is immutable
+                  rule: self == oldSelf
+              operationWithNS:
+                default: false
+                type: boolean
+                x-kubernetes-validations:
+                - message: operationWithNS is immutable
+                  rule: self == oldSelf
+              port:
+                default: 57400
+                description: Port defines the port on which the scan runs
+                format: int32
+                type: integer
+                x-kubernetes-validations:
+                - message: port is immutable
+                  rule: self == oldSelf
+              preferredNetconfVersion:
+                default: "1.0"
+                enum:
+                - "1.0"
+                - "1.1"
+                type: string
+                x-kubernetes-validations:
+                - message: preferredNetconfVersion is immutable
+                  rule: self == oldSelf
+              protocol:
+                default: gnmi
+                enum:
+                - unknown
+                - gnmi
+                - netconf
+                - noop
+                type: string
+                x-kubernetes-validations:
+                - message: protocol is immutable
+                  rule: self == oldSelf
+              skipVerify:
+                default: true
+                type: boolean
+                x-kubernetes-validations:
+                - message: skipVerify is immutable
+                  rule: self == oldSelf
+              targetName:
+                description: |-
+                  TargetName specifies the target field value in gNMI Path prefix
+                  Examples: "OC-YANG" (SONiC), "openconfig" (some vendors), or empty
+                type: string
+              timeout:
+                default: 10s
+                type: string
+                x-kubernetes-validations:
+                - message: timeout is immutable
+                  rule: self == oldSelf
+              useOperationRemove:
+                default: false
+                type: boolean
+                x-kubernetes-validations:
+                - message: UseOperationRemove is immutable
+                  rule: self == oldSelf
+            required:
+            - port
+            - protocol
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.0
+  name: discoveryrules.inv.sdcio.dev
+spec:
+  group: inv.sdcio.dev
+  names:
+    categories:
+    - sdc
+    - inv
+    kind: DiscoveryRule
+    listKind: DiscoveryRuleList
+    plural: discoveryrules
+    singular: discoveryrule
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: DiscoveryRule is the Schema for the DiscoveryRule API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: DiscoveryRuleSpec defines the desired state of DiscoveryRule
+            properties:
+              addresses:
+                description: IP Prefixes for which this discovery rule applies
+                items:
+                  properties:
+                    address:
+                      description: Address (specified as IP or DNS name) of the target/target(s)
+                      type: string
+                    hostName:
+                      description: HostName of the ip prefix; used for /32 or /128
+                        addresses with discovery disabled
+                      type: string
+                  required:
+                  - address
+                  type: object
+                type: array
+              concurrentScans:
+                description: number of concurrent IP scan
+                format: int64
+                type: integer
+              defaultSchema:
+                description: |-
+                  DefaultSchema define the default schema used to connect to a target
+                  Indicates that discovery is disable; cannot be used for prefix based discovery rules
+                properties:
+                  provider:
+                    description: Provider specifies the provider of the schema.
+                    type: string
+                  version:
+                    description: Version defines the version of the schema
+                    type: string
+                required:
+                - provider
+                - version
+                type: object
+              discoveryProfile:
+                description: DiscoveryProfile define the profiles the discovery controller
+                  uses to discover targets
+                properties:
+                  connectionProfiles:
+                    description: |-
+                      ConnectionProfiles define the list of profiles the discovery controller uses to discover the target.
+                      The order in which they are specified is the order in which discovery is executed.
+                    items:
+                      type: string
+                    type: array
+                  credentials:
+                    description: Credentials defines the name of the secret that holds
+                      the credentials to connect to the target
+                    type: string
+                  tlsSecret:
+                    description: TLSSecret defines the name of the TLS secret to connect
+                      to the target if mtls is used
+                    type: string
+                required:
+                - connectionProfiles
+                - credentials
+                type: object
+              period:
+                description: Period defines the wait period between discovery rule
+                  runs
+                type: string
+              podSelector:
+                description: PodSelector defines the pod selector for which this discovery
+                  rule applies
+                properties:
+                  matchExpressions:
+                    description: matchExpressions is a list of label selector requirements.
+                      The requirements are ANDed.
+                    items:
+                      description: |-
+                        A label selector requirement is a selector that contains values, a key, and an operator that
+                        relates the key and values.
+                      properties:
+                        key:
+                          description: key is the label key that the selector applies
+                            to.
+                          type: string
+                        operator:
+                          description: |-
+                            operator represents a key's relationship to a set of values.
+                            Valid operators are In, NotIn, Exists and DoesNotExist.
+                          type: string
+                        values:
+                          description: |-
+                            values is an array of string values. If the operator is In or NotIn,
+                            the values array must be non-empty. If the operator is Exists or DoesNotExist,
+                            the values array must be empty. This array is replaced during a strategic
+                            merge patch.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: atomic
+                      required:
+                      - key
+                      - operator
+                      type: object
+                    type: array
+                    x-kubernetes-list-type: atomic
+                  matchLabels:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels
+                      map is equivalent to an element of matchExpressions, whose key field is "key", the
+                      operator is "In", and the values array contains only "value". The requirements are ANDed.
+                    type: object
+                type: object
+                x-kubernetes-map-type: atomic
+              prefixes:
+                description: IP Prefixes for which this discovery rule applies
+                items:
+                  properties:
+                    excludes:
+                      description: IP Prefixes to be excluded
+                      items:
+                        type: string
+                      type: array
+                    prefix:
+                      description: Prefix of the target/target(s)
+                      type: string
+                  required:
+                  - prefix
+                  type: object
+                type: array
+              serviceDomain:
+                description: |-
+                  ServiceDomain defines the service domain of the cluster, used by svc discovery to identify the
+                  domain name in the k8s cluster where the service reside.
+                type: string
+              serviceSelector:
+                description: ServiceSelector defines the service selector for which
+                  this discovery rule applies
+                properties:
+                  matchExpressions:
+                    description: matchExpressions is a list of label selector requirements.
+                      The requirements are ANDed.
+                    items:
+                      description: |-
+                        A label selector requirement is a selector that contains values, a key, and an operator that
+                        relates the key and values.
+                      properties:
+                        key:
+                          description: key is the label key that the selector applies
+                            to.
+                          type: string
+                        operator:
+                          description: |-
+                            operator represents a key's relationship to a set of values.
+                            Valid operators are In, NotIn, Exists and DoesNotExist.
+                          type: string
+                        values:
+                          description: |-
+                            values is an array of string values. If the operator is In or NotIn,
+                            the values array must be non-empty. If the operator is Exists or DoesNotExist,
+                            the values array must be empty. This array is replaced during a strategic
+                            merge patch.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: atomic
+                      required:
+                      - key
+                      - operator
+                      type: object
+                    type: array
+                    x-kubernetes-list-type: atomic
+                  matchLabels:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels
+                      map is equivalent to an element of matchExpressions, whose key field is "key", the
+                      operator is "In", and the values array contains only "value". The requirements are ANDed.
+                    type: object
+                type: object
+                x-kubernetes-map-type: atomic
+              targetConnectionProfiles:
+                description: |-
+                  TargetConnectionProfiles define the profile the discovery controller uses to create targets
+                  once discovered
+                items:
+                  properties:
+                    connectionProfile:
+                      description: ConnectionProfile define the profile used to connect
+                        to the target once discovered
+                      type: string
+                    credentials:
+                      description: Credentials defines the name of the secret that
+                        holds the credentials to connect to the target
+                      type: string
+                    syncProfile:
+                      description: SyncProfile define the profile used to sync to
+                        the target config once discovered
+                      type: string
+                    tlsSecret:
+                      description: TLSSecret defines the name of the TLS secret to
+                        connect to the target if mtls is used
+                      type: string
+                  required:
+                  - connectionProfile
+                  - credentials
+                  type: object
+                type: array
+              targetTemplate:
+                description: TargetTemplate defines the template the discovery controller
+                  uses to create the targets as a result of the discovery
+                properties:
+                  annotations:
+                    additionalProperties:
+                      type: string
+                    description: Annotations is a key value map to be copied to the
+                      target CR.
+                    type: object
+                  labels:
+                    additionalProperties:
+                      type: string
+                    description: Labels is a key value map to be copied to the target
+                      CR.
+                    type: object
+                  nameTemplate:
+                    description: target name template
+                    type: string
+                    x-kubernetes-validations:
+                    - message: nameTemplate is immutable
+                      rule: self == oldSelf
+                type: object
+            required:
+            - targetConnectionProfiles
+            type: object
+          status:
+            description: DiscoveryRuleStatus defines the observed state of DiscoveryRule
+            properties:
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        lastTransitionTime is the last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        message is a human readable message indicating details about the transition.
+                        This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: |-
+                        reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        Producers of specific condition types may define expected values and meanings for this field,
+                        and whether the values are considered a guaranteed API.
+                        The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              startTime:
+                description: StartTime identifies when the dr got started
+                format: date-time
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.0
+  name: subscriptions.inv.sdcio.dev
+spec:
+  group: inv.sdcio.dev
+  names:
+    categories:
+    - sdc
+    - inv
+    kind: Subscription
+    listKind: SubscriptionList
+    plural: subscriptions
+    singular: subscription
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .spec.protocol
+      name: PROTOCOL
+      type: string
+    - jsonPath: .spec.port
+      name: PORT
+      type: string
+    - jsonPath: .spec.encoding
+      name: ENCODING
+      type: string
+    - jsonPath: .spec.subscriptions[0].mode
+      name: MODE
+      type: string
+    - jsonPath: .spec.subscriptions[0].interval
+      name: INTERVAL
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Subscription is the Schema for the Subscription API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: SubscriptionSpec defines the desired Subscription of Subscription
+            properties:
+              encoding:
+                enum:
+                - PROTO
+                - ASCII
+                type: string
+              port:
+                default: 57400
+                description: Port defines the port on which the scan runs
+                format: int32
+                type: integer
+              protocol:
+                default: gnmi
+                enum:
+                - unknown
+                - gnmi
+                - netconf
+                - noop
+                type: string
+              subscriptions:
+                items:
+                  description: SubscriptionSync defines the desired Subscription of
+                    SubscriptionSync
+                  properties:
+                    adminState:
+                      default: enabled
+                      description: AdminState allows to disable the subscription
+                      enum:
+                      - enabled
+                      - disabled
+                      type: string
+                    description:
+                      description: Description details what the Subscription collection
+                        is about
+                      type: string
+                    interval:
+                      enum:
+                      - 1s
+                      - 15s
+                      - 30s
+                      - 60s
+                      format: duration
+                      type: string
+                    labels:
+                      additionalProperties:
+                        type: string
+                      description: Labels can be defined as user defined data to provide
+                        extra context
+                      type: object
+                    mode:
+                      default: sample
+                      enum:
+                      - unknown
+                      - onChange
+                      - sample
+                      type: string
+                    name:
+                      description: Name defines the name of the group of the Subscription
+                        to be collected
+                      type: string
+                    paths:
+                      items:
+                        type: string
+                      maxItems: 128
+                      type: array
+                  required:
+                  - mode
+                  - name
+                  - paths
+                  type: object
+                maxItems: 128
+                type: array
+              target:
+                description: Targets defines the targets on which this Subscription
+                  applies
+                properties:
+                  targetSelector:
+                    description: TargetSelector defines the selector used to select
+                      the targets to which the config applies
+                    properties:
+                      matchExpressions:
+                        description: matchExpressions is a list of label selector
+                          requirements. The requirements are ANDed.
+                        items:
+                          description: |-
+                            A label selector requirement is a selector that contains values, a key, and an operator that
+                            relates the key and values.
+                          properties:
+                            key:
+                              description: key is the label key that the selector
+                                applies to.
+                              type: string
+                            operator:
+                              description: |-
+                                operator represents a key's relationship to a set of values.
+                                Valid operators are In, NotIn, Exists and DoesNotExist.
+                              type: string
+                            values:
+                              description: |-
+                                values is an array of string values. If the operator is In or NotIn,
+                                the values array must be non-empty. If the operator is Exists or DoesNotExist,
+                                the values array must be empty. This array is replaced during a strategic
+                                merge patch.
+                              items:
+                                type: string
+                              type: array
+                              x-kubernetes-list-type: atomic
+                          required:
+                          - key
+                          - operator
+                          type: object
+                        type: array
+                        x-kubernetes-list-type: atomic
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels
+                          map is equivalent to an element of matchExpressions, whose key field is "key", the
+                          operator is "In", and the values array contains only "value". The requirements are ANDed.
+                        type: object
+                    type: object
+                    x-kubernetes-map-type: atomic
+                type: object
+            required:
+            - port
+            - protocol
+            - target
+            type: object
+          status:
+            properties:
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        lastTransitionTime is the last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        message is a human readable message indicating details about the transition.
+                        This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: |-
+                        reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        Producers of specific condition types may define expected values and meanings for this field,
+                        and whether the values are considered a guaranteed API.
+                        The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              targets:
+                description: Targets defines the list of targets this resource applies
+                  to
+                items:
+                  type: string
+                type: array
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.0
+  name: workspaces.inv.sdcio.dev
+spec:
+  group: inv.sdcio.dev
+  names:
+    categories:
+    - sdc
+    - inv
+    kind: Workspace
+    listKind: WorkspaceList
+    plural: workspaces
+    singular: workspace
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .spec.repoURL
+      name: URL
+      type: string
+    - jsonPath: .spec.ref
+      name: REF
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Workspace is the Workspace for the Workspace API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: WorkspaceSpec defines the desired state of Workspace
+            properties:
+              credentials:
+                description: Credentials defines the name of the secret that holds
+                  the credentials to connect to the repo
+                type: string
+              kind:
+                default: tag
+                description: Kind defines the that the BranchOrTag string is a repository
+                  branch or a tag
+                enum:
+                - branch
+                - tag
+                - hash
+                type: string
+              proxy:
+                description: Proxy defines the HTTP/HTTPS proxy to be used to connect
+                  to the repo.
+                properties:
+                  URL:
+                    description: URL specifies the base URL of the HTTP/HTTPS proxy
+                      server.
+                    type: string
+                  credentials:
+                    description: Credentials defines the name of the secret that holds
+                      the credentials to connect to the proxy server
+                    type: string
+                required:
+                - URL
+                - credentials
+                type: object
+              ref:
+                description: |-
+                  Ref defines the branch or tag of the repository corresponding to the
+                  provider schema version
+                type: string
+              repoURL:
+                description: RepositoryURL specifies the base URL for a given repository
+                type: string
+            required:
+            - kind
+            - ref
+            - repoURL
+            type: object
+          status:
+            description: WorkspaceStatus defines the observed state of Workspace
+            properties:
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        lastTransitionTime is the last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        message is a human readable message indicating details about the transition.
+                        This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: |-
+                        reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        Producers of specific condition types may define expected values and meanings for this field,
+                        and whether the values are considered a guaranteed API.
+                        The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              deployedRef:
+                description: DeployedRef is the reference that is deployed
+                type: string
+              kind:
+                description: Kind defines the that the BranchOrTag string is a repository
+                  branch or a tag
+                enum:
+                - branch
+                - tag
+                - hash
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.0
+  name: targets.inv.sdcio.dev
+spec:
+  group: inv.sdcio.dev
+  names:
+    categories:
+    - sdc
+    - inv
+    kind: Target
+    listKind: TargetList
+    plural: targets
+    singular: target
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].message
+      name: REASON
+      type: string
+    - jsonPath: .spec.provider
+      name: PROVIDER
+      type: string
+    - jsonPath: .status.discoveryInfo.version
+      name: VERSION
+      type: string
+    - jsonPath: .spec.address
+      name: ADDRESS
+      type: string
+    - jsonPath: .status.discoveryInfo.platform
+      name: PLATFORM
+      type: string
+    - jsonPath: .status.discoveryInfo.serialNumber
+      name: SERIALNUMBER
+      type: string
+    - jsonPath: .status.discoveryInfo.macAddress
+      name: MACADDRESS
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Target is the Schema for the Target API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: TargetSpec defines the desired state of Target
+            properties:
+              address:
+                description: Address defines the address to connect to the target
+                type: string
+              connectionProfile:
+                description: ConnectionProfile define the profile used to connect
+                  to the target once discovered
+                type: string
+              credentials:
+                description: Credentials defines the name of the secret that holds
+                  the credentials to connect to the target
+                type: string
+              provider:
+                description: Provider specifies the provider using this target.
+                type: string
+              syncProfile:
+                description: SyncProfile define the profile used to sync to the target
+                  config once discovered
+                type: string
+              tlsSecret:
+                description: TLSSecret defines the name of the TLS secret to connect
+                  to the target if mtls is used
+                type: string
+            required:
+            - address
+            - connectionProfile
+            - credentials
+            - provider
+            type: object
+          status:
+            description: TargetStatus defines the observed state of Target
+            properties:
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        lastTransitionTime is the last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        message is a human readable message indicating details about the transition.
+                        This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: |-
+                        reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        Producers of specific condition types may define expected values and meanings for this field,
+                        and whether the values are considered a guaranteed API.
+                        The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              discoveryInfo:
+                description: Discovery info defines the information retrieved during
+                  discovery
+                properties:
+                  hostname:
+                    description: HostName associated with the target
+                    type: string
+                  macAddress:
+                    description: MacAddress associated with the target
+                    type: string
+                  platform:
+                    description: Platform associated with the target
+                    type: string
+                  protocol:
+                    description: Protocol used for discovery
+                    type: string
+                  provider:
+                    description: Type associated with the target
+                    type: string
+                  serialNumber:
+                    description: SerialNumber associated with the target
+                    type: string
+                  supportedEncodings:
+                    description: Supported Encodings of the target
+                    items:
+                      type: string
+                    type: array
+                  version:
+                    description: Version associated with the target
+                    type: string
+                type: object
+              usedReferences:
+                description: UsedReferences track the resource used to reconcile the
+                  cr
+                properties:
+                  connectionProfileResourceVersion:
+                    type: string
+                  secretResourceVersion:
+                    type: string
+                  syncProfileResourceVersion:
+                    type: string
+                  tlsSecretResourceVersion:
+                    type: string
+                required:
+                - connectionProfileResourceVersion
+                - syncProfileResourceVersion
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.0
+  name: rollouts.inv.sdcio.dev
+spec:
+  group: inv.sdcio.dev
+  names:
+    categories:
+    - sdc
+    - inv
+    kind: Rollout
+    listKind: RolloutList
+    plural: rollouts
+    singular: rollout
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .spec.repoURL
+      name: URL
+      type: string
+    - jsonPath: .spec.ref
+      name: REF
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Rollout is the Rollout for the Rollout API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: RolloutSpec defines the desired state of Rollout
+            properties:
+              credentials:
+                description: Credentials defines the name of the secret that holds
+                  the credentials to connect to the repo
+                type: string
+              kind:
+                default: tag
+                description: Kind defines the that the BranchOrTag string is a repository
+                  branch or a tag
+                enum:
+                - branch
+                - tag
+                - hash
+                type: string
+              proxy:
+                description: Proxy defines the HTTP/HTTPS proxy to be used to connect
+                  to the repo.
+                properties:
+                  URL:
+                    description: URL specifies the base URL of the HTTP/HTTPS proxy
+                      server.
+                    type: string
+                  credentials:
+                    description: Credentials defines the name of the secret that holds
+                      the credentials to connect to the proxy server
+                    type: string
+                required:
+                - URL
+                - credentials
+                type: object
+              ref:
+                description: |-
+                  Ref defines the branch or tag of the repository corresponding to the
+                  provider schema version
+                type: string
+              repoURL:
+                description: RepositoryURL specifies the base URL for a given repository
+                type: string
+              skipUnavailableTarget:
+                type: boolean
+              strategy:
+                type: string
+            required:
+            - kind
+            - ref
+            - repoURL
+            - strategy
+            type: object
+          status:
+            description: RolloutStatus defines the observed state of Rollout
+            properties:
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        lastTransitionTime is the last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        message is a human readable message indicating details about the transition.
+                        This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: |-
+                        reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        Producers of specific condition types may define expected values and meanings for this field,
+                        and whether the values are considered a guaranteed API.
+                        The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              targets:
+                description: Targets defines the status of the rollout on the respective
+                  target
+                items:
+                  properties:
+                    conditions:
+                      description: Conditions of the resource.
+                      items:
+                        properties:
+                          lastTransitionTime:
+                            description: |-
+                              lastTransitionTime is the last time the condition transitioned from one status to another.
+                              This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                            format: date-time
+                            type: string
+                          message:
+                            description: |-
+                              message is a human readable message indicating details about the transition.
+                              This may be an empty string.
+                            maxLength: 32768
+                            type: string
+                          observedGeneration:
+                            description: |-
+                              observedGeneration represents the .metadata.generation that the condition was set based upon.
+                              For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                              with respect to the current state of the instance.
+                            format: int64
+                            minimum: 0
+                            type: integer
+                          reason:
+                            description: |-
+                              reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                              Producers of specific condition types may define expected values and meanings for this field,
+                              and whether the values are considered a guaranteed API.
+                              The value should be a CamelCase string.
+                              This field may not be empty.
+                            maxLength: 1024
+                            minLength: 1
+                            pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                            type: string
+                          status:
+                            description: status of the condition, one of True, False,
+                              Unknown.
+                            enum:
+                            - "True"
+                            - "False"
+                            - Unknown
+                            type: string
+                          type:
+                            description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                            maxLength: 316
+                            pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                            type: string
+                        required:
+                        - lastTransitionTime
+                        - message
+                        - reason
+                        - status
+                        - type
+                        type: object
+                      type: array
+                      x-kubernetes-list-map-keys:
+                      - type
+                      x-kubernetes-list-type: map
+                    name:
+                      type: string
+                  required:
+                  - name
+                  type: object
+                type: array
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.0
+  name: schemas.inv.sdcio.dev
+spec:
+  group: inv.sdcio.dev
+  names:
+    categories:
+    - sdc
+    - inv
+    kind: Schema
+    listKind: SchemaList
+    plural: schemas
+    singular: schema
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .spec.provider
+      name: PROVIDER
+      type: string
+    - jsonPath: .spec.version
+      name: VERSION
+      type: string
+    - jsonPath: .spec.repositories[0].repoURL
+      name: URL
+      type: string
+    - jsonPath: .spec.repositories[0].ref
+      name: REF
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Schema is the Schema for the Schema API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: SchemaSpec defines the desired state of Schema
+            properties:
+              provider:
+                description: Provider specifies the provider of the schema.
+                type: string
+                x-kubernetes-validations:
+                - message: provider is immutable
+                  rule: self == oldSelf
+              repositories:
+                description: Repositories define the repositories used for building
+                  the provider schema
+                items:
+                  properties:
+                    credentials:
+                      description: Credentials defines the name of the secret that
+                        holds the credentials to connect to the repo
+                      type: string
+                    dirs:
+                      description: |-
+                        Dirs defines the list of directories that identified the provider schema in src/dst pairs
+                        relative within the repository
+                      items:
+                        description: |-
+                          SrcDstPath provide a src/dst pair for the loader to download the schema from a specific src
+                          in the repository to a given destination in the schema server
+                        properties:
+                          dst:
+                            description: Dst is the relative directory in the schema
+                              server
+                            type: string
+                          src:
+                            description: Src is the relative directory in the repository
+                              URL
+                            type: string
+                        required:
+                        - dst
+                        - src
+                        type: object
+                      maxItems: 10
+                      type: array
+                    kind:
+                      default: tag
+                      description: Kind defines the that the BranchOrTag string is
+                        a repository branch or a tag
+                      enum:
+                      - branch
+                      - tag
+                      - hash
+                      type: string
+                    proxy:
+                      description: Proxy defines the HTTP/HTTPS proxy to be used to
+                        connect to the repo.
+                      properties:
+                        URL:
+                          description: URL specifies the base URL of the HTTP/HTTPS
+                            proxy server.
+                          type: string
+                        credentials:
+                          description: Credentials defines the name of the secret
+                            that holds the credentials to connect to the proxy server
+                          type: string
+                      required:
+                      - URL
+                      - credentials
+                      type: object
+                    ref:
+                      description: |-
+                        Ref defines the branch or tag of the repository corresponding to the
+                        provider schema version
+                      type: string
+                    repoURL:
+                      description: RepositoryURL specifies the base URL for a given
+                        repository
+                      type: string
+                    schema:
+                      description: |-
+                        Schema provides the details of which files must be used for the models and which files/directories
+                        cana be excludes
+                      properties:
+                        excludes:
+                          description: Excludes defines the list of files/directories
+                            to be excluded
+                          items:
+                            type: string
+                          maxItems: 64
+                          type: array
+                        includes:
+                          description: Excludes defines the list of files/directories
+                            to be excluded
+                          items:
+                            type: string
+                          maxItems: 64
+                          type: array
+                        models:
+                          description: Models defines the list of files/directories
+                            to be used as a model
+                          items:
+                            type: string
+                          maxItems: 64
+                          type: array
+                      type: object
+                  required:
+                  - kind
+                  - ref
+                  - repoURL
+                  - schema
+                  type: object
+                maxItems: 10
+                minItems: 1
+                type: array
+              version:
+                description: Version defines the version of the schema
+                type: string
+                x-kubernetes-validations:
+                - message: version is immutable
+                  rule: self == oldSelf
+            required:
+            - provider
+            - repositories
+            - version
+            type: object
+          status:
+            description: SchemaStatus defines the observed state of Schema
+            properties:
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        lastTransitionTime is the last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        message is a human readable message indicating details about the transition.
+                        This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: |-
+                        reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        Producers of specific condition types may define expected values and meanings for this field,
+                        and whether the values are considered a guaranteed API.
+                        The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              repositories:
+                description: SchemaRepositoryStatus provides the array of repositories
+                items:
+                  description: SchemaRepositoryStatus provides the observed hash of
+                    a repository
+                  properties:
+                    reference:
+                      description: Reference indicating version of loaded repository
+                      type: string
+                    repoURL:
+                      description: RepoURL defines URL of the repository
+                      type: string
+                  type: object
+                type: array
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.0
+  name: targetsyncprofiles.inv.sdcio.dev
+spec:
+  group: inv.sdcio.dev
+  names:
+    categories:
+    - sdc
+    - inv
+    kind: TargetSyncProfile
+    listKind: TargetSyncProfileList
+    plural: targetsyncprofiles
+    singular: targetsyncprofile
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.sync[0].protocol
+      name: PROTOCOL
+      type: string
+    - jsonPath: .spec.sync[0].port
+      name: PORT
+      type: string
+    - jsonPath: .spec.sync[0].encoding
+      name: ENCODING
+      type: string
+    - jsonPath: .spec.sync[0].mode
+      name: MODE
+      type: string
+    - jsonPath: .spec.sync[0].interval
+      name: INTERVAL
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: TargetSyncProfile is the Schema for the TargetSyncProfile API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: TargetSyncProfileSpec defines the desired state of TargetSyncProfile
+            properties:
+              buffer:
+                default: 0
+                format: int64
+                type: integer
+                x-kubernetes-validations:
+                - message: buffer is immutable
+                  rule: self == oldSelf
+              sync:
+                items:
+                  description: TargetSyncProfileSync defines the desired state of
+                    TargetSyncProfileSync
+                  properties:
+                    encoding:
+                      enum:
+                      - UNKNOWN
+                      - JSON
+                      - JSON_IETF
+                      - PROTO
+                      - CONFIG
+                      type: string
+                    interval:
+                      default: 60s
+                      format: duration
+                      type: string
+                    mode:
+                      default: get
+                      enum:
+                      - unknown
+                      - onChange
+                      - sample
+                      - once
+                      - get
+                      type: string
+                    name:
+                      type: string
+                    paths:
+                      items:
+                        type: string
+                      maxItems: 10
+                      type: array
+                    port:
+                      default: 57400
+                      description: Port defines the port on which the scan runs
+                      format: int32
+                      type: integer
+                    protocol:
+                      default: gnmi
+                      enum:
+                      - unknown
+                      - gnmi
+                      - netconf
+                      - noop
+                      type: string
+                  required:
+                  - mode
+                  - name
+                  - paths
+                  - port
+                  - protocol
+                  type: object
+                maxItems: 10
+                type: array
+                x-kubernetes-validations:
+                - message: sync may only be added
+                  rule: oldSelf.all(x, x in self)
+              validate:
+                default: true
+                type: boolean
+                x-kubernetes-validations:
+                - message: validate is immutable
+                  rule: self == oldSelf
+              workers:
+                default: 10
+                format: int64
+                type: integer
+                x-kubernetes-validations:
+                - message: workers is immutable
+                  rule: self == oldSelf
+            type: object
+            x-kubernetes-validations:
+            - message: sync is required once set
+              rule: '!has(oldSelf.sync) || has(self.sync)'
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+
+---
+apiVersion: apiregistration.k8s.io/v1
+kind: APIService
+metadata:
+  name: v1alpha1.config.sdcio.dev
+spec:
+  group: config.sdcio.dev
+  groupPriorityMinimum: 1000
+  insecureSkipTLSVerify: true
+  service:
+    name: api-server
+    namespace: sdc-system
+    port: 6443
+  version: v1alpha1
+  versionPriority: 15
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: sdc-api-server
+  name: api-server
+  namespace: sdc-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sdc-api-server
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sdc-api-server
+    spec:
+      containers:
+      - args:
+        - --tls-cert-file=/apiserver.local.config/certificates/tls.crt
+        - --tls-private-key-file=/apiserver.local.config/certificates/tls.key
+        - --audit-log-path=-
+        - --audit-log-maxage=0
+        - --audit-log-maxbackup=0
+        - --secure-port=6443
+        command:
+        - /app/api-server
+        env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        - name: METRIC_PORT
+          value: "8443"
+        image: ghcr.io/sdcio/config-server-api-server:v0.0.55
+        imagePullPolicy: Always
+        name: api-server
+        ports:
+        - containerPort: 6443
+          name: api-service
+        volumeMounts:
+        - mountPath: /apiserver.local.config/certificates
+          name: api-server-certs
+          readOnly: true
+        - mountPath: /config
+          name: config-store
+      securityContext:
+        fsGroup: 10000
+        runAsGroup: 10000
+        runAsUser: 10000
+      serviceAccountName: api-server
+      volumes:
+      - name: api-server-certs
+        secret:
+          secretName: api-server-cert
+      - name: config-store
+        persistentVolumeClaim:
+          claimName: pvc-config-store
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: sdc-controller
+  name: controller
+  namespace: sdc-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sdc-controller
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sdc-controller
+    spec:
+      containers:
+      - command:
+        - /app/controller
+        env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        - name: METRIC_PORT
+          value: "8443"
+        - name: PPROF_PORT
+          value: "8081"
+        - name: ENABLE_DISCOVERYRULE
+          value: "true"
+        - name: ENABLE_CONFIGSET
+          value: "true"
+        - name: ENABLE_WORKSPACE
+          value: "true"
+        - name: ENABLE_ROLLOUT
+          value: "true"
+        image: ghcr.io/sdcio/config-server-controller:v0.0.55
+        imagePullPolicy: Always
+        name: controller
+        volumeMounts:
+        - mountPath: /workspace
+          name: workspace-store
+      securityContext:
+        fsGroup: 10000
+        runAsGroup: 10000
+        runAsUser: 10000
+      serviceAccountName: controller
+      volumes:
+      - name: workspace-store
+        persistentVolumeClaim:
+          claimName: pvc-workspace-store
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app.kubernetes.io/name: sdc-data-server-controller
+  name: data-server-controller
+  namespace: sdc-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sdc-data-server-controller
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sdc-data-server-controller
+        sdcio.dev/data-server: "true"
+        sdcio.dev/schema-server: "true"
+    spec:
+      containers:
+      - command:
+        - /app/controller
+        env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        - name: LOCAL_DATASERVER
+          value: "true"
+        - name: METRIC_PORT
+          value: "8443"
+        - name: PPROF_PORT
+          value: "8081"
+        - name: REVERTIVE
+          value: "true"
+        - name: ENABLE_SUBSCRIPTION
+          value: "true"
+        - name: ENABLE_TARGET
+          value: "true"
+        - name: ENABLE_TARGETDATASTORE
+          value: "true"
+        - name: ENABLE_TARGETCONFIG
+          value: "true"
+        - name: ENABLE_TARGETRECOVERYCONFIG
+          value: "true"
+        - name: ENABLE_SCHEMA
+          value: "true"
+        image: ghcr.io/sdcio/config-server-controller:v0.0.55
+        imagePullPolicy: Always
+        name: controller
+        volumeMounts:
+        - mountPath: /schemas
+          name: schema-store
+      - args:
+        - --config=/config/data-server.yaml
+        command:
+        - /app/data-server
+        image: ghcr.io/sdcio/data-server:v0.0.67
+        imagePullPolicy: Always
+        name: data-server
+        ports:
+        - containerPort: 56000
+          name: data-service
+        volumeMounts:
+        - mountPath: /config
+          name: data-server-config
+        - mountPath: /cached/caches
+          name: cache
+        - mountPath: /schemadb
+          name: schema-db
+        - mountPath: /schemas
+          name: schema-store
+      securityContext:
+        fsGroup: 10000
+        runAsGroup: 10000
+        runAsUser: 10000
+      serviceAccountName: data-server-controller
+      volumes:
+      - configMap:
+          name: data-server
+        name: data-server-config
+      - emptyDir:
+          sizeLimit: 10Gi
+        name: cache
+      - name: schema-db
+        persistentVolumeClaim:
+          claimName: pvc-schema-db
+      - name: schema-store
+        persistentVolumeClaim:
+          claimName: pvc-schema-store
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-metrics-traffic
+  namespace: sdc-system
+spec:
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: monitoring
+    ports:
+    - port: 8443
+      protocol: TCP
+  - from:
+    - podSelector: {}
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: sdc-controller
+  policyTypes:
+  - Ingress
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/name: sdc-api-server
+  name: allow-traffic-to-apiserver-extension
+  namespace: sdc-system
+spec:
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+    ports:
+    - port: api-service
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: sdc-api-server
+  policyTypes:
+  - Ingress
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: sdc-api-server-clusterrole
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  - secrets
+  - configmaps
+  - services
+  - pods
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  - validatingwebhookconfigurations
+  - validatingadmissionpolicies
+  - validatingadmissionpolicybindings
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - flowcontrol.apiserver.k8s.io
+  resources:
+  - flowschemas
+  - prioritylevelconfigurations
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - targets
+  - targets/status
+  verbs:
+  - get
+  - watch
+  - list
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: sdc-controller-clusterrole
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  - secrets
+  - services
+  - pods
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  - validatingwebhookconfigurations
+  - validatingadmissionpolicies
+  - validatingadmissionpolicybindings
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - flowcontrol.apiserver.k8s.io
+  resources:
+  - flowschemas
+  - prioritylevelconfigurations
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - config.sdcio.dev
+  resources:
+  - configs
+  - configs/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - config.sdcio.dev
+  resources:
+  - configsets
+  - configsets/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - config.sdcio.dev
+  resources:
+  - deviations
+  - deviations/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - targets
+  - targets/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - targetconnectionprofiles
+  - targetsyncprofiles
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - discoveryrules
+  - discoveryrules/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - discoveryvendorprofiles
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - schemas
+  - schemas/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - subscriptions
+  - subscriptions/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - workspaces
+  - workspaces/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - rollouts
+  - rollouts/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: sdc-controller-metrics-auth-role
+rules:
+- apiGroups:
+  - authentication.k8s.io
+  resources:
+  - tokenreviews
+  verbs:
+  - create
+- apiGroups:
+  - subjectaccessreviews.k8s.io
+  resources:
+  - tokenreviews
+  verbs:
+  - create
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: sdc-controller-metrics-reader
+rules:
+- nonResourceURLs:
+  - /metrics
+  verbs:
+  - get
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: sdc-data-server-controller-clusterrole
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  - secrets
+  - services
+  - pods
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  - validatingwebhookconfigurations
+  - validatingadmissionpolicies
+  - validatingadmissionpolicybindings
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - flowcontrol.apiserver.k8s.io
+  resources:
+  - flowschemas
+  - prioritylevelconfigurations
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - config.sdcio.dev
+  resources:
+  - configs
+  - configs/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - config.sdcio.dev
+  resources:
+  - configsets
+  - configsets/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - config.sdcio.dev
+  resources:
+  - deviations
+  - deviations/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - targets
+  - targets/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - targetconnectionprofiles
+  - targetsyncprofiles
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - discoveryrules
+  - discoveryrules/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - discoveryvendorprofiles
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - schemas
+  - schemas/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - subscriptions
+  - subscriptions/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - workspaces
+  - workspaces/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - inv.sdcio.dev
+  resources:
+  - rollouts
+  - rollouts/status
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - patch
+  - delete
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: sdc-api-server-clusterrolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: sdc-api-server-clusterrole
+subjects:
+- kind: ServiceAccount
+  name: api-server
+  namespace: sdc-system
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: sdc-controller-clusterrolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: sdc-controller-clusterrole
+subjects:
+- kind: ServiceAccount
+  name: controller
+  namespace: sdc-system
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: sdc-controller-metrics-auth-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: sdc-controller-metrics-auth-role
+subjects:
+- kind: ServiceAccount
+  name: controller
+  namespace: sdc-system
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: sdc-data-server-controller-clusterrolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: sdc-data-server-controller-clusterrole
+subjects:
+- kind: ServiceAccount
+  name: data-server-controller
+  namespace: sdc-system
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: sdc:system:auth-delegator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+- kind: ServiceAccount
+  name: api-server
+  namespace: sdc-system
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: aggregated-apiserver-role
+  namespace: sdc-system
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - serviceaccounts
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - serviceaccounts/token
+  verbs:
+  - create
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: sdc-controller-auth-reader
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: extension-apiserver-authentication-reader
+subjects:
+- kind: ServiceAccount
+  name: controller
+  namespace: sdc-system
+
+---
+apiVersion: v1
+data:
+  dataServerImage: ghcr.io/sdcio/data-server:v0.0.66
+  sdcApiServerImage: ghcr.io/sdcio/sdc-apiserver:latest
+  sdcControllerImage: ghcr.io/sdcio/sdc-controller:latest
+kind: ConfigMap
+metadata:
+  name: context
+
+---
+apiVersion: v1
+data:
+  data-server.yaml: "grpc-server:\n  schema-server:\n    enabled: true\n    schemas-directory:
+    ./schemas\n\n  data-server:\n    max-candidates: 16\n\n  max-recv-msg-size: 25165824
+    # 24 * 1024 * 1024 (24MB)\n\ndatastores: # this specifies MAIN datastores\n\nschema-store:\n
+    \ # type is either memory or persistent (default)\n  type: persistent\n  path:
+    \"/schemadb\"\n\ncache: \n  type: local\n  store-type: badgerdb\n  dir: \"/cached/caches\"\n\nprometheus:\n
+    \ address: \":56090\""
+kind: ConfigMap
+metadata:
+  name: data-server
+  namespace: sdc-system
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-config-store
+  namespace: sdc-system
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-schema-db
+  namespace: sdc-system
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-schema-store
+  namespace: sdc-system
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-workspace-store
+  namespace: sdc-system
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: v1
+data:
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURZekNDQWt1Z0F3SUJBZ0lJSC9mSFZHenZ3cnN3RFFZSktvWklodmNOQVFFTEJRQXdaVEVMTUFrR0ExVUUKQmhNQ2RXNHhDekFKQmdOVkJBZ01Bbk4wTVFvd0NBWURWUVFIREFGc01Rb3dDQVlEVlFRS0RBRnZNUXN3Q1FZRApWUVFMREFKdmRURWtNQ0lHQTFVRUF3d2JZbUZ6YVdNdFkyVnlkR2xtYVdOaGRHVXRZWFYwYUc5eWFYUjVNQjRYCkRUSXlNRE16TVRBNU1UYzFNMW9YRFRNeU1ETXlPREE1TVRjMU5Gb3dIREVhTUJnR0ExVUVBeE1SWW1GemFXTXUKWkdWbVlYVnNkQzV6ZG1Nd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUUN0TUt0eApjc3Rjdk8rdDVMazZRQkRBZ3g1akZCL2F1dStVb3BDR2Z6VitaRW5obldpaC8xMVZ2ek44cjhmdGZuUkZGTVZ6CmJqYlVhSXNDOFc1eGJDNXNpc2VrdnVBWDlpanUzMlFybEU0RTR1UzNYREdVZkhGSFhMcWxBRU9RclUvRzQ0RGgKa0I3ajJOcDRzbk9IckF0aDA3TStvbXBmVklhSTlkQmdYY3hsUE5QRkNNamlOb1VweVM4eXNha3RQRXFjZTBpawpmNDBYVERmN1YwekFFelI0QkE4Yzh0b05UMVNnSXFIV0xueERKcnZRempDaTVFN2NMNkpmTmhlZDQ5MUVNWlEwCmVnbkV5bXd6d1Jya3BYTkZ4RHJzSXpOZmhHelB6RGJLdmFIUHh5NUwvM3h3clZ3VHllbklaOVExK0tjemtCSksKRXZIaVVKL1BML0VYZkloakFnTUJBQUdqWURCZU1BNEdBMVVkRHdFQi93UUVBd0lGb0RBZEJnTlZIU1VFRmpBVQpCZ2dyQmdFRkJRY0RBUVlJS3dZQkJRVUhBd0l3TFFZRFZSMFJCQ1l3SklJSmJHOWpZV3hvYjNOMGdoRmlZWE5wCll5NWtaV1poZFd4MExuTjJZNGNFZndBQUFUQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFEa1hsbGZMTlpzWDEKYmp1b0h4RXVUWitaODlMWUxPUDBMM0dHMFgwdVdkZzJFcXY1bmZNRHVRVmJIRmt5dVo3ZDlDY01QYk12MTdDWgoxZGwwQk1GQTJkTkJzK3V1UXFIUFh3RkI4SFdPSDhBc1pMMnYvbG91T3g2dU1QQk9uWUhuQ3pFY21FQXZoR2dLCkpXMDNkd2QwNlJPeUdLT29qSklFTlRnd0xnQ1dZSytPWmIzQklyMUJqS012Q2dHN3pJVDFUUVNna3hGN1NGNzUKYk5BaEdOa0NWMGVrSnNXQWk1UGhzVS9IdWthdGVHUGNMS3hia0RGdHpSV2tRNmdKUXhkZmVuOVBKTjVJVCt4RQpFci8wYUkrOFM5Y1FPUnk0VTNDSFRodmlnOGFyZ3FucmFWMU92OXZNTWxzZ3pnYXc3SjdaeGtkWWwrSkMyWUcvCjJrUThVd1IzQnc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+  tls.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb3dJQkFBS0NBUUVBclRDcmNYTExYTHp2cmVTNU9rQVF3SU1lWXhRZjJycnZsS0tRaG44MWZtUko0WjFvCm9mOWRWYjh6ZksvSDdYNTBSUlRGYzI0MjFHaUxBdkZ1Y1d3dWJJckhwTDdnRi9Zbzd0OWtLNVJPQk9Ma3Qxd3gKbEh4eFIxeTZwUUJEa0sxUHh1T0E0WkFlNDlqYWVMSnpoNndMWWRPelBxSnFYMVNHaVBYUVlGM01aVHpUeFFqSQo0amFGS2Nrdk1yR3BMVHhLbkh0SXBIK05GMHczKzFkTXdCTTBlQVFQSFBMYURVOVVvQ0toMWk1OFF5YTcwTTR3Cm91Uk8zQytpWHpZWG5lUGRSREdVTkhvSnhNcHNNOEVhNUtWelJjUTY3Q016WDRSc3o4dzJ5cjJoejhjdVMvOTgKY0sxY0U4bnB5R2ZVTmZpbk01QVNTaEx4NGxDZnp5L3hGM3lJWXdJREFRQUJBb0lCQUJWWU16ajNLZU1URWdMLwpkbWljYnJRYk5NcUhOMm5Rc2loQ1pNZCt0QXdRdGg1Tk5SRUtGT20xZDlYOUlBbkFGUHBTbGdjazVUTUdjMk40CmQrRVlzUndGZXBkdVF0WVJLM2hOSmQ1TkY5UjRWakhXOWZGVDZPNGZtbzB0WENaZmhiNkFXV2p6Unl0VGxaRmMKaE9xS3BKaDQ2OVZqVlBMTXl3dmtKN3RJdENFaHl4b0t0VVhwcm45SXBLNnNUa051OTFmMVA4czJNbDd1RlVqYwpJdGhMb3JnMEYyU3RaeEJmVDJGaFRYaFZxRlRJS1pmazFGbnRpbUwyWlQrRXZzQlpnZHYwa2Z1Q2hFdE5jRW1PCnRZc2dKT3ExTWF5M2d0dlk3VDB6WkRtTTIrOVpKQ0JLcm8yV2IxdGw0RHNnaWNkR0I2SlhnTi81aklSMTNmbDUKMTRJd1hza0NnWUVBemtQb1MrTko0QkJkR3RYem5tZWVhRFFQVVU0dkF1R3YyU2VtajR3RG1KRXB6aDdoMWlQZAprVWxmYjcxZ1VMbmk0SDVkVFlyVFpwOElUaXZvM3A1bUNrV3lFV09wMmx4VUZoM3JnVWN6NWt0RUhkejl1bjNoCnFYNVJpTWlkM0Y3dWRIODdqYTdJVi9mUEFGSnlremQrWHNaZGFuT0tPK1UvV0t2ek0rSFEzUThDZ1lFQTF2TWoKdml3dnFxM0FBa0VpN2RlOUxLUE1uS1N5VE9BdHQzS2dqV1RLNU5aQUdqeWpoSGxEbjRCempSS25DWk8xY0lJZwo0Wnl1VzQrUlB5aGQreEFubzVoMVh0Ny9LYzNFaW1ucjBLU0ZmRWVza2NORFIyVHNTdCtjYTl6aFFPTFJ0TWRCCnE5OWZDeFprK1pmcEhpSzJCK0pHVExNdVJRY0tDYU43RldKTkIyMENnWUJhc2k5bGx3WjMySm9uMzZYa3BDbGEKSm5JSnpUZ01xMUlZU1VBSzVJVDhRL0ErNndOZ2xwcXBkTHJiTmtrd2xkdjEzSHFJU3gvVGd1QXpCMG01QWF0YQpudlRDZ3JGQUM5TUplcFNBWHQrcVJyUW44WEU3M0hncWdCbTM3SWJGVEpUTGN0cXIzUXZJNm5VQjdqN2xEc1NwClJjM3pyZVE5bS9yenNZQVo4eFJVN3dLQmdRQ0JYTjg4Q3JlOVRzaHFFdTJFbXZ4ZEswOXZUcWVJSUxzaTFyZk4Kb01XREozWjQwOW5OVm5YZVBwNU1YdGRzcWhyZVZWS1l0WVV4MFp1bW1STEdrSmhxbXN5NGhoaW0vaEcxQTc1SwpXVm1FekZZTmU2aTRCUU00cEk4dFUwZTFsMHlDTWhGUjhTTHdOMUFaN3RUN3NBUkJobXFzcW9IRVJWSkRMc0phCndraDltUUtCZ0NYR2xoZzY4aVMzMldmSWVtYUFRMTJpNFRUUk1FNWppTFl0ZlkyREJTMDBWV3NxY0l1OEFUWm0KVHVoZHBRVG9mKzE3LzFyU0cyYnFaWFA2L0h3ak14OTVIdWlXbjVKSjA3RTduOUVCUDlkQTY0K0lHdWlvd0h5RAo2a3g3VVhuTUtTYXdiV2JxZ1JGZTFOZEdLbkh0ZE5GOGxndEdjdytxUTk3YkIreXFreXMxCi0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg==
+kind: Secret
+metadata:
+  labels:
+    app.kubernetes.io/name: sdc-api-server
+  name: api-server-cert
+  namespace: sdc-system
+type: kubernetes.io/tls
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    kubernetes.io/service-account.name: sdc-controller
+  name: sdc-controller-token
+  namespace: sdc-system
+type: kubernetes.io/service-account-token
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: sdc-api-server
+  name: api-server
+  namespace: sdc-system
+spec:
+  ports:
+  - name: api-service
+    port: 6443
+    targetPort: api-service
+  selector:
+    app.kubernetes.io/name: sdc-api-server
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: sdc-data-server-controller
+  name: data-server
+  namespace: sdc-system
+spec:
+  clusterIP: None
+  ports:
+  - name: data-service
+    port: 56000
+    protocol: TCP
+    targetPort: data-service
+  selector:
+    sdcio.dev/data-server: "true"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: sdc-data-server-controller
+  name: schema-server
+  namespace: sdc-system
+spec:
+  clusterIP: None
+  ports:
+  - name: data-service
+    port: 56000
+    protocol: TCP
+    targetPort: data-service
+  selector:
+    sdcio.dev/schema-server: "true"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: sdc-controller
+  name: sdc-controller-server-metrics
+  namespace: sdc-system
+spec:
+  ports:
+  - name: metrics
+    port: 8443
+    protocol: TCP
+    targetPort: 8443
+  selector:
+    app.kubernetes.io/name: sdc-controller
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: sdc-controller
+  name: sdc-controller-target-metrics
+  namespace: sdc-system
+spec:
+  ports:
+  - name: targetmetrics
+    port: 9443
+    protocol: TCP
+    targetPort: 9443
+  selector:
+    app.kubernetes.io/name: sdc-controller
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: api-server
+  namespace: sdc-system
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: controller
+  namespace: sdc-system
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: data-server-controller
+  namespace: sdc-system
