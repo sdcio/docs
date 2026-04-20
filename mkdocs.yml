@@ -99,7 +99,7 @@ theme:
     - content.code.annotate
     - content.code.copy
     - content.code.select
-    - content.action.edit
+    #- content.action.edit
     - content.tooltips
     #- header.autohide
     #- search.highlight
@@ -131,7 +131,7 @@ theme:
   icon:
     logo: fontawesome/solid/sitemap
     repo: fontawesome/brands/github
-    edit: material/file-edit-outline
+    #edit: material/file-edit-outline
   favicon: assets/logos/SDC-logo.svg
   logo: assets/logos/SDC-logo.svg
 
