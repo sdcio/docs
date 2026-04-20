@@ -1,0 +1,33 @@
+apiVersion: inv.sdcio.dev/v1alpha1
+kind: Schema
+metadata:
+  name: srl.nokia.sdcio.dev-24.10.1
+  namespace: default
+spec:
+  provider: srl.nokia.sdcio.dev
+  repositories:
+  - dirs:
+    - dst: .
+      src: srlinux-yang-models
+    kind: tag
+    ref: v24.10.1
+    repoURL: https://github.com/nokia/srlinux-yang-models
+    schema:
+      excludes:
+      - .*tools.*
+      includes:
+      - ietf
+      - openconfig/extensions
+      - openconfig/openconfig-extensions.yang
+      models:
+      - srl_nokia/models
+  - dirs:
+    - dst: deviations
+      src: .
+    kind: branch
+    ref: v24.10
+    repoURL: https://github.com/sdcio/srlinux-yang-patch
+    schema:
+      models:
+      - deviations
+  version: 24.10.1
