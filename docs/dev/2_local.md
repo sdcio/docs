@@ -126,6 +126,7 @@ The Data-Server has to be started first, then the Config-Server can be started.
         "SDC_WORKSPACE_DIR": "/tmp/SDC/Workspace",
         "PPROF_PORT": "8081",
         "METRIC_PORT": "8444",
+        "KUBE_FEATURE_WatchListClient": "false",
     },
     "console": "integratedTerminal",
 },
@@ -166,6 +167,7 @@ The Data-Server has to be started first, then the Config-Server can be started.
         "ENABLE_WORKSPACE": "true",
         "ENABLE_ROLLOUT": "true",
         "ENABLE_SCHEMA": "true",
+        "KUBE_FEATURE_WatchListClient": "false",
     },
     "console": "integratedTerminal",
 }
