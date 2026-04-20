@@ -3,7 +3,7 @@ The Target CR is what defines a system thats managed by SDC. The Target CRs are 
 The creation of Targets is the job of the DiscoveryRule Controller. It will take the defined DiscoveryRules perform discovery and create the target CRs with all the information configured or discovered by the Discovery Controller.
 
 ```yaml
-apiVersion: inv.sdcio.dev/v1alpha1
+apiVersion: config.sdcio.dev/v1alpha1
 kind: Target
 metadata:
   name: dev-man

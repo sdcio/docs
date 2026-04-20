@@ -32,9 +32,11 @@ SDC will automatically reapply the Config CR when a NOT-APPLIED deviation is det
 
 SDC will treat the deviation as part of the active configuration. 
 
-!!!note "we are working on a capability to allow for the clearing of deviations. If this is something you need, you need to wait for the release the accomodates this."
+To clear a deviation we can select the deviations using the clear deviation logic in kubectl-sdc
 
-To change revertive or non revetive behavior can be done:
+[kubectl-sdc deviation](https://github.com/sdcio/kubectl-sdc/blob/main/README.md#deviation)
+
+To change revertive or non revetive behavior can be done either:
 - globally: as part of the deployment environment variables of the config-server
 
 ```yaml
@@ -42,7 +44,7 @@ To change revertive or non revetive behavior can be done:
           value: "true"
 ```
 
-- per config CR: see [config CR](../configuration/config/config/) section
+- or per config CR: see [config CR](../configuration/config/config/) section
 
 
 ## Example:
