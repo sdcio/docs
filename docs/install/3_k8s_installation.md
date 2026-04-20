@@ -2,6 +2,10 @@
 
 First, ensure the [pre-requisites](2_prereq.md) are met.
 
+## Install kubectl-sdc Components
+
+See [kubectl-sdc](https://github.com/sdcio/kubectl-sdc)
+
 ## Install SDC Components
 
 Once the cluster is deployed, we install the `sdc` components. These manifests deploy 3 components:
