@@ -76,49 +76,99 @@ Retrieve a 30-day valid ServiceAccount token and put it into the kubeconfig.
 ```
 kubectl config --kubeconfig ./kubeconfig set-credentials kind-kind --token=$(kubectl create token -n sdc-system --duration 720h api-server)
 ```
+## Running
+
+### Run data-server locally
+The VS Code configuration is as follows.
+```
+{
+    "name": "Launch Package",
+    "type": "go",
+    "request": "launch",
+    "mode": "auto",
+    "program": "${workspaceFolder}",
+    "args": [
+        "--config",
+        "./data-server.yaml",
+        "-t"                         // Enable Trace logging, replace with "-d" for debug logging or drop for info level logging
+    ],
+    "env": {
+        "EXTRA_LOG_FILE": "data-server.log",
+    },
+},
+```
 
 ### Run config-server locally
 The VS Code configuration is as follows. 
 The Data-Server has to be started first, then the Config-Server can be started.
 ```
-        {
-            "name": "Launch Package",
-            "type": "go",
-            "request": "launch",
-            "mode": "debug",
-            "program": "${workspaceFolder}/main.go",
-            "cwd": "${workspaceFolder}",
-            "args": [
-                "--tls-cert-file=./tls.crt",
-                "--tls-private-key-file=./tls.key",
-                "--audit-log-path=-",
-                "--audit-log-maxage=0",
-                "--audit-log-maxbackup=0",
-                "--secure-port=6443",
-                "--kubeconfig=./kubeconfig",
-                "--authorization-kubeconfig=./kubeconfig",
-                "--authentication-kubeconfig=./kubeconfig",
-            ],
-            "env": {
-                "SDC_SCHEMA_SERVER_BASE_DIR": "/tmp/SDC/SchemaBase",
-                "SDC_CONFIG_DIR": "/tmp/SDC/Config",
-                "SDC_WORKSPACE_DIR": "/tmp/SDC/Workspace",
-                "METRIC_PORT":"8443",
-                "PPROF_PORT":"8082",
-                "ENABLE_DISCOVERYRULE":"true",
-                "ENABLE_CONFIGSET":"true",
-                "ENABLE_WORKSPACE":"true",
-                "ENABLE_ROLLOUT":"true",
-                "LOCAL_DATASERVER":"true",
-                "REVERTIVE":"true",
-                "ENABLE_SUBSCRIPTION":"true",
-                "ENABLE_TARGET":"true",
-                "ENABLE_TARGETDATASTORE":"true",
-                "ENABLE_TARGETCONFIG":"true",
-                "ENABLE_TARGETRECOVERYCONFIG": "true",
-                "ENABLE_SCHEMA":"true",
-            },
-            "console": "integratedTerminal",
-        }
+ {
+    "name": "api-server",
+    "type": "go",
+    "request": "launch",
+    "mode": "debug",
+    "program": "${workspaceFolder}/cmd/api-server/main.go",
+    "cwd": "${workspaceFolder}",
+    "args": [
+        "--tls-cert-file=./tls.crt",
+        "--tls-private-key-file=./tls.key",
+        "--audit-log-path=-",
+        "--audit-log-maxage=0",
+        "--audit-log-maxbackup=0",
+        "--secure-port=6443",
+        "--kubeconfig=./kubeconfig",
+        "--authorization-kubeconfig=./kubeconfig",
+        "--authentication-kubeconfig=./kubeconfig"
+    ],
+    "env": {
+        "SDC_SCHEMA_SERVER_BASE_DIR": "/tmp/SDC/SchemaBase",
+        "SDC_CONFIG_DIR": "/tmp/SDC/Config",
+        "SDC_WORKSPACE_DIR": "/tmp/SDC/Workspace",
+        "PPROF_PORT": "8081",
+        "METRIC_PORT": "8444",
+        "KUBE_FEATURE_WatchListClient": "false",
+    },
+    "console": "integratedTerminal",
+},
+{
+    "name": "controller",
+    "type": "go",
+    "request": "launch",
+    "mode": "debug",
+    "program": "${workspaceFolder}/cmd/controller/main.go",
+    "cwd": "${workspaceFolder}",
+    "args": [
+        "--tls-cert-file=./tls.crt",
+        "--tls-private-key-file=./tls.key",
+        "--audit-log-path=-",
+        "--audit-log-maxage=0",
+        "--audit-log-maxbackup=0",
+        "--secure-port=6443",
+        "--kubeconfig=./kubeconfig",
+        "--authorization-kubeconfig=./kubeconfig",
+        "--authentication-kubeconfig=./kubeconfig"
+    ],
+    "env": {
+        "SDC_DATA_SERVER": "data-server.sdc-system:56000",
+        "SDC_SCHEMA_SERVER_BASE_DIR": "/tmp/SDC/SchemaBase",
+        "SDC_CONFIG_DIR": "/tmp/SDC/Config",
+        "SDC_WORKSPACE_DIR": "/tmp/SDC/Workspace",
+        "METRIC_PORT": "8443",
+        "PPROF_PORT": "8082",
+        "LOCAL_DATASERVER": "true",
+        "REVERTIVE": "true",
+        "ENABLE_SUBSCRIPTION": "true",
+        "ENABLE_TARGET": "true",
+        "ENABLE_TARGETDATASTORE": "true",
+        "ENABLE_TARGETCONFIG": "true",
+        "ENABLE_TARGETRECOVERYCONFIG": "true",
+        "ENABLE_DISCOVERYRULE":"true",
+        "ENABLE_CONFIGSET": "true",
+        "ENABLE_WORKSPACE": "true",
+        "ENABLE_ROLLOUT": "true",
+        "ENABLE_SCHEMA": "true",
+        "KUBE_FEATURE_WatchListClient": "false",
+    },
+    "console": "integratedTerminal",
+}
 ```
-

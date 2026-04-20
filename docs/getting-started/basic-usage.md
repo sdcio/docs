@@ -14,7 +14,7 @@ The following examples demonstrate the basic usage of SDC in a scenario where a 
 ### Installation
 
 ```bash
-[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.29.0/kind-linux-amd64
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.31.0/kind-linux-amd64
 chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
 ```
@@ -125,7 +125,7 @@ The config-server (extension api-server) requires a certificate, which is create
 
 ### Installation
 ```bash
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.18.2/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.20.2/cert-manager.yaml
  # If the SDC resources (see below) are being applied to fast, the webhook of the cert-manager is not already there.
  # Hence we need to wait for the resource be become available
 kubectl wait -n cert-manager --for=condition=Available=True --timeout=300s deployments.apps cert-manager-webhook
