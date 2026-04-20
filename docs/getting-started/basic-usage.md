@@ -293,13 +293,13 @@ To retrieve the running configuration from the device, the `RunningConfig` CR ca
 It contains an empty spec, but the config is presented in the `status` -> `value` field.
 
 ```bash
-kubectl get runningconfigs.config.sdcio.dev dev1 
+kubectl sdc runningconfig --target dev1
 ```
 
 The output is quite extensive so lets just take a look at the *network-instance* configuration.
 
 ```bash
-kubectl get runningconfigs.config.sdcio.dev dev1 -ojsonpath="{.status.value.network-instance}" | jq
+kubectl sdc runningconfig --target dev1 --format json | jq '."network-instance"'
 ```
 
 Output:
@@ -330,7 +330,7 @@ Output:
 Before we apply a configuration to the device, we check the current interface configuration of the device.
 You should only see the management interface `mgmt0` configured.
 ```bash
-kubectl get runningconfigs.config.sdcio.dev dev1 -ojsonpath="{.status.value.interface}" | jq
+kubectl sdc runningconfig --target dev1 --format json | jq '."interface"'
 ```
 Output:
 ```json
@@ -372,7 +372,7 @@ config-server-repo/example/config/config.yaml
 
 The configuration is applied to the device and can be verified by checking the running config again.
 ```bash
-kubectl get runningconfigs.config.sdcio.dev dev1 -ojsonpath="{.status.value.interface}" | jq
+kubectl sdc runningconfig --target dev1 --format json | jq '."interface"'
 ```
 
 After successful application of the configuration the new interface `system0` with its properties should be present.
