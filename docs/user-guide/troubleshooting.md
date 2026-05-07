@@ -18,12 +18,13 @@ v1alpha1.inv.sdcio.dev                 Local                          True      
 ```
 
 ### Deployment
-SDC is deployed in the `sdc-system` namespace. If successful, you should see 3 running containers similar to this:
+The sdc components are deployed in the `sdc-system` namespace. 
+Check if they are running.
 
 ```bash
 kubectl get pods -n sdc-system
 ```
-There should be a config-server in the Ready state.
+There should be a 3 pods in Running state
 ```
 NAME                          READY   STATUS    RESTARTS   AGE
 api-server-6d7db47894-xj8wg   1/1     Running   0          38h
@@ -32,13 +33,13 @@ data-server-controller-0      2/2     Running   0          38h
 ```
 
 ### Service
-For the APIServer a Service is referenced, this reference must resolve to the config-server.
+For the APIServer a Service is referenced, this reference must resolve to the api-server .
 Via the Endpoints the association to the pod can be verified.
 ```bash
-kubectl get -n sdc-system endpoints api-server -o yaml
+kubectl get -n sdc-system endpoints api-server  -o yaml
 ```
 
-The Subsets addresses must list the api-server pod.
+The Subsets addresses must list the config-server pod.
 ```yaml
 apiVersion: v1
 kind: Endpoints

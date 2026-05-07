@@ -32,7 +32,7 @@ SDC will automatically reapply the Config CR when a NOT-APPLIED deviation is det
 
 SDC will treat the deviation as part of the active configuration. 
 
-To clear a deviation we can select the deviations using the clear deviation logic in kubectl-sdc
+To clear a deviation we can select the deviations using the clear deviation logic in `kubectl-sdc`. See the [kubectl-sdc CLI tool](../cli-tools/kubectl-sdc.md) for installation and usage details.
 
 [kubectl-sdc deviation](https://github.com/sdcio/kubectl-sdc/blob/main/README.md#deviation)
 
