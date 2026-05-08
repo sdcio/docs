@@ -2,14 +2,13 @@
 The following examples demonstrate the basic usage of SDC in a scenario where a Nokia SR Linux node is being configured via SDC installed in a Kind based Kubernetes cluster.
 
 ## Prerequisites
- Please ensure that [Docker](https://docs.docker.com) is installed and running on your system.
+ Please ensure that [Docker](https://docs.docker.com) is installed and running on your system. An installation guide can be found in the [Install Docker Engine](https://docs.docker.com/engine/install/) page.
 
 !!!tip
-    If you want to explore and validate SDC configurations without a running Kubernetes cluster, check out [sdc-lite](../cli-tools/sdc-lite.md) — a standalone CLI tool for offline config validation, diffing, and format conversion. An installation guide can be found in the [Install Docker Engine](https://docs.docker.com/engine/install/) page. Also ensure [post-installation steps](https://docs.docker.com/engine/install/linux-postinstall/) are followed, so that the current user can run docker commands without sudo.
+    If you want to explore and validate SDC configurations without a running Kubernetes cluster, check out [sdc-lite](../cli-tools/sdc-lite.md) — a standalone CLI tool for offline config validation, diffing, and format conversion.
 
  Furthermore, the following tools are required to be installed on your system:
  - [jq](https://stedolan.github.io/jq/) - a lightweight and flexible command-line JSON processor.
-
 
 ## Kind
 [kind](https://kind.sigs.k8s.io/) is a tool for running local Kubernetes clusters using Docker container “nodes”. `kind` was primarily designed for testing Kubernetes itself, but may be used for local development or CI.
