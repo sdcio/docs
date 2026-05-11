@@ -55,7 +55,7 @@ Home of the code of the project homepage.
 ## Features
 
 - Schema's: [YANG][yang], others TBD
-- Targets: Physical devices (`PNF`), Containers (`CNF`), Virtual Machines (`VNF`) and Dummy test target (`NOOP`)
+- Targets: Physical devices (`PNF`), Containers (`CNF`), Virtual Machines (`VNF`)
 - Vendor agnostic
 - Flexible deployments: Small, medium or large-scale scaled-out deployments
 - Target Protocols: [gNMI][gnmi], [Netconf][netconf]
