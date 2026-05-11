@@ -11,7 +11,7 @@ Everybody is welcome to join and chat with our community members about all thing
 
 ## Community Meetings
 
-We have a community meeting every Monday from 14h CET on Google Meet. Ask for the meeting link on the
+We have a community meeting every Monday from 8:30h CET on Google Meet. Ask for the meeting link on the
 [Discord](https://discord.gg/fHCNahWR2T) channel.
 
 ## Talks about SDC
