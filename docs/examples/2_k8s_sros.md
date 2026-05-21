@@ -10,6 +10,9 @@ SDC will need to interact with a device that talks `YANG`. You can use physical,
 
 [containerlab]: (https://containerlab.dev/install/)
 
+!!!tip
+    Once your targets are up and running, use [`kubectl-sdc`](../cli-tools/kubectl-sdc.md) to inspect running config, trace intent ownership with `blame`, and detect or revert deviations.
+
 ## SDC on Kubernetes
 Install the [k8s-collocated](../install/3_k8s_installation.md) environment using a [kind][kind] cluster 
 

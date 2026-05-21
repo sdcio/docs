@@ -269,3 +269,7 @@ EOF
 
 [containerlab]: (https://containerlab.dev/install/)
 [kind]: (https://kind.sigs.k8s.io/)
+
+## Next steps
+
+Once your targets are configured, use [`kubectl-sdc`](../cli-tools/kubectl-sdc.md) to inspect the running config, trace intent ownership with `blame`, and detect or revert deviations.
