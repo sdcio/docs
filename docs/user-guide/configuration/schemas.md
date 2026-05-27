@@ -413,11 +413,3 @@ config-server-repo/example/schemas/schema-arista-4.31.1f.yaml
 config-server-repo/example/schemas/schema-arista-4.33.0f.yaml
 --8<--
 ```
-
-### OcNOS SP-7.0.0 (IP Infusion)
-
-```yaml
---8<--
-config-server-repo/example/schemas/schema-ipinfusion-ocnos-sp-7.0.0.yaml
---8<--
-```
