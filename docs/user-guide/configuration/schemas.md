@@ -204,68 +204,6 @@ Typical fixes:
 * Add directories/files to `includes`.
 * Reduce `models` scope and onboard incrementally.
 
-## OcNOS SP-7.0.0 (IP Infusion)
-
-This example onboards the native `ipi-*` YANG models for OcNOS SP-7.0.0.
-
-Source repository details:
-
-* Repository: `https://github.com/IPInfusion/OcNOS`
-* Release tag: `OcNOS-SP-7.0.0`
-* Native model path: `yang-files/ipi`
-
-The OcNOS repository does not ship the IETF base types (`ietf-inet-types`, `ietf-yang-types`) that many `ipi-*` modules import.
-A second `repositories` entry pulls those from [YangModels/yang](https://github.com/YangModels/yang), following the same pattern used for Arista.
-
-```yaml
-apiVersion: inv.sdcio.dev/v1alpha1
-kind: Schema
-metadata:
-  name: ocnos-sp.ipinfusion.sdcio.dev-7.0.0
-  namespace: default
-spec:
-  provider: ocnos-sp.ipinfusion.sdcio.dev
-  version: 7.0.0
-  repositories:
-  - repoURL: https://github.com/IPInfusion/OcNOS
-    kind: branch
-    ref: OcNOS-SP-7.0.0
-    dirs:
-    - src: yang-files/ipi
-      dst: ipi
-    schema:
-      models:
-      - ipi
-  - repoURL: https://github.com/YangModels/yang
-    kind: branch
-    ref: main
-    dirs:
-    - src: standard/ietf/RFC
-      dst: ietf
-    schema:
-      includes:
-      - ietf/ietf-inet-types.yang
-      - ietf/ietf-yang-types.yang
-```
-
-To apply:
-
-```shell
-sdc-lite schema load -t ocnos-sp-7-0-0 -f config-server-repo/example/schemas/schema-ipinfusion-ocnos-sp-7.0.0.yaml
-sdc-lite target show -t ocnos-sp-7-0-0
-```
-
-Cluster apply (optional after local validation):
-
-```shell
-kubectl apply -f schema-ipinfusion-ocnos-sp-7.0.0.yaml
-kubectl get schema ocnos-sp.ipinfusion.sdcio.dev-7.0.0 -o yaml
-```
-
-!!!note "Platform-specific schemas"
-
-    SDC uses a separate Schema CR per vendor release and platform type. For a different OcNOS platform, define a new Schema with a different `provider` value (for example `ocnos-otherplatform.ipinfusion.sdcio.dev`) and adjust `models` or `excludes` to match that platform's supported feature set.
-
 ## Examples
 
 ### SR Linux v24.10.1
@@ -413,3 +351,40 @@ config-server-repo/example/schemas/schema-arista-4.31.1f.yaml
 config-server-repo/example/schemas/schema-arista-4.33.0f.yaml
 --8<--
 ```
+
+### OcNOS SP-7.0.0 (IP Infusion)
+
+This example onboards the native `ipi-*` YANG models for OcNOS SP-7.0.0.
+
+Source repository details:
+
+* Repository: `https://github.com/IPInfusion/OcNOS`
+* Release tag: `OcNOS-SP-7.0.0`
+* Native model path: `yang-files/ipi`
+
+The OcNOS repository does not ship the IETF base types (`ietf-inet-types`, `ietf-yang-types`) that many `ipi-*` modules import.
+A second `repositories` entry pulls those from [YangModels/yang](https://github.com/YangModels/yang), following the same pattern used for Arista.
+
+```yaml
+--8<--
+config-server-repo/example/schemas/schema-ipinfusion-ocnos-sp-7.0.0.yaml
+--8<--
+```
+
+To apply:
+
+```shell
+sdc-lite schema load -t ocnos-sp-7-0-0 -f config-server-repo/example/schemas/schema-ipinfusion-ocnos-sp-7.0.0.yaml
+sdc-lite target show -t ocnos-sp-7-0-0
+```
+
+Cluster apply (optional after local validation):
+
+```shell
+kubectl apply -f schema-ipinfusion-ocnos-sp-7.0.0.yaml
+kubectl get schema ocnos-sp.ipinfusion.sdcio.dev-7.0.0 -o yaml
+```
+
+!!!note "Platform-specific schemas"
+
+    SDC uses a separate Schema CR per vendor release and platform type. For a different OcNOS platform, define a new Schema with a different `provider` value (for example `ocnos-otherplatform.ipinfusion.sdcio.dev`) and adjust `models` or `excludes` to match that platform's supported feature set.
