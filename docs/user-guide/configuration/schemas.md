@@ -6,14 +6,13 @@ This process is facilitated through the Schema CustomResource, detailed [here](l
 
 The Schema CustomResource is configured using three main parameter groups:
 
-1. __Source of Schema__: Determined by `repoURL`, `kind`, and `ref` parameters.
+1. __Source of Schema__: Determined by `repoURL`, `kind`, `ref`, `dirs`, `credentials`, and `proxy` parameters.
 2. __Schema Identification__: Specified using `provider` and `version` parameters.
 3. __Schema Parsing Method__: Configured through `models`, `includes`, and `excludes` parameters.
 
 ## Source of Schema: Repository Configuration
 
-To successfully retrieve the schema, it is essential for users to provide four key parameters: `repoURL`, `kind`, `ref` and `credentials`.
-These parameters jointly establish the methodology for schema acquisition:
+To successfully retrieve the schema, three parameters are always required: `repoURL`, `kind`, and `ref`. The `credentials` parameter is required only when the repository is private. Together these parameters establish the methodology for schema acquisition:
 
 * `repoURL`: This parameter is pivotal as it specifies the repository's URL where the schema is located.
 * `kind`: It determines the nature of the reference point within the repository, offering options between a "tag" or a "branch".
@@ -101,6 +100,10 @@ The schema is uniquely identified through `provider` and `version`.
 * `provider`: Contains details about the schema issuer, typically including vendor and chassis type.
 * `version`: Represents the specific version of the schema.
 
+!!!note "One Schema CR per vendor release and platform type"
+
+    SDC uses a separate Schema CR for each combination of vendor, platform type, and release. If a vendor supports multiple platform types with different feature sets, define a separate Schema CR for each — using a distinct `provider` value (for example `ocnos-otherplatform.ipinfusion.sdcio.dev`) and adjusting `models` or `excludes` to match that platform's supported feature set.
+
 ## Schema Parsing Method: Handling YANG Models
 
 YANG schemas are comprised of several implemented models, some of which may have dependencies on other models.
@@ -120,8 +123,8 @@ If your vendor/model is not yet documented, use the workflow below.
 
 Choose a repository and pin a specific `tag` or `branch`.
 
-* Use `kind: tag` whenever possible for reproducibility.
-* Use `ref` to pin the exact release (for example: `OcNOS-SP-7.0.0`).
+* Use `kind: tag` whenever possible for reproducibility. Set `ref` to the exact release tag (for example: `OcNOS-SP-7.0.0`).
+* Use `kind: branch` only when you need to track a mutable branch — for example, during active development or when a vendor does not publish tags. Set `ref` to the branch name (for example: `main`). Be aware that branch references are not pinned: the schema will re-clone on the next reconciliation, which can introduce unexpected changes.
 
 ### 2. Locate model roots and dependencies
 
@@ -141,7 +144,7 @@ Start with a narrow scope, then expand:
 * Add `includes` for dependency folders/files.
 * Use `excludes` to skip known unwanted trees.
 
-### 4. Validate locally with `sdc-lite` (primary)
+### 4. Validate locally with `sdc-lite`
 
 Use `sdc-lite` to validate that your Schema CR definition is functional before cluster apply.
 
@@ -385,6 +388,3 @@ kubectl apply -f schema-ipinfusion-ocnos-sp-7.0.0.yaml
 kubectl get schema ocnos-sp.ipinfusion.sdcio.dev-7.0.0 -o yaml
 ```
 
-!!!note "Platform-specific schemas"
-
-    SDC uses a separate Schema CR per vendor release and platform type. For a different OcNOS platform, define a new Schema with a different `provider` value (for example `ocnos-otherplatform.ipinfusion.sdcio.dev`) and adjust `models` or `excludes` to match that platform's supported feature set.
