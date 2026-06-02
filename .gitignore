@@ -12,6 +12,9 @@ bin/*
 config-server-repo/*
 config-server-repo
 
+# Generated from docs/user-guide/troubleshooting.tmpl.md (make generate-template)
+docs/user-guide/troubleshooting.md
+
 # Test binary, built with `go test -c`
 *.test
 
@@ -26,3 +29,4 @@ go.work
 vendor
 scripts/
 ./artifacts/
+site/*

@@ -1,6 +1,6 @@
 # Subscription using Prometheus Operator
 
-prerequisites: [install prometheus operator](../../../monitoring/1_prometheus_operator.md)
+**Prerequisite:** a working Prometheus Operator / Prometheus stack and the patterns in [Config-server metrics and Prometheus Operator](../../../monitoring/prometheus-operator.md).
 
 ## Deploy the target metric monitor
 

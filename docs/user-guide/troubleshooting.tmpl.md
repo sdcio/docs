@@ -1,4 +1,8 @@
 # Troubleshooting
+
+<!-- Source of truth: this template. Run make generate-template before mkdocs; it writes docs/user-guide/troubleshooting.md (gitignored). Substitutes SDCTL_VERSION from versions.env. -->
+
+
 This section contains information on how to troubleshoot an SDC instance that is causing some trouble.
 
 ## Config-Server
@@ -68,6 +72,69 @@ subsets:
     port: 6443
     protocol: TCP
 ```
+
+## Log retrieval
+
+SDC workloads run in the `sdc-system` namespace. Use `kubectl logs` against the deployment or StatefulSet that matches the component you need. If your install uses another namespace, substitute it for `-n sdc-system`.
+
+The `data-server-controller` pod runs **two** containers (`controller` and `data-server`); always pass **`-c`** with the container name, as in the examples below.
+
+**Kubernetes API aggregated extension** (from the [config-server](https://github.com/sdcio/config-server) repository):
+
+```bash
+kubectl logs -n sdc-system deployments/api-server
+```
+
+**Central config-server controller** (config-server):
+
+This controller performs **CRD-to-CRD** reconciliation—for example expanding a `ConfigSet` (and its label selector) into `Config` resources per matching target, and driving **discovery**-related custom resources so desired state on the cluster matches how targets and schemas are wired up.
+
+```bash
+kubectl logs -n sdc-system deployments/controller
+```
+
+**Colocated data-server controller** (sidecar in the data-server StatefulSet, shipped with config-server):
+
+This controller **bridges the Kubernetes API and the data-server API**: the data-server speaks **gRPC**, while cluster users and operators interact through Kubernetes resources; this component translates and synchronizes between those two worlds for the colocated data-server instance.
+
+```bash
+kubectl logs -n sdc-system statefulsets/data-server-controller -c controller
+```
+
+**Data-server** ([data-server](https://github.com/sdcio/data-server) repository, same pod as the controller above):
+
+```bash
+kubectl logs -n sdc-system statefulsets/data-server-controller -c data-server
+```
+
+For **data-server** logs, [Log Analyzer](https://github.com/steiler/loganalyzer) (`steiler/loganalyzer`) is a separate tool aimed at parsing and browsing structured application logs (JSON lines, nested payloads, and related decoding). See the project README for installation and usage—for example streaming logs to a file with `kubectl logs … -f` and opening them in the tool’s web UI.
+
+Useful `kubectl logs` options in practice:
+
+- **`-f` / `--follow`** — stream new lines (pairs well with Log Analyzer’s follow mode on a file).
+- **`--tail=N`** or **`--since=…`** — cap volume on noisy or long-running pods.
+- **`--previous`** — logs from the **last terminated** container instance (helpful after a crash loop restart).
+- **`--timestamps`** — prefix each line with time, easier when correlating api-server, controller, and data-server around the same incident.
+
+### Log levels and verbosity
+
+Components generally emit **structured JSON** lines to **stderr** (what `kubectl logs` shows). How you turn the volume up depends on which binary you are running.
+
+**`data-server`** ([data-server](https://github.com/sdcio/data-server) image, `data-server` container):
+
+- **Default:** info-level structured logs (omit extra flags).
+- **`--debug`** / **`-d`:** debug-level logs.
+- **`--trace`** / **`-t`:** trace-level logs (very verbose; use only while investigating).
+- These flags are **CLI arguments** on `/app/data-server`, after the existing `--config=…` argument in your StatefulSet (or Helm/Kustomize overlay). Restart the StatefulSet after changing `args`.
+- Optional environment variable **`EXTRA_LOG_FILE`:** set to a path inside the container to **append the same log stream** to a file as well as stdout (for example when you mount a volume for analysis). See also the [local dev example](../dev/2_local.md#run-data-server-locally) for the same flags when running the binary outside the cluster.
+
+**`api-server`** (aggregated extension, `/app/api-server`):
+
+- Built with Kubernetes **RecommendedOptions**; many standard aggregated-apiserver and **klog**-style flags apply. The exact set can change between releases—inspect the image you deploy with **`/app/api-server --help`** (for example from a short-lived debug pod using the same image and entrypoint). Operators often add **`-v=<n>`** / **`--v=<n>`** (non‑negative integer, higher values request more detail from Kubernetes client machinery) when chasing low-level API or storage issues—append supported flags to the deployment **`args`** list and roll out.
+
+**`controller`** (`/app/controller`, central deployment and colocated sidecar):
+
+- Emits structured application logs at default severity. Extra verbosity is **release-specific**; check **`/app/controller --help`** on your image for supported flags and append any you need to the workload **`args`** (today’s chart may only set `command` with no `args`—you can add an `args` list alongside it). For CPU/heap investigation without raising log noise, use **pprof** as in [Profiling](../dev/3_pprof.md) (the default controller manifest often sets **`PPROF_PORT`**).
 
 ## SDCTL
 

@@ -32,7 +32,8 @@ nav:
         - example local prometheus: user-guide/configuration/subscription/prometheus.md
     - Deviation: user-guide/deviation.md
     - Disable Validation: user-guide/disablevalidation.md
-    - Troubeshooting: user-guide/troubleshooting.md
+    - Monitoring: monitoring/prometheus-operator.md
+  - Troubleshooting: user-guide/troubleshooting.md
   - CLI Tools:
     - Overview: cli-tools/index.md
     - sdc-lite: cli-tools/sdc-lite.md
@@ -61,9 +62,6 @@ nav:
     - About: dev/1_about.md
     - Local environment: dev/2_local.md
     - profiling: dev/3_pprof.md
-  - Monitoring: 
-    - About: monitoring/0_about.md
-    - Prometheus Operator: monitoring/1_prometheus_operator.md
   - Community: community/community.md
   #   - About: community/community.md
   #   - Contributing:
