@@ -1,0 +1,38 @@
+apiVersion: config.sdcio.dev/v1alpha1
+kind: ConfigSet
+metadata:
+  name: intent1
+  namespace: default
+spec:
+  target:
+    targetSelector:
+      matchLabels:
+        sdcio.dev/region: us-east
+  priority: 10
+  config:
+  - path: /
+    value:
+      interface:
+      - name: ethernet-1/1
+        admin-state: "enable"
+        description: "intent1"
+        vlan-tagging: true
+        subinterface:
+        - index: 2
+          type: bridged
+          vlan:
+            encap:
+              single-tagged:
+                vlan-id: 2
+        - index: 3
+          type: bridged
+          vlan:
+            encap:
+              single-tagged:
+                vlan-id: 3
+        - index: 4
+          type: bridged
+          vlan:
+            encap:
+              single-tagged:
+                vlan-id: 4
