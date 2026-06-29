@@ -85,8 +85,7 @@ aggregated API server. This group contains [`Target`](../user-guide/configuratio
 (managed device endpoint),
 [`Config`](../user-guide/configuration/config/config.md) and
 [`ConfigSet`](../user-guide/configuration/config/configset.md) (desired device configuration
-blobs), [`SensitiveConfig`](../user-guide/configuration/config/sensitiveconfig.md)
-(credential-aware intent), [`Deviation`](../user-guide/deviation.md) (detected drift from intended state),
+blobs), [`Deviation`](../user-guide/deviation.md) (detected drift from intended state),
 [`RunningConfig`](../getting-started/basic-usage.md) (read-only live device state), and
 [`ConfigBlame`](../getting-started/basic-usage.md) (per-path intent ownership). The
 aggregated server bypasses etcd deliberately: individual Config objects can be megabytes in

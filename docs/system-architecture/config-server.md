@@ -97,7 +97,6 @@ flowchart TD
 |------|-----------|---------|-----------------|
 | `Target` | Yes | A managed network device | `provider`, `address`, `credentials`, `tlsSecret`, `connectionProfile`, `syncProfile` |
 | `Config` | Yes | Desired device configuration intent | `lifecycle`, `priority` (int32), `revertive`, `config[]{path, value}` |
-| `SensitiveConfig` | Yes | Config intent containing credentials | Same as `Config` (credential-aware RBAC) |
 | `ConfigSet` | Yes | Config template applied to multiple targets via label selector | `target.targetSelector`, `priority`, `config[]{path, value}` |
 | `Deviation` | Yes | Detected config drift (computed, not user-supplied) | — |
 | `RunningConfig` | Yes | Live device state snapshot (read-only) | — |
@@ -303,11 +302,11 @@ On delete, `targetMgr.RemoveSubscription()` is called. Otherwise, `targetMgr.App
 
 ## Config & ConfigSet: Aggregated API Server
 
-`Config`, `SensitiveConfig`, and related read-only resources (`RunningConfig`, `ConfigBlame`, `Deviation`) are served by the `api-server` binary using `github.com/henderiw/apiserver-builder` with Badger v4 as the backing store (`github.com/henderiw/apiserver-store`). The storage root is set by `SDC_CONFIG_DIR`, defaulting to `/config`.
+`Config` and related read-only resources (`RunningConfig`, `ConfigBlame`, `Deviation`) are served by the `api-server` binary using `github.com/henderiw/apiserver-builder` with Badger v4 as the backing store (`github.com/henderiw/apiserver-store`). The storage root is set by `SDC_CONFIG_DIR`, defaulting to `/config`.
 
 ### Dry-run hooks
 
-For `Config` and `SensitiveConfig`, `DryRunCreateFn` / `DryRunUpdateFn` / `DryRunDeleteFn` hooks in `apis/config/handlers/confighandler.go` execute **before** writing to Badger:
+For `Config`, `DryRunCreateFn` / `DryRunUpdateFn` / `DryRunDeleteFn` hooks in `apis/config/handlers/confighandler.go` execute **before** writing to Badger:
 
 - **Normal apply** (`dryrun=false`): calls `TransactionSet` + `TransactionConfirm` on the data-server, applying the intent to the device immediately. On success, `AppliedConfig` and `LastKnownGoodSchema` are populated in the status.
 - **Dry-run** (`kubectl apply --dry-run=server`): runs a validation transaction on the data-server with no device change.
