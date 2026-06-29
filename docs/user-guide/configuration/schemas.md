@@ -355,11 +355,6 @@ config-server-repo/example/schemas/schema-arista-4.33.0f.yaml
 --8<--
 ```
 
-<!--
-OcNOS SP-7.0.0 (IP Infusion) — hidden until config-server v0.0.58 is released.
-The example schema file exists on config-server main but not in v0.0.57 (current CONFIG_SERVER_VERSION).
-Re-enable via PR: enable/ocnos-schema-v0.0.58 — merge after bumping versions.env to v0.0.58+.
-
 ### OcNOS SP-7.0.0 (IP Infusion)
 
 This example onboards the native `ipi-*` YANG models for OcNOS SP-7.0.0.
@@ -392,5 +387,4 @@ Cluster apply (optional after local validation):
 kubectl apply -f schema-ipinfusion-ocnos-sp-7.0.0.yaml
 kubectl get schema ocnos-sp.ipinfusion.sdcio.dev-7.0.0 -o yaml
 ```
--->
 
