@@ -355,42 +355,8 @@ config-server-repo/example/schemas/schema-arista-4.33.0f.yaml
 --8<--
 ```
 
-<!--
-OcNOS SP-7.0.0 (IP Infusion) — hidden until config-server v0.0.58 is released.
-The example schema file exists on config-server main but not in v0.0.57 (current CONFIG_SERVER_VERSION).
-Re-enable via PR: enable/ocnos-schema-v0.0.58 — merge after bumping versions.env to v0.0.58+.
+!!!note "OcNOS SP-7.0.0 (IP Infusion)"
 
-### OcNOS SP-7.0.0 (IP Infusion)
-
-This example onboards the native `ipi-*` YANG models for OcNOS SP-7.0.0.
-
-Source repository details:
-
-* Repository: `https://github.com/IPInfusion/OcNOS`
-* Release tag: `OcNOS-SP-7.0.0`
-* Native model path: `yang-files/ipi`
-
-The OcNOS repository does not ship the IETF base types (`ietf-inet-types`, `ietf-yang-types`) that many `ipi-*` modules import.
-A second `repositories` entry pulls those from [YangModels/yang](https://github.com/YangModels/yang), following the same pattern used for Arista.
-
-```yaml
---8<--
-config-server-repo/example/schemas/schema-ipinfusion-ocnos-sp-7.0.0.yaml
---8<--
-```
-
-To apply:
-
-```shell
-sdc-lite schema load -t ocnos-sp-7-0-0 -f config-server-repo/example/schemas/schema-ipinfusion-ocnos-sp-7.0.0.yaml
-sdc-lite target show -t ocnos-sp-7-0-0
-```
-
-Cluster apply (optional after local validation):
-
-```shell
-kubectl apply -f schema-ipinfusion-ocnos-sp-7.0.0.yaml
-kubectl get schema ocnos-sp.ipinfusion.sdcio.dev-7.0.0 -o yaml
-```
--->
+    Example coming when config-server v0.0.58 is released and `versions.env` is bumped.
+    Track progress in [PR #145](https://github.com/sdcio/docs/pull/145).
 
