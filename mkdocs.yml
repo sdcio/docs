@@ -9,6 +9,7 @@ nav:
     - Overview: install/1_overview.md
     - Pre-Requisites: install/2_prereq.md
     - Installation: install/3_k8s_installation.md
+    - Cert-Manager & Trust Chain: install/4_cert-manager.md
   - User Guide:
     - Introduction: user-guide/introduction.md
     - Configuration:

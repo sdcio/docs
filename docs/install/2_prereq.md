@@ -42,14 +42,31 @@ kind create cluster --name sdc
 /// tab | other
 ///
 
-## Install Cert-Manager
-The config-server (extension api-server) requires a certificate, which is created via cert-manager. The corresponding CA cert needs to be injected into the cabundle spec field of the `api-service` resource.
+## Install cert-manager
+
+SDC depends on [cert-manager](https://cert-manager.io) to issue the TLS
+certificate served by the config-server's aggregated API server and to keep
+the `APIService` `caBundle` in sync with the SDC root CA via `cainjector`.
+cert-manager **must be installed and ready before** the SDC manifests are
+applied. See [Cert-Manager & TLS Trust Chain](4_cert-manager.md) for how the
+chain is built and rotated.
+
+Install cert-manager (tested with `v1.20.2`):
 
 ```bash
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.20.2/cert-manager.yaml
-# If the SDC resources, see below are being applied to fast, the webhook of the cert-manager is not already there.
-# Hence we need to wait for the resource be become Available
-kubectl wait -n cert-manager --for=condition=Available=True --timeout=300s deployments.apps cert-manager-webhook
+```
+
+Wait for all three cert-manager components to be Available — the controller
+issues certificates, the `cainjector` populates the `APIService` `caBundle`,
+and the webhook validates cert-manager CRs. SDC needs all three before its
+resources are applied:
+
+```bash
+kubectl wait -n cert-manager --for=condition=Available=True --timeout=300s \
+  deployment/cert-manager \
+  deployment/cert-manager-cainjector \
+  deployment/cert-manager-webhook
 ```
 
 [kind-install]: https://kind.sigs.k8s.io/docs/user/quick-start/#installation
