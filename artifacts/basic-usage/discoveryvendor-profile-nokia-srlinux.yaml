@@ -1,0 +1,25 @@
+apiVersion: inv.sdcio.dev/v1alpha1
+kind: DiscoveryVendorProfile
+metadata:
+  name: srl.nokia.sdcio.dev
+  namespace: default
+spec:
+  gnmi:
+    organization: Nokia
+    modelMatch: nokia.com:srlinux
+    #encoding: PROTO
+    paths:
+      # Some vendors return a JSON IETF blob of data with a different gNMI path than the requested one if keys are not specified.
+      # Make sure to include keys in the XPATH when the encoding is JSON_IETF. Alternatively use PROTO or ASCII encoding.
+    - key: version
+      path: platform/control[slot=A]/software-version
+      regex: ^v?(\d+\.\d+\.\d+)
+    - key: platform
+      path: platform/chassis/type
+    - key: hostname
+      path: system/name/host-name
+    - key: serialNumber
+      path: platform/chassis/serial-number
+    - key: macAddress
+      path: platform/chassis/hw-mac-address
+      

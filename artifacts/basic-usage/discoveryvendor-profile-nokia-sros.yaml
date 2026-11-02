@@ -1,0 +1,22 @@
+apiVersion: inv.sdcio.dev/v1alpha1
+kind: DiscoveryVendorProfile
+metadata:
+  name: sros.nokia.sdcio.dev
+  namespace: default
+spec:
+  gnmi:
+    organization: Nokia
+    modelMatch: nokia-conf
+    paths:
+    - key: version
+      path: state/system/version/version-number
+      regex: ^\w?-(\d+.\d+\.R\d+)
+    - key: platform
+      path: state/system/platform
+    - key: hostname
+      path: state/system/oper-name
+    - key: serialNumber
+      path: state/chassis/hardware-data/serial-number
+    - key: macAddress
+      path: state/system/base-mac-address
+
