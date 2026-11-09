@@ -11,8 +11,20 @@ Everybody is welcome to join and chat with our community members about all thing
 
 ## Community Meetings
 
-We have a community meeting every Monday from 8:30h CET on Google Meet. Ask for the meeting link on the
-[Discord](https://discord.gg/fHCNahWR2T) channel.
+We have a community meeting every Monday from 8:30h CET on Zoom. You can subscribe to the meeting from our
+[community calendar](https://zoom-lfx.platform.linuxfoundation.org/meetings/schema-driven-configuration?view=week).
+
+Meeting recording are published on the [Kubenet YouTube channel](https://www.youtube.com/@kubenet-wq9nt).
+
+## Raise issues
+
+If you would like to have a new feature or found a blog submit them to the issues of the respective repository in the
+[sdcio GitHub organization](https://github.com/sdcio). If you do not know which repo to use of have a generic feature
+request or bug add them to the [.github repo](https://github.com/sdcio/.github/issues).
+
+## Contribute
+
+Contributions are welcome feel free to raise Pull Requests against any of the repos.
 
 ## Talks about SDC
 
