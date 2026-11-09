@@ -1,0 +1,21 @@
+apiVersion: inv.sdcio.dev/v1alpha1
+kind: DiscoveryVendorProfile
+metadata:
+  name: eos.arista.sdcio.dev
+  namespace: default
+spec:
+  gnmi:
+    organization: "Arista Networks, Inc."
+    paths:
+    - key: version
+      path: components/component/state/software-version
+      regex: ^v?(\d+\.\d+\.\d+[A-Za-z]?)
+    - key: platform
+      path: components/component/state/part-no
+    - key: hostname
+      path: system/state/hostname
+    - key: serialNumber
+      path: components/component/state/serial-no
+    - key: macAddress
+      path: lldp/state/chassis-id
+
