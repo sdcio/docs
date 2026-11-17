@@ -42,3 +42,8 @@ api-server-6d7db47894-xj8wg   1/1     Running   0          38h
 controller-59c99fff54-j62bh   1/1     Running   0          38h
 data-server-controller-0      2/2     Running   0          38h
 ```
+
+!!! note
+    As an alternative it is possible to install the SDC components using Helm charts
+    using the assets of the [sdc-charts](https://github.com/markafarrell/sdc-charts)
+    project.
